@@ -10,9 +10,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon/favicon.ico') }}">
+    <!-- Branding CSS -->
+    <link rel="stylesheet" href="{{ asset('css/branding.css') }}">
+    <!-- Custom Cursor CSS -->
+    <link rel="stylesheet" href="{{ asset('css/cursor.css') }}">
     <style>
         :where([class^="ri-"])::before { content: "\f3c2"; }
         body {
@@ -814,5 +819,7 @@
             });
         }
     </script>
+    <!-- Custom Cursor JS -->
+    <script src="{{ asset('js/cursor.js') }}" defer></script>
 </body>
 </html>

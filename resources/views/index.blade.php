@@ -2060,21 +2060,35 @@ input:checked + .toggle-slider:before {
         <span class="hero-badge-text">Cabinet Agréé MBPE & FDFP — Côte d'Ivoire</span>
       </div>
       <h1 class="hero-title">
-        <em>Votre partenaire</em>
-        <strong>de croissance</strong>
-        en Afrique.
+        Votre <span class="highlight-block">Cabinet</span> de gestion et de <span class="highlight-block">conseil premium</span>
       </h1>
       <p class="hero-subtitle">DC-KNOWING accompagne les entrepreneurs et dirigeants dans la création, la structuration et le développement de leur entreprise — avec rigueur juridique, excellence financière et innovation digitale.</p>
-      <div class="hero-actions">
-        <a href="#services" class="btn-primary">Découvrir nos services →</a>
-        <a href="#contact" class="btn-secondary">Prendre rendez-vous</a>
+      
+      <div class="hero-content-wrapper">
+        <div class="hero-left-content">
+          <div class="hero-actions">
+            <a href="#services" class="btn-primary">Découvrir nos services →</a>
+            <a href="#contact" class="btn-secondary">Prendre rendez-vous</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item"><span class="stat-number">500<sup>+</sup></span><span class="stat-label">Entreprises créées</span></div>
+            <div class="stat-item"><span class="stat-number">12</span><span class="stat-label">Années d'expertise</span></div>
+            <div class="stat-item"><span class="stat-number">98%</span><span class="stat-label">Satisfaction client</span></div>
+          </div>
+          <div class="scroll-indicator"><div class="scroll-line"></div><span class="scroll-text">Défiler</span></div>
+        </div>
+        
+        <div class="services-list-sidebar">
+          <ul class="service-list">
+            <li>Création d'entreprise (SARL, SA, SAS)</li>
+            <li>Comptabilité OHADA & Finance</li>
+            <li>Fiscalité & Déclarations DGI</li>
+            <li>Paie & Ressources Humaines</li>
+            <li>Levée de fonds & Structuration</li>
+            <li>Formation professionnelle agréée</li>
+          </ul>
+        </div>
       </div>
-      <div class="hero-stats">
-        <div class="stat-item"><span class="stat-number">500<sup>+</sup></span><span class="stat-label">Entreprises créées</span></div>
-        <div class="stat-item"><span class="stat-number">12</span><span class="stat-label">Années d'expertise</span></div>
-        <div class="stat-item"><span class="stat-number">98%</span><span class="stat-label">Satisfaction client</span></div>
-      </div>
-      <div class="scroll-indicator"><div class="scroll-line"></div><span class="scroll-text">Défiler</span></div>
     </div>
     <div class="hero-right">
       <div class="hero-card-stack">
@@ -2530,6 +2544,17 @@ input:checked + .toggle-slider:before {
       <div class="footer-col">
         <div class="footer-logo">DC-KNOWING</div>
         <p class="footer-desc">Cabinet agréé MBPE & FDFP spécialisé dans l'accompagnement des entreprises en Côte d'Ivoire et zone UEMOA.</p>
+        <div class="contact-icons">
+          <div class="icon-box">
+            <span>📍</span>
+          </div>
+          <div class="icon-box">
+            <span>🌐</span>
+          </div>
+          <div class="icon-box">
+            <span>📞</span>
+          </div>
+        </div>
       </div>
       <div class="footer-col">
         <div class="footer-title">Services</div>
