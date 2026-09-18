@@ -214,23 +214,32 @@
             <i class="ri-close-line ri-xl"></i>
         </button>
         <h2 class="text-2xl font-bold mb-6 text-white">Souscription : <span id="offre_title_display" class="text-yellow-500"></span></h2>
-        <form method="POST" action="">
-            @csrf
-            <input type="hidden" name="offre_type" id="offre_type">
-            <div class="mb-5">
-                <label class="block text-gray-400 text-sm font-medium mb-2 uppercase tracking-wider">Nom de l'entreprise *</label>
-                <input type="text" name="company_name" class="w-full bg-black/50 border border-yellow-500/20 rounded px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition" required>
-            </div>
-            <div class="mb-5">
-                <label class="block text-gray-400 text-sm font-medium mb-2 uppercase tracking-wider">Numéro SIRET / RCCM *</label>
-                <input type="text" name="siret" class="w-full bg-black/50 border border-yellow-500/20 rounded px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition" required>
-            </div>
-            <div class="mb-6">
-                <label class="block text-gray-400 text-sm font-medium mb-2 uppercase tracking-wider">Email de contact</label>
-                <input type="email" name="contact_email" class="w-full bg-black/50 border border-yellow-500/20 rounded px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition">
-            </div>
-            <button type="submit" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-4 px-6 rounded font-bold uppercase tracking-widest transition transform hover:-translate-y-1">Confirmer la demande</button>
-        </form>
+     <form id="offreForm" onsubmit="handleOffreSubmit(event)">
+    @csrf
+    <input type="hidden" name="offre" id="offre_type">
+
+    <div class="mb-5">
+        <label class="block text-gray-400 text-sm font-medium mb-2 uppercase tracking-wider">Nom du contact *</label>
+        <input type="text" name="client" class="w-full bg-black/50 border border-yellow-500/20 rounded px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition" required>
+    </div>
+
+    <div class="mb-5">
+        <label class="block text-gray-400 text-sm font-medium mb-2 uppercase tracking-wider">Nom de l'entreprise *</label>
+        <input type="text" name="entreprise" class="w-full bg-black/50 border border-yellow-500/20 rounded px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition" required>
+    </div>
+
+    <div class="mb-5">
+        <label class="block text-gray-400 text-sm font-medium mb-2 uppercase tracking-wider">Numéro SIRET / RCCM</label>
+        <input type="text" name="siret" class="w-full bg-black/50 border border-yellow-500/20 rounded px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition">
+    </div>
+
+    <div class="mb-6">
+        <label class="block text-gray-400 text-sm font-medium mb-2 uppercase tracking-wider">Email de contact *</label>
+        <input type="email" name="email" class="w-full bg-black/50 border border-yellow-500/20 rounded px-4 py-3 text-white focus:outline-none focus:border-yellow-500 transition" required>
+    </div>
+
+    <button type="submit" id="offreSubmitBtn" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black py-4 px-6 rounded font-bold uppercase tracking-widest transition transform hover:-translate-y-1">Confirmer la demande</button>
+</form>
     </div>
 </div>
 
@@ -247,6 +256,45 @@ function closeModal() {
     const modal = document.getElementById('offre-form-modal');
     modal.classList.remove('flex');
     modal.classList.add('hidden');
+}
+
+function handleOffreSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('offreSubmitBtn');
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours...';
+
+    fetch('{{ route("quote.submit") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(r => r.json())
+    .then(res => {
+        if (res.success) {
+            alert('✓ Votre demande a bien été envoyée. Notre équipe vous contactera sous 24h.');
+            form.reset();
+            closeModal();
+        } else {
+            const errMsg = res.errors
+                ? Object.values(res.errors).flat().join('\n')
+                : (res.message || 'Réessayez plus tard.');
+            alert('Erreur : ' + errMsg);
+        }
+    })
+    .catch(() => {
+        alert('Erreur de connexion au serveur.');
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.textContent = 'Confirmer la demande';
+    });
 }
 </script>
 @endsection

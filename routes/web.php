@@ -16,7 +16,7 @@ Route::get('/test-landing', function () {
     return view('landingpage::index');
 });
  Route::get('/', [\Modules\LandingPage\Http\Controllers\LandingPageController::class, 'index'])->name('landingpage.index');
-
+ 
 Route::get('/creation', [CreationController::class, 'index'])->name('services.creation');
 Route::post('/creation', [CreationController::class, 'store'])->name('storeSociete');
 
@@ -44,7 +44,7 @@ use App\Models\Plan;
 
 Route::get('/nos-offres', function () {
     $plans = Plan::where('is_active', 1)->get();
-    return view('offres', compact('plans'));
+      return view('offre', compact('plans'));
 })->name('services.offres');
 
 Route::get('/formation', function () {
@@ -56,7 +56,7 @@ Route::get('/formation', function () {
 // });
 // Routes des notifications (accessibles à tous les utilisateurs authentifiés)
 Route::middleware(['auth'])->group(function () {
-
+    
     // (Route CGA déplacée hors du middleware auth pour les visiteurs non connectés)
     /*
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');

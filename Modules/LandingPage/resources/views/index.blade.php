@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -6,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DC-KNOWING — Cabinet d'Accompagnement en Gestion d'Entreprise</title>
   <link rel="icon" type="image/jpeg" href="{{ asset('images/teste.jpeg') }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <!-- Google Fonts : Montserrat uniquement (100-900 + italiques) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,6 +65,26 @@
       min-height: 100vh;
       overflow-x: hidden;
       cursor: none;
+    }
+    /* Icônes SVG : remplace les émojis pour un rendu cohérent sur tous les appareils. */
+    .svg-sprite {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .icon {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      flex: 0 0 auto;
+      vertical-align: -0.125em;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     /* ── CURSEUR ÉLASTIQUE (LERP) ── */
@@ -719,6 +740,9 @@
       border-left: 2px solid var(--or-base);
       margin-bottom: 20px;
       font-style: italic;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .service-link {
@@ -818,6 +842,9 @@
       color: rgba(250, 248, 244, 0.6);
       font-weight: 500;
       letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .toggle-switch {
@@ -968,14 +995,10 @@
       line-height: 1.5;
     }
 
-    .offre-features li::before {
-      content: '✓';
+    .offre-features li .icon {
       color: var(--or-base);
-      font-weight: 600;
-      flex-shrink: 0;
       margin-top: 2px;
     }
-
     .btn-souscrire {
       display: block;
       width: 100%;
@@ -1049,18 +1072,6 @@
       align-items: center;
       justify-content: center;
       font-size: 22px;
-    }
-
-    .ico-shield::before {
-      content: '🛡';
-    }
-
-    .ico-chart::before {
-      content: '📈';
-    }
-
-    .ico-crown::before {
-      content: '👑';
     }
 
     .offre-cible {
@@ -3179,11 +3190,364 @@
         transform: rotate(360deg);
       }
     }
+
+    /* Grille tarifaire immersive — mobile uniquement */
+    .grille-mobile-story {
+      display: none;
+    }
+
+    @media (max-width: 767px) {
+      .grille-tarifaire {
+        padding: 22px 18px;
+        overflow: visible;
+      }
+
+      .grille-title {
+        font-size: 15px;
+        line-height: 1.45;
+        margin-bottom: 10px;
+      }
+
+      .grille-scroll {
+        display: none;
+      }
+
+      .grille-mobile-story {
+        display: block;
+      }
+
+      .tarif-mobile-intro {
+        margin: 0 0 18px;
+        color: rgba(250, 248, 244, 0.45);
+        font-size: 11px;
+        line-height: 1.55;
+      }
+
+      .tarif-profile-step {
+        position: relative;
+        padding-bottom: 9vh;
+      }
+
+      .tarif-profile-step + .tarif-profile-step {
+        margin-top: 4vh;
+      }
+
+      .tarif-profile-sticky {
+        position: sticky;
+        top: 76px;
+        z-index: 3;
+        padding: 16px;
+        background: linear-gradient(135deg, rgba(38, 33, 11, 0.98), rgba(28, 28, 26, 0.98));
+        border: 1px solid rgba(255, 215, 0, 0.28);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+      }
+
+      .tarif-profile-index {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--or-base);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+      }
+
+      .tarif-profile-name {
+        margin: 0 0 5px;
+        color: var(--blanc);
+        font-size: 18px;
+        font-weight: 650;
+        line-height: 1.25;
+      }
+
+      .tarif-profile-ca {
+        margin: 0;
+        color: rgba(250, 248, 244, 0.58);
+        font-size: 13px;
+      }
+
+      .tarif-profile-progress {
+        display: flex;
+        gap: 5px;
+        margin-top: 14px;
+      }
+
+      .tarif-profile-progress span {
+        display: block;
+        height: 2px;
+        flex: 1;
+        background: rgba(255, 215, 0, 0.22);
+      }
+
+      .tarif-profile-progress span:first-child {
+        background: var(--or-base);
+      }
+
+      .tarif-formules {
+        display: grid;
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .tarif-formule {
+        min-height: 34svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 22px;
+        background: rgba(255, 215, 0, 0.035);
+        border: 1px solid rgba(255, 215, 0, 0.18);
+        opacity: 0;
+        transform: translateY(28px) scale(0.98);
+        filter: blur(4px);
+        transition: opacity 0.55s var(--transition), transform 0.55s var(--transition), filter 0.55s ease, border-color 0.3s ease;
+      }
+
+      .tarif-formule.is-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+        border-color: rgba(255, 215, 0, 0.42);
+      }
+
+      .tarif-formule.is-unavailable.is-visible {
+        opacity: 0.58;
+      }
+
+      .tarif-formule-eyebrow {
+        margin-bottom: 10px;
+        color: var(--or-base);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+      }
+
+      .tarif-formule-name {
+        margin: 0 0 9px;
+        color: var(--blanc);
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      .tarif-formule-price {
+        color: rgba(250, 248, 244, 0.78);
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.35;
+      }
+
+      .tarif-formule.is-unavailable .tarif-formule-price {
+        color: rgba(250, 248, 244, 0.52);
+        font-size: 15px;
+      }
+
+      .tarif-formule-description {
+        margin: 12px 0 0;
+        color: rgba(250, 248, 244, 0.4);
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .grille-note {
+        margin-top: 4px;
+        font-size: 10px;
+        line-height: 1.55;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tarif-formule {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+      }
+    }
+    
+    /* Grille tarifaire immersive — mobile uniquement */
+.grille-mobile-story {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .grille-tarifaire {
+    padding: 22px 18px;
+    overflow: visible;
+  }
+
+  .grille-title {
+    font-size: 15px;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .grille-scroll {
+    display: none;
+  }
+
+  .grille-mobile-story {
+    display: block;
+  }
+
+  .tarif-mobile-intro {
+    margin: 0 0 18px;
+    color: rgba(250, 248, 244, 0.45);
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  .tarif-profile-step {
+    position: relative;
+    padding-bottom: 9vh;
+  }
+
+  .tarif-profile-step + .tarif-profile-step {
+    margin-top: 4vh;
+  }
+
+  .tarif-profile-sticky {
+    position: sticky;
+    top: 76px;
+    z-index: 3;
+    padding: 16px;
+    background: linear-gradient(135deg, rgba(38, 33, 11, 0.98), rgba(28, 28, 26, 0.98));
+    border: 1px solid rgba(255, 215, 0, 0.28);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+  }
+
+  .tarif-profile-index {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--or-base);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+  }
+
+  .tarif-profile-name {
+    margin: 0 0 5px;
+    color: var(--blanc);
+    font-size: 18px;
+    font-weight: 650;
+    line-height: 1.25;
+  }
+
+  .tarif-profile-ca {
+    margin: 0;
+    color: rgba(250, 248, 244, 0.58);
+    font-size: 13px;
+  }
+
+  .tarif-profile-progress {
+    display: flex;
+    gap: 5px;
+    margin-top: 14px;
+  }
+
+  .tarif-profile-progress span {
+    display: block;
+    height: 2px;
+    flex: 1;
+    background: rgba(255, 215, 0, 0.22);
+  }
+
+  .tarif-profile-progress span:first-child {
+    background: var(--or-base);
+  }
+
+  .tarif-formules {
+    display: grid;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .tarif-formule {
+    min-height: 34svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 22px;
+    background: rgba(255, 215, 0, 0.035);
+    border: 1px solid rgba(255, 215, 0, 0.18);
+    opacity: 0;
+    transform: translateY(28px) scale(0.98);
+    filter: blur(4px);
+    transition: opacity 0.55s var(--transition),
+      transform 0.55s var(--transition),
+      filter 0.55s ease;
+  }
+
+  .tarif-formule.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+    border-color: rgba(255, 215, 0, 0.42);
+  }
+
+  .tarif-formule.is-unavailable.is-visible {
+    opacity: 0.58;
+  }
+
+  .tarif-formule-eyebrow {
+    margin-bottom: 10px;
+    color: var(--or-base);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+  }
+
+  .tarif-formule-name {
+    margin: 0 0 9px;
+    color: var(--blanc);
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .tarif-formule-price {
+    color: rgba(250, 248, 244, 0.78);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .tarif-formule.is-unavailable .tarif-formule-price {
+    color: rgba(250, 248, 244, 0.52);
+    font-size: 15px;
+  }
+
+  .tarif-formule-description {
+    margin: 12px 0 0;
+    color: rgba(250, 248, 244, 0.4);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
+  <!-- Sprite d'icônes SVG local : aucun émoji ni dépendance externe. -->
+  <svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></symbol>
+    <symbol id="icon-scales" viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M4 18h6L7 11l-3 7ZM14 18h6l-3-7-3 7ZM8 21h8" /></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 16v-4M12 16V8M16 16v-7M8 9l4-3 4 2 4-4" /></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z" /><path d="m8.5 12 2.2 2.2 4.8-5" /></symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" /><path d="M3.5 20c.5-3.5 2.4-5.5 5.5-5.5s5 2 5.5 5.5M16 5.5a3 3 0 0 1 0 5M17 14.5c2.2.4 3.4 2.2 3.8 5.5" /></symbol>
+    <symbol id="icon-graduation" viewBox="0 0 24 24"><path d="m3 9 9-5 9 5-9 5-9-5Z" /><path d="M7 12v4c2.8 2.7 7.2 2.7 10 0v-4M21 9v6" /></symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" /><path d="M5 21c.6-4 3-6 7-6s6.4 2 7 6" /></symbol>
+    <symbol id="icon-document" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3Z" /><path d="M14 3v5h5M9 13h6M9 17h6" /></symbol>
+    <symbol id="icon-briefcase" viewBox="0 0 24 24"><path d="M4 8h16v11H4V8ZM9 8V5h6v3M4 12h16M10 12v2h4v-2" /></symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1" /><path d="m4 7 8 6 8-6" /></symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M7 3 4.5 5.5c-.7.7-.5 2.4.5 4.6 2.2 4.8 5.1 7.7 9.9 9.9 2.2 1 3.9 1.2 4.6.5L22 18l-4-3-2.2 2.2c-2.8-1.2-4.8-3.2-6-6L12 9l-3-4Z" /></symbol>
+    <symbol id="icon-crown" viewBox="0 0 24 24"><path d="m4 7 4 4 4-6 4 6 4-4-2 12H6L4 7ZM6 21h12" /></symbol>
+    <symbol id="icon-warning" viewBox="0 0 24 24"><path d="M12 3 2.8 20h18.4L12 3Z" /><path d="M12 9v5M12 17h.01" /></symbol>
+    <symbol id="icon-hand" viewBox="0 0 24 24"><path d="M8 11V5a1.5 1.5 0 0 1 3 0v5V3.5a1.5 1.5 0 0 1 3 0V10V5a1.5 1.5 0 0 1 3 0v6V8a1.5 1.5 0 0 1 3 0v6c0 4-2.5 7-6.5 7H12c-2.8 0-5-2.2-5-5v-4a1.5 1.5 0 0 1 1-1Z" /></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" /></symbol>
+  </svg>
 
   <!-- Curseur Custom -->
   <div class="cursor" id="cursor"></div>
@@ -3218,7 +3582,7 @@
       <li><a href="{{ url('/') }}#contact">Contact</a></li>
     </ul>
     <a href="{{ url('/') }}#contact" class="nav-cta"><span>Consultation offerte</span></a>
-    <button class="nav-burger" id="navBurger" aria-label="Menu">☰</button>
+    <button class="nav-burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-menu"></use></svg></button>
   </nav>
 
   <!-- Menu Mobile Drawer -->
@@ -3329,16 +3693,16 @@
       <div class="services-grid">
         <div class="service-card reveal">
           <div class="service-number">01</div>
-          <div class="service-icon">⚖️</div>
+          <div class="service-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-scales"></use></svg></div>
           <div class="service-name">Juridique & Corporate</div>
           <div class="service-desc">Création d'entreprises (SARL, SA, SAS, ONG…), modifications statutaires, secrétariat
             juridique annuel, rédaction d'actes et PV d'assemblée.</div>
-          <div class="service-note">⚠️ Exception : Les contrats de bails ne sont pas pris en charge.</div>
+          <div class="service-note"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-warning"></use></svg><span>Exception : Les contrats de bails ne sont pas pris en charge.</span></div>
           <a href="{{ route('services.juridique') }}" class="service-link">Explorer →</a>
         </div>
         <div class="service-card reveal reveal-d1">
           <div class="service-number">02</div>
-          <div class="service-icon">📊</div>
+          <div class="service-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-chart"></use></svg></div>
           <div class="service-name">Comptabilité & Finance</div>
           <div class="service-desc">Tenue comptable OHADA, états financiers, direction financière externalisée (DFE),
             tableaux de bord et pilotage de la performance.</div>
@@ -3346,7 +3710,7 @@
         </div>
         <div class="service-card reveal reveal-d2">
           <div class="service-number">03</div>
-          <div class="service-icon">🛡️</div>
+          <div class="service-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-shield"></use></svg></div>
           <div class="service-name">CGA — Centre de Gestion Agréé</div>
           <div class="service-desc">Optimisation fiscale, dossier de gestion personnalisé, conformité comptable et
             sociale — adhérez et économisez jusqu'à 40% sur vos charges fiscales.</div>
@@ -3354,7 +3718,7 @@
         </div>
         <div class="service-card reveal reveal-d3">
           <div class="service-number">04</div>
-          <div class="service-icon">👥</div>
+          <div class="service-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-users"></use></svg></div>
           <div class="service-name">Paie & Ressources Humaines</div>
           <div class="service-desc">Bulletins de paie certifiés, déclarations CNPS/CMU, contrats de travail, règlement
             intérieur, gestion des procédures sociales et disciplinaires.</div>
@@ -3379,7 +3743,7 @@
         </div>
         <div class="service-card reveal">
           <div class="service-number">06</div>
-          <div class="service-icon">🎓</div>
+          <div class="service-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-graduation"></use></svg></div>
           <div class="service-name">Formation Professionnelle</div>
           <div class="service-desc">Programmes certifiés agréés FDFP : Pack Forfaitaire (CAPG), FNE, E-impôts, SYSCOHADA
             et Gestion de Paie. Devenez opérationnel en 2 mois.</div>
@@ -3410,7 +3774,7 @@
       </div>
 
       <div class="toggle-cible">
-        <span class="toggle-label">👤 Personne Physique</span>
+        <span class="toggle-label"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-user"></use></svg>Personne Physique</span>
         <label class="toggle-switch">
           <input type="checkbox" id="toggleCible">
           <span class="toggle-slider"></span>
@@ -3435,7 +3799,7 @@
 
     <div class="devis-container" id="devisContainer">
       <div class="devis-empty">
-        <div class="empty-icon">📄</div>
+        <div class="empty-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-document"></use></svg></div>
         <div class="empty-text">Aucun devis créé pour le moment</div>
         <a href="{{ route('services.offres') }}" class="btn-primary">Découvrir nos offres</a>
       </div>
@@ -3465,11 +3829,11 @@
           </div>
           <div class="app-metric">
             <span class="app-metric-label">Paie du mois</span>
-            <span class="app-metric-value" style="color:#4CAF50">✓ Validée</span>
+            <span class="app-metric-value" style="color:#4CAF50"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg> Validée</span>
           </div>
           <div class="app-metric">
             <span class="app-metric-label">Déclaration CNPS</span>
-            <span class="app-metric-value" style="color:#4CAF50">✓ Envoyée</span>
+            <span class="app-metric-value" style="color:#4CAF50"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg> Envoyée</span>
           </div>
           <div class="app-metric" style="margin-top:8px">
             <span class="app-metric-label">Alertes sociales</span>
@@ -3509,7 +3873,7 @@
           </div>
           <div class="app-metric">
             <span class="app-metric-label">Conformité OHADA</span>
-            <span class="app-metric-value" style="color:#4CAF50">✓ 100%</span>
+            <span class="app-metric-value" style="color:#4CAF50"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-check"></use></svg> 100%</span>
           </div>
         </div>
 
@@ -3561,7 +3925,7 @@
 
           <!-- RH Flow — lien cliquable vers l'app -->
           <a href="https://rhflow.dc-knowing.com/" target="_blank" class="flow-item reveal">
-            <div class="flow-icon">👥</div>
+            <div class="flow-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-users"></use></svg></div>
             <div>
               <div class="flow-name"><span>RH</span> Flow</div>
               <div class="flow-desc">Paie, CNPS/CMU, contrats, congés — zéro erreur sociale</div>
@@ -3570,7 +3934,7 @@
           </a>
 
           <div class="flow-item reveal reveal-d1">
-            <div class="flow-icon">📊</div>
+            <div class="flow-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-chart"></use></svg></div>
             <div>
               <div class="flow-name"><span>Compta</span> Flow</div>
               <div class="flow-desc">Comptabilité OHADA en temps réel, états financiers automatisés</div>
@@ -3579,7 +3943,7 @@
           </div>
 
           <div class="flow-item reveal reveal-d2">
-            <div class="flow-icon">💼</div>
+            <div class="flow-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-briefcase"></use></svg></div>
             <div>
               <div class="flow-name"><span>Sell</span> Flow</div>
               <div class="flow-desc">CRM, facturation, stocks, relances — pilotez vos ventes</div>
@@ -3588,7 +3952,7 @@
           </div>
 
           <div class="flow-item reveal reveal-d3">
-            <div class="flow-icon">⚖️</div>
+            <div class="flow-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-scales"></use></svg></div>
             <div>
               <div class="flow-name"><span>Legal</span> Flow</div>
               <div class="flow-desc">Documents juridiques, PV, échéances légales — conformité garantie</div>
@@ -3602,7 +3966,7 @@
     </div><!-- /digital-layout -->
   </section>
 
-
+ 
 
   <section class="testimonials" id="testimonials">
     <div class="section-header">
@@ -3693,21 +4057,21 @@
       </form>
       <div class="contact-info">
         <div class="contact-item">
-          <div class="contact-icon">📍</div>
+          <div class="contact-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-pin"></use></svg></div>
           <div>
             <div class="contact-label">Adresse</div>
             <div class="contact-value">Riviera Bonoumin, Abidjan<br>Côte d'Ivoire</div>
           </div>
         </div>
         <div class="contact-item">
-          <div class="contact-icon">📧</div>
+          <div class="contact-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></div>
           <div>
             <div class="contact-label">Email</div>
             <div class="contact-value">infos@dc-knowing.com</div>
           </div>
         </div>
-        <div class="contact-item"><div class="contact-icon">📧</div>
-          <div class="contact-icon">📞</div>
+        <div class="contact-item">
+          <div class="contact-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-phone"></use></svg></div>
           <div>
             <div class="contact-label">Téléphone</div>
             <div class="contact-value">+225 07 67 13 19 93</div>
@@ -3773,7 +4137,7 @@
     <div class="chatbot-messages">
       <div class="chatbot-message bot">
         <div class="chatbot-message-content">
-          Bonjour ! 👋 Comment puis-je vous aider aujourd'hui ?
+          Bonjour ! <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-hand"></use></svg> Comment puis-je vous aider aujourd'hui ?
         </div>
       </div>
     </div>
@@ -4382,8 +4746,15 @@
         grid.innerHTML += renderGrilleTarifaire();
         grid.innerHTML += renderAvantagesFidelite();
       }
+
+      initTarifMobileStory();
     }
 
+
+    function iconSVG(name, extraClass = '') {
+      const classes = 'icon icon-' + name + (extraClass ? ' ' + extraClass : '');
+      return '<svg class="' + classes + '" aria-hidden="true" focusable="false"><use href="#icon-' + name + '"></use></svg>';
+    }
 
     function renderCard(o) {
       const isFormule = o.iconeCls !== undefined;
@@ -4400,7 +4771,9 @@
         : 'openSouscriptionModal(\'' + o.id + '\')';
 
 
-      const iconeBlock = o.iconeCls ? '<div class="offre-icone ' + o.iconeCls + '"></div>' : '';
+      const iconNames = { 'ico-shield': 'shield', 'ico-chart': 'chart', 'ico-crown': 'crown' };
+      const iconName = iconNames[o.iconeCls];
+      const iconeBlock = iconName ? '<div class="offre-icone">' + iconSVG(iconName) + '</div>' : '';
       const cibleBlock = o.clientCible ? '<div class="offre-cible">' + o.clientCible + '</div>' : '';
       const prefixeBlock = o.prefixe ? '<div class="offre-prefixe">' + o.prefixe + '</div>' : '';
 
@@ -4410,7 +4783,7 @@
         featuresHTML += '<li class="prefixe-item">' + o.prefixe + '</li>';
       }
       if (o.features) {
-        featuresHTML += o.features.map(f => '<li>' + f + '</li>').join('');
+        featuresHTML += o.features.map(f => '<li>' + iconSVG('check') + '<span>' + f + '</span></li>').join('');
       }
       featuresHTML += '</ul>';
 
@@ -4437,29 +4810,180 @@
     ];
 
 
-    function renderGrilleTarifaire() {
-      return '<div class="grille-tarifaire">' +
-        '<h3 class="grille-title">Grille tarifaire — FCFA HT / mois</h3>' +
-        '<div class="grille-scroll">' +
-        '<table class="grille-table">' +
-        '<thead><tr>' +
-        '<th>Profil client</th><th>Chiffre d\'affaires</th><th>Essentielle</th><th>Croissance</th><th>Premium</th>' +
-        '</tr></thead>' +
-        '<tbody>' +
-        GRILLE_TARIFAIRE.map(row =>
-          '<tr>' +
-          '<td><strong>' + row.profil + '</strong></td>' +
-          '<td>' + row.ca + '</td>' +
-          '<td>' + row.essentielle + '</td>' +
-          '<td>' + row.croissance + '</td>' +
-          '<td>' + row.premium + '</td>' +
-          '</tr>'
-        ).join('') +
-        '</tbody></table></div>' +
-        '<p class="grille-note"> Les montants sont indicatifs. Chaque proposition fait l\'objet d\'un devis personnalisé après diagnostic.</p>' +
+    function renderGrilleMobileStory() {
+      const formules = [
+        { key: 'essentielle', name: 'Essentielle', description: 'Sécurisez vos bases et vos obligations.' },
+        { key: 'croissance', name: 'Croissance', description: 'Pilotez votre activité avec des indicateurs fiables.' },
+        { key: 'premium', name: 'Premium', description: 'Bénéficiez d’une direction financière externalisée.' }
+      ];
+
+      return '<div class="grille-mobile-story" aria-label="Grille tarifaire par profil">' +
+        '<p class="tarif-mobile-intro">Faites défiler : le profil reste visible pendant que ses formules apparaissent une à une.</p>' +
+        GRILLE_TARIFAIRE.map((row, profileIndex) => {
+          const formulesHtml = formules.map((formule, formuleIndex) => {
+            const prix = row[formule.key];
+            const indisponible = prix === '—';
+            const prixAffiche = indisponible ? 'Non inclus pour ce profil' : prix;
+            return '<div class="tarif-formule' + (indisponible ? ' is-unavailable' : '') + '" data-tarif-step="' + formuleIndex + '">' +
+              '<span class="tarif-formule-eyebrow">Formule ' + String(formuleIndex + 1).padStart(2, '0') + '</span>' +
+              '<h5 class="tarif-formule-name">' + formule.name + '</h5>' +
+              '<strong class="tarif-formule-price">' + prixAffiche + '</strong>' +
+              '<p class="tarif-formule-description">' + formule.description + '</p>' +
+              '</div>';
+          }).join('');
+
+          return '<article class="tarif-profile-step" data-profile="' + profileIndex + '">' +
+            '<div class="tarif-profile-sticky">' +
+            '<span class="tarif-profile-index">PROFIL ' + String(profileIndex + 1).padStart(2, '0') + ' / ' + String(GRILLE_TARIFAIRE.length).padStart(2, '0') + '</span>' +
+            '<h4 class="tarif-profile-name">' + row.profil + '</h4>' +
+            '<p class="tarif-profile-ca">' + row.ca + '</p>' +
+            '<div class="tarif-profile-progress" aria-hidden="true"><span></span><span></span><span></span></div>' +
+            '</div>' +
+            '<div class="tarif-formules">' + formulesHtml + '</div>' +
+            '</article>';
+        }).join('') +
         '</div>';
     }
 
+    function renderGrilleMobileStory() {
+  const formules = [
+    {
+      key: 'essentielle',
+      name: 'Essentielle',
+      description: 'Sécurisez vos bases et vos obligations.'
+    },
+    {
+      key: 'croissance',
+      name: 'Croissance',
+      description: 'Pilotez votre activité avec des indicateurs fiables.'
+    },
+    {
+      key: 'premium',
+      name: 'Premium',
+      description: 'Bénéficiez d’une direction financière externalisée.'
+    }
+  ];
+
+  return '<div class="grille-mobile-story">' +
+    '<p class="tarif-mobile-intro">Faites défiler : le profil reste visible pendant que ses formules apparaissent une à une.</p>' +
+
+    GRILLE_TARIFAIRE.map((row, profileIndex) => {
+      const formulesHtml = formules.map((formule, formuleIndex) => {
+        const prix = row[formule.key];
+        const indisponible = prix === '—';
+        const prixAffiche = indisponible ? 'Non inclus pour ce profil' : prix;
+
+        return '<div class="tarif-formule' + (indisponible ? ' is-unavailable' : '') + '">' +
+          '<span class="tarif-formule-eyebrow">Formule ' + String(formuleIndex + 1).padStart(2, '0') + '</span>' +
+          '<h5 class="tarif-formule-name">' + formule.name + '</h5>' +
+          '<strong class="tarif-formule-price">' + prixAffiche + '</strong>' +
+          '<p class="tarif-formule-description">' + formule.description + '</p>' +
+          '</div>';
+      }).join('');
+
+      return '<article class="tarif-profile-step">' +
+        '<div class="tarif-profile-sticky">' +
+        '<span class="tarif-profile-index">Profil client</span>' +
+        '<h4 class="tarif-profile-name">' + row.profil + '</h4>' +
+        '<p class="tarif-profile-ca">' + row.ca + '</p>' +
+        '<div class="tarif-profile-progress"><span></span><span></span><span></span></div>' +
+        '</div>' +
+        '<div class="tarif-formules">' + formulesHtml + '</div>' +
+        '</article>';
+    }).join('') +
+
+    '</div>';
+}
+
+function renderGrilleTarifaire() {
+  return '<div class="grille-tarifaire">' +
+    '<h3 class="grille-title">Grille tarifaire — FCFA HT / mois</h3>' +
+
+    '<div class="grille-scroll">' +
+    '<table class="grille-table">' +
+    '<thead><tr>' +
+    '<th>Profil client</th><th>Chiffre d’affaires</th><th>Essentielle</th><th>Croissance</th><th>Premium</th>' +
+    '</tr></thead>' +
+
+    '<tbody>' +
+    GRILLE_TARIFAIRE.map(row =>
+      '<tr>' +
+      '<td><strong>' + row.profil + '</strong></td>' +
+      '<td>' + row.ca + '</td>' +
+      '<td>' + row.essentielle + '</td>' +
+      '<td>' + row.croissance + '</td>' +
+      '<td>' + row.premium + '</td>' +
+      '</tr>'
+    ).join('') +
+    '</tbody></table></div>' +
+
+    renderGrilleMobileStory() +
+
+    '<p class="grille-note">Les montants sont indicatifs. Chaque proposition fait l’objet d’un devis personnalisé après diagnostic.</p>' +
+    '</div>';
+}
+
+function initTarifMobileStory() {
+  const grid = document.getElementById('offresGrid');
+  if (!grid) return;
+
+  const formules = grid.querySelectorAll('.tarif-formule');
+
+  if (!window.matchMedia('(max-width: 767px)').matches) {
+    formules.forEach(formule => formule.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.35,
+    rootMargin: '0px 0px -10% 0px'
+  });
+
+  formules.forEach(formule => observer.observe(formule));
+}
+
+    function initTarifMobileStory() {
+      const grid = document.getElementById('offresGrid');
+      if (!grid) return;
+
+      if (grid._tarifStoryObserver) {
+        grid._tarifStoryObserver.disconnect();
+        grid._tarifStoryObserver = null;
+      }
+
+      const formules = grid.querySelectorAll('.tarif-formule');
+      const mobile = window.matchMedia('(max-width: 767px)').matches;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!mobile || reducedMotion || !('IntersectionObserver' in window)) {
+        formules.forEach(formule => formule.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.35, rootMargin: '0px 0px -10% 0px' });
+
+      formules.forEach(formule => observer.observe(formule));
+      grid._tarifStoryObserver = observer;
+    }
+
+    let tarifStoryResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(tarifStoryResizeTimer);
+      tarifStoryResizeTimer = setTimeout(initTarifMobileStory, 160);
+    });
 
     function renderAvantagesFidelite() {
       return '<div class="avantages-fidelite">' +
@@ -4735,7 +5259,7 @@
             saveSessionDevis();
             renderDevisList();
             closeModal();
-            showNotification('✓ Devis créé et envoyé par email avec succès !', 'success');
+            showNotification('Devis créé et envoyé par email avec succès !', 'success');
 
             setTimeout(() => {
               document.getElementById('mes-devis')?.scrollIntoView({ behavior: 'smooth' });
@@ -4788,7 +5312,7 @@
       if (sessionDevis.length === 0) {
         container.innerHTML = `
       <div class="devis-empty">
-        <div class="empty-icon">📄</div>
+        <div class="empty-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-document"></use></svg></div>
         <div class="empty-text">Aucun devis créé pour le moment</div>
         <a href="{{ route('services.offres') }}" class="btn-primary">Découvrir nos offres</a>
       </div>`;
@@ -4939,7 +5463,7 @@
           <button class="modal-btn modal-btn-primary"   onclick="signerDevis('${devis.id}')">Valider & Signer →</button>
         </div>` : `
         <div style="margin-top:24px;padding:16px;background:rgba(46,204,113,0.05);border:1px solid rgba(46,204,113,0.2);font-size:13px;color:rgba(46,204,113,0.9);text-align:center;">
-          ✓ Document signé électroniquement le ${devis.signedDate || devis.date}
+          ${iconSVG('check')} Document signé électroniquement le ${devis.signedDate || devis.date}
         </div>
         <div style="margin-top:16px;display:flex;justify-content:flex-end;">
           <button class="modal-btn modal-btn-secondary" onclick="closeDevisModal()">Fermer</button>
@@ -4965,7 +5489,7 @@
         saveSessionDevis();
         renderDevisList();
         closeDevisModal();
-        showNotification('✓ Document signé ! Votre commande est confirmée.', 'success');
+        showNotification('Document signé ! Votre commande est confirmée.', 'success');
       }
     }
 
@@ -4978,7 +5502,7 @@
     // ════════════════════════════════════════════
     function handleContactSubmit(e) {
       e.preventDefault();
-      showNotification('✓ Message envoyé ! Nous vous répondrons sous 24h.', 'success');
+      showNotification('Message envoyé ! Nous vous répondrons sous 24h.', 'success');
       e.target.reset();
     }
 
@@ -5060,7 +5584,7 @@
         .then(r => r.json())
         .then(res => {
           if (res.success) {
-            showNotification('✓ Votre demande a été envoyée ! Nous vous contactons sous 24h.', 'success');
+            showNotification('Votre demande a été envoyée ! Nous vous contactons sous 24h.', 'success');
             form.reset();
           } else {
             showNotification('Erreur : ' + (res.message || 'Réessayez plus tard.'), 'error');
@@ -5224,7 +5748,7 @@
 
     ---
 
-    ## 🤖 ACTIONS AUTOMATIQUES (obligatoire — invisible pour l'utilisateur)
+    ## ACTIONS AUTOMATIQUES (obligatoire — invisible pour l'utilisateur)
 
      **CRITIQUE : Tu dois TOUJOURS utiliser une action quand l'utilisateur demande quelque chose de concret.**
     L'utilisateur ne doit JAMAIS voir la syntaxe d'action. Tu ne dois JAMAIS lui dire de cliquer.
@@ -5658,7 +6182,7 @@
       switch (actionResult.action) {
         case 'navigate':
           return actionResult.result?.success
-            ? '🧭 Navigation vers ' + actionResult.result.target
+            ? 'Navigation vers ' + actionResult.result.target
             : ' Navigation impossible.';
 
         case 'devis':
@@ -6216,8 +6740,8 @@
       }
     };
 
-    // IA KEY (définie via OPENROUTER_API_KEY dans .env)
-    window.DC_KNOWING_OPENROUTER_API_KEY = @json(config('services.openrouter.key'));
+    // IA KEY (à configurer)
+    window.DC_KNOWING_OPENROUTER_API_KEY = @json(config('services.openrouter.key') ?? '');
 
     // ── BURGER MENU MOBILE ──
     (function() {
@@ -6227,14 +6751,18 @@
 
       burger.addEventListener('click', function() {
         menu.classList.toggle('open');
-        burger.textContent = menu.classList.contains('open') ? '✕' : '☰';
+        burger.querySelector('use')?.setAttribute('href', menu.classList.contains('open') ? '#icon-close' : '#icon-menu');
+        burger.setAttribute('aria-label', menu.classList.contains('open') ? 'Fermer le menu' : 'Ouvrir le menu');
+        burger.setAttribute('aria-expanded', String(menu.classList.contains('open')));
       });
 
       // Fermer si on clique en dehors du menu
       document.addEventListener('click', function(e) {
         if (!menu.contains(e.target) && !burger.contains(e.target)) {
           menu.classList.remove('open');
-          burger.textContent = '☰';
+          burger.querySelector('use')?.setAttribute('href', '#icon-menu');
+          burger.setAttribute('aria-label', 'Ouvrir le menu');
+          burger.setAttribute('aria-expanded', 'false');
         }
       });
     })();
@@ -6243,7 +6771,11 @@
       const menu   = document.getElementById('mobileMenu');
       const burger = document.getElementById('navBurger');
       if (menu)   menu.classList.remove('open');
-      if (burger) burger.textContent = '☰';
+      if (burger) {
+        burger.querySelector('use')?.setAttribute('href', '#icon-menu');
+        burger.setAttribute('aria-label', 'Ouvrir le menu');
+        burger.setAttribute('aria-expanded', 'false');
+      }
     }
 
     // ── DÉSACTIVER LE CURSEUR CUSTOM SUR MOBILE ──
