@@ -1,0 +1,184 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Couleurs LegalPlace */
+:root {
+  --legalplace-blue: #1a1a1a;
+  --legalplace-blue-dark: #000000;
+  --legalplace-blue-light: #f5f5f5;
+}
+
+.bg-legalplace-blue {
+  background-color: var(--legalplace-blue);
+}
+
+.text-legalplace-blue {
+  color: var(--legalplace-blue);
+}
+
+.hover\:bg-legalplace-blue-dark:hover {
+  background-color: var(--legalplace-blue-dark);
+}
+
+.border-legalplace-blue {
+  border-color: var(--legalplace-blue);
+}
+
+/* Styles des boutons */
+.btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 border border-transparent rounded-lg shadow-lg text-base font-medium text-white bg-gray-900 hover:bg-black transform transition duration-300 hover:scale-105;
+}
+
+.btn-secondary {
+    @apply inline-flex items-center justify-center px-8 py-4 border-2 border-gray-900 rounded-lg shadow-lg text-base font-medium text-gray-900 bg-white hover:bg-gray-100 transform transition duration-300 hover:scale-105;
+}
+
+/* Styles de la section hero */
+.hero-section {
+    @apply bg-gradient-to-b from-gray-50 to-white;
+}
+
+.hero-content {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center;
+}
+
+.hero-title {
+    @apply text-4xl md:text-6xl font-bold text-gray-900 mb-6 animate-fade-in;
+}
+
+.hero-description {
+    @apply text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 animate-fade-in-up;
+}
+
+.hero-buttons {
+    @apply flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in-up;
+}
+
+/* Styles de la section Trustpilot */
+.trustpilot-section {
+    @apply mt-16 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 animate-fade-in-up;
+}
+
+.rating-stars {
+    @apply flex;
+}
+
+.rating-star {
+    @apply h-5 w-5 text-yellow-400;
+}
+
+/* Styles des sections */
+.section-title {
+    @apply text-base text-gray-900 font-semibold tracking-wide uppercase;
+}
+
+.section-heading {
+    @apply mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl;
+}
+
+.section-description {
+    @apply mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto;
+}
+
+/* Styles des cartes de service */
+.service-card {
+    @apply bg-white overflow-hidden shadow-lg rounded-lg transform transition duration-300 hover:scale-105;
+}
+
+.service-card-content {
+    @apply px-4 py-5 sm:p-6;
+}
+
+.service-card-title {
+    @apply text-lg leading-6 font-medium text-gray-900;
+}
+
+.service-card-description {
+    @apply mt-2 max-w-xl text-sm text-gray-500;
+}
+
+.service-card-price {
+    @apply mt-5;
+}
+
+.service-card-button {
+    @apply mt-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-900 hover:bg-black;
+}
+
+/* Styles du processus */
+.process-step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background-color: #000; /* Noir */
+    color: #facc15; /* Jaune */
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    border-width: 4px;
+    border-color: #fff;
+}
+
+.process-line {
+    @apply w-full border-t border-gray-300;
+}
+
+/* Styles des témoignages */
+.testimonial-card {
+    @apply bg-white p-6 rounded-lg shadow-sm border border-gray-100 transform transition duration-300 hover:scale-105;
+}
+
+.testimonial-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background-color: #000; /* Noir */
+    color: #facc15; /* Jaune */
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 1s ease-out;
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 1s ease-out;
+}
