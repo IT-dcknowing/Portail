@@ -390,7 +390,21 @@
     <div class="tiles-container" id="tilesContainer">
 
       <div class="tile" onclick="showForm('creation')">
-        <span class="tile-icon">🏢</span>
+        <span class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;">
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <path d="M9 22v-4h6v4"></path>
+            <path d="M8 6h.01"></path>
+            <path d="M16 6h.01"></path>
+            <path d="M12 6h.01"></path>
+            <path d="M12 10h.01"></path>
+            <path d="M12 14h.01"></path>
+            <path d="M16 10h.01"></path>
+            <path d="M16 14h.01"></path>
+            <path d="M8 10h.01"></path>
+            <path d="M8 14h.01"></path>
+          </svg>
+        </span>
         <div class="tile-title">Créer mon entreprise</div>
         <div class="tile-subtitle">Immatriculation RCCM, statuts OHADA, DFE — votre structure opérationnelle en 10 jours</div>
         <button class="tile-cta">Démarrer →</button>

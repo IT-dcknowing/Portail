@@ -4099,47 +4099,27 @@
 
 
       //
-      // JURIDIQUE — Création d'entreprise
+      // JURIDIQUE — Création & Formalisation
       //
 
 
       {
-        id: 'jur-starter',
+        id: 'jur-formalisation',
         categorie: 'juridique',
         cible: 'morale',
-        tier: 'Création',
-        nom: 'Création d\'Entreprise — Starter',
-        tagline: 'Créez votre SARL, SA ou SAS en toute sérénité',
-        prixMin: 450000,
-        prixMax: 450000,
-        unite: 'HT forfait',
-        recommended: false,
-        features: [
-          'Conseil sur la forme juridique adaptée',
-          'Rédaction complète des statuts conformes OHADA',
-          'Immatriculation RCCM et obtention du numéro CC',
-          'Déclaration fiscale DFE auprès de la DGI',
-          'Livraison des documents officiels sous 10 jours ouvrés'
-        ]
-      },
-      {
-        id: 'jur-premium',
-        categorie: 'juridique',
-        cible: 'morale',
-        tier: 'Création',
-        nom: 'Création d\'Entreprise — Premium',
-        tagline: 'Structurez votre entreprise avec conformité totale',
-        prixMin: 750000,
-        prixMax: 750000,
-        unite: 'HT forfait',
+        tier: 'Création & Formalisation',
+        nom: 'Assistance à la Formalisation',
+        tagline: 'Création, immatriculation et mise en conformité de votre entreprise',
+        prixMin: 150000,
+        prixMax: 500000,
+        unite: 'HT',
         recommended: true,
         features: [
-          'Tout Starter +',
-          'Rédaction du règlement intérieur',
-          'Assistance adhésion CNPS, CMU, DGI employeur',
-          'Création de registres légaux',
-          'Formation du dirigeant (2h)',
-          'Suivi post-création 3 mois'
+          'Conseil sur la forme juridique adaptée (SARL, SAS, SA, EI, etc.)',
+          'Rédaction complète des statuts conformes aux normes OHADA',
+          'Immatriculation CEPICI / RCCM et obtention du Numéro CC',
+          'Déclaration Fiscale d\'Existence (DFE) auprès de la DGI',
+          'Accompagnement et remise du dossier officiel complet'
         ]
       },
       {
@@ -4222,12 +4202,22 @@
     // CURSEUR ÉLASTIQUE (V4 - ROBUSTE)
     // ──────────────────────────────────────────────
     function initCursor() {
-      // Désactiver sur mobile/tactile pour éviter les bugs
-      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        document.body.style.cursor = 'auto';
+        const cursor = document.querySelector('.cursor');
+        const ring   = document.querySelector('.cursor-ring');
+        if (cursor) cursor.style.display = 'none';
+        if (ring)   ring.style.display   = 'none';
+        return;
+      }
 
       const cursor = document.querySelector('.cursor');
       const ring = document.querySelector('.cursor-ring');
       if (!cursor || !ring) return;
+
+      cursor.style.opacity = '0';
+      ring.style.opacity   = '0';
+      document.body.style.cursor = 'none';
 
       let mouseX = -100, mouseY = -100; // Position cible
       let cursorX = -100, cursorY = -100; // Position point
@@ -5142,8 +5132,7 @@
         "croissance_pe": "250 000 – 500 000 FCFA HT/mois — Formule Croissance pour Petite Entreprise",
         "croissance_pme": "500 001 – 1 000 000 FCFA HT/mois — Formule Croissance pour PME (RECOMMANDÉ)",
         "premium_pme": "1 000 000 – 1 500 000 FCFA HT/mois — Formule Premium (DFE)",
-        "creation_starter": "450 000 FCFA HT forfait — Création d'entreprise Starter",
-        "creation_premium": "750 000 FCFA HT forfait — Création d'entreprise Premium",
+        "formalisation": "150 000 – 500 000 FCFA HT — Assistance à la formalisation d'entreprise",
         "secretariat": "180 000 FCFA HT/an — Secrétariat Juridique Annuel",
         "diagnostic": "À partir de 100 000 FCFA HT — Diagnostic initial de gestion",
         "formalisation": "150 000 – 500 000 FCFA HT — Assistance à la formalisation",

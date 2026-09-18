@@ -156,7 +156,7 @@
                                     <!-- Onglets avec icônes -->
                                     <div class="flex justify-around border-b pb-4 text-sm font-semibold text-gray-800">
                                         <button class="tab-btn flex items-center space-x-2" onclick="openTab('forme')">
-                                            <span class="text-yellow-400 text-xl">🏢</span><span>Forme Juridique</span>
+                                            <span class="text-yellow-400 text-xl flex items-center justify-center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path></svg></span><span>Forme Juridique</span>
                                         </button>
                                         <button class="tab-btn flex items-center space-x-2" onclick="openTab('regime')">
                                       <span class="text-yellow-400 text-xl">📊</span><span>Régime d’imposition</span>

@@ -350,7 +350,7 @@ textarea::placeholder {
   <!-- Navigation -->
   <nav id="navbar">
     <a href="{{ url('/') }}" class="nav-logo">
-      <img src="{{ asset('LOGO BLANC 2026.png') }}" onerror="this.src='LOGO BLANC 2026.png'" alt="DC-KNOWING" class="nav-logo-mark">
+      <img src="{{ asset('images/Logo blanc.png') }}" alt="DC-KNOWING" class="nav-logo-mark">
     </a>
     <ul class="nav-links">
       <li><a href="{{ url('/') }}#services">Services</a></li>

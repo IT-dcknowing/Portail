@@ -514,7 +514,13 @@
           </ul>
         </div>
         <div class="service-cga-card">
-          <div class="service-cga-icon">📐</div>
+          <div class="service-cga-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;">
+              <path d="M2 22h20"></path>
+              <path d="M13 2l9 9-9 9H2V2z"></path>
+              <circle cx="9" cy="9" r="2"></circle>
+            </svg>
+          </div>
           <div class="service-cga-name">Assistance Comptable</div>
           <div class="service-cga-desc">Vérification et conformité OHADA de votre tenue comptable.</div>
           <ul class="service-cga-list">

@@ -2038,7 +2038,7 @@ input:checked + .toggle-slider:before {
   <!-- Navigation -->
   <nav id="navbar">
     <a href="#" class="nav-logo">
-      <img src="LOGO BLANC 2026.png" alt="DC-KNOWING" class="nav-logo-mark">
+      <img src="{{ asset('images/Logo blanc.png') }}" alt="DC-KNOWING" class="nav-logo-mark">
     </a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
@@ -2653,40 +2653,21 @@ input:checked + .toggle-slider:before {
 const OFFRES_DATA = [
   // JURIDIQUE - Personnes Morales
   {
-    id: 'jur-starter',
+    id: 'jur-formalisation',
     categorie: 'juridique',
     cible: 'morale',
-    tier: 'Formule 01',
-    nom: 'Starter',
-    tagline: 'Je crée mon entreprise rapidement et sereinement',
-    prix: 450000,
-    unite: 'HT forfait',
-    recommended: false,
-    features: [
-      'Conseil sur la forme juridique adaptée (SARL, SAS, SA, etc.)',
-      'Rédaction complète des statuts conformes OHADA',
-      'Immatriculation RCCM et obtention du numéro CC',
-      'Déclaration fiscale DFE auprès de la DGI',
-      'Livraison des documents officiels sous 10 jours ouvrés'
-    ]
-  },
-  {
-    id: 'jur-premium',
-    categorie: 'juridique',
-    cible: 'morale',
-    tier: 'Formule 02',
-    nom: 'Premium',
-    tagline: 'Je structure mon entreprise avec une conformité totale',
-    prix: 750000,
-    unite: 'HT forfait',
+    tier: 'Création & Formalisation',
+    nom: 'Assistance à la Formalisation',
+    tagline: 'Création, immatriculation et mise en conformité de votre entreprise',
+    prix: 150000,
+    unite: 'à 500 000 FCFA HT',
     recommended: true,
     features: [
-      'Tout Starter +',
-      'Rédaction du règlement intérieur conforme au Code du travail',
-      'Assistance pour adhésion CNPS, CMU, et DGI employeur',
-      'Création de registres légaux (AG, PV, paies, mouvements)',
-      'Formation du dirigeant aux obligations légales (2h)',
-      'Suivi post-création pendant 3 mois'
+      'Conseil sur la forme juridique adaptée (SARL, SAS, SA, EI, etc.)',
+      'Rédaction complète des statuts conformes aux normes OHADA',
+      'Immatriculation CEPICI / RCCM et obtention du Numéro CC',
+      'Déclaration Fiscale d\'Existence (DFE) auprès de la DGI',
+      'Accompagnement et remise du dossier officiel complet'
     ]
   },
   {
@@ -2977,63 +2958,88 @@ document.addEventListener('DOMContentLoaded', () => {
 // via requestAnimationFrame → effet élastique visible.
 // ════════════════════════════════════════════
 function initCursor() {
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    document.body.style.cursor = 'auto';
+    const cursor = document.querySelector('.cursor');
+    const ring   = document.querySelector('.cursor-ring');
+    if (cursor) cursor.style.display = 'none';
+    if (ring)   ring.style.display   = 'none';
+    return;
+  }
+
   const cursor = document.querySelector('.cursor');
   const ring   = document.querySelector('.cursor-ring');
 
   if (!cursor || !ring) return;
 
-  // Cacher le curseur natif sur tout le document
+  cursor.style.opacity = '0';
+  ring.style.opacity   = '0';
+
   document.body.style.cursor = 'none';
 
-  let mouseX = 0, mouseY = 0; // position réelle souris
-  let ringX  = 0, ringY  = 0; // position actuelle de l'anneau
+  let mouseX = -100, mouseY = -100;
+  let ringX  = -100, ringY  = -100;
+  let isFirstMove = true;
 
-  // ── Suivi instantané du point ──
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    // Le point suit sans délai
-    cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+
+    if (isFirstMove) {
+      ringX = mouseX;
+      ringY = mouseY;
+      cursor.style.opacity = '1';
+      ring.style.opacity   = '1';
+      isFirstMove = false;
+    }
+
+    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
   });
 
-  // ── Anneau élastique via RAF + lerp ──
-  // Facteur lerp : 0.08 = lent/très élastique | 0.15 = rapide
   const LERP = 0.18;
 
   function animateRing() {
-    // Interpolation linéaire : avance de 8% vers la cible à chaque frame
-    ringX += (mouseX - ringX) * LERP;
-    ringY += (mouseY - ringY) * LERP;
-
-    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+    if (!isFirstMove) {
+      ringX += (mouseX - ringX) * LERP;
+      ringY += (mouseY - ringY) * LERP;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+    }
     requestAnimationFrame(animateRing);
   }
-  animateRing(); // démarre la boucle permanente
+  animateRing();
 
-  // ── Agrandissement au survol des éléments interactifs ──
   const interactives = 'a, button, [role="button"], .flow-item, .service-card, .offre-card, .offre-tab, .nav-cta, .chatbot-trigger, label';
 
-  document.querySelectorAll(interactives).forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
+  document.body.addEventListener('mouseover', e => {
+    if (e.target.closest && e.target.closest(interactives)) {
+      ring.classList.add('hovered');
+    }
   });
 
-  // ── Masquer/afficher quand la souris quitte la fenêtre ──
+  document.body.addEventListener('mouseout', e => {
+    if (e.target.closest && e.target.closest(interactives)) {
+      ring.classList.remove('hovered');
+    }
+  });
+
   document.addEventListener('mouseleave', () => {
     cursor.style.opacity = '0';
     ring.style.opacity   = '0';
   });
+
   document.addEventListener('mouseenter', () => {
-    cursor.style.opacity = '1';
-    ring.style.opacity   = '1';
+    if (!isFirstMove) {
+      cursor.style.opacity = '1';
+      ring.style.opacity   = '1';
+    }
   });
 
-  // ── Clic : petite impulsion sur le point ──
   document.addEventListener('mousedown', () => {
-    cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%) scale(0.7)`;
+    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%) scale(0.7)`;
   });
+
   document.addEventListener('mouseup', () => {
-    cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%) scale(1)`;
+    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%) scale(1)`;
   });
 }
 

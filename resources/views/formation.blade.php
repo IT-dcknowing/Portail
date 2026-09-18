@@ -66,7 +66,7 @@
     /* ── 3. CAPG ── */
     .capg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 32px; }
     .capg-card { background: var(--gris); border: 1px solid var(--ligne); padding: 28px 24px; text-align: center; }
-    .capg-icon { font-size: 32px; margin-bottom: 12px; }
+    .capg-icon { font-size: 32px; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; color: var(--or-base); }
     .capg-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
     .capg-desc { font-size: 12px; color: rgba(250,248,244,0.4); line-height: 1.6; }
 
@@ -196,6 +196,7 @@
             <li>Droit des affaires OHADA</li>
             <li>Bureautique (Word / Excel / PowerPoint)</li>
             <li>SAGE / Odoo / Gamme Flow</li>
+            <li>Intelligence Artificielle & Productivité</li>
             <li>Français professionnel</li>
             <li>Anglais professionnel</li>
           </ul>
@@ -264,17 +265,44 @@
 
       <div class="capg-grid">
         <div class="capg-card">
-          <div class="capg-icon">🏢</div>
+          <div class="capg-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+              <path d="M9 22v-4h6v4"></path>
+              <path d="M8 6h.01"></path>
+              <path d="M16 6h.01"></path>
+              <path d="M12 6h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M16 10h.01"></path>
+              <path d="M16 14h.01"></path>
+              <path d="M8 10h.01"></path>
+              <path d="M8 14h.01"></path>
+            </svg>
+          </div>
           <div class="capg-title">En entreprise</div>
           <div class="capg-desc">Comptable, assistant de gestion, contrôleur, responsable administratif et financier.</div>
         </div>
         <div class="capg-card">
-          <div class="capg-icon">📐</div>
+          <div class="capg-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 22h20"></path>
+              <path d="M13 2l9 9-9 9H2V2z"></path>
+              <circle cx="9" cy="9" r="2"></circle>
+            </svg>
+          </div>
           <div class="capg-title">En cabinet</div>
           <div class="capg-desc">Collaborateur comptable, assistant fiscal, auditeur junior dans un cabinet d'expertise comptable.</div>
         </div>
         <div class="capg-card">
-          <div class="capg-icon">🚀</div>
+          <div class="capg-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+              <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-3.05 11a22.35 22.35 0 0 1-3.95 2z"></path>
+              <path d="M9 18l-4.5 4.5"></path>
+              <path d="M19 5l-7 7"></path>
+            </svg>
+          </div>
           <div class="capg-title">En entrepreneuriat</div>
           <div class="capg-desc">Créer et gérer votre propre structure avec les bases solides en comptabilité, fiscalité et gestion.</div>
         </div>
