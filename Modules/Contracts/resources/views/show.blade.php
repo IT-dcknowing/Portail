@@ -223,14 +223,16 @@
                                     <span>{{ $attachment->file_name }}</span>
                                 </div>
                                 <div>
-                                    <a href="{{ route('company.contracts.attachment.download', $attachment->id) }}" class="btn btn-sm btn-icon btn-outline-primary me-1">
+                                    <a href="{{ route('company.contracts.attachment.download', $attachment->id) }}" class="btn btn-sm btn-icon btn-outline-primary me-1" aria-label="Télécharger la pièce jointe" title="Télécharger la pièce jointe">
                                         <i class="fas fa-download"></i>
                                     </a>
                                     <button type="button" class="btn btn-sm btn-icon btn-outline-danger" 
                                         data-bs-toggle="modal" 
                                         data-bs-target="#deleteAttachmentModal" 
                                         data-id="{{ $attachment->id }}"
-                                        data-name="{{ $attachment->file_name }}">
+                                        data-name="{{ $attachment->file_name }}"
+                                        aria-label="Supprimer la pièce jointe"
+                                        title="Supprimer la pièce jointe">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
