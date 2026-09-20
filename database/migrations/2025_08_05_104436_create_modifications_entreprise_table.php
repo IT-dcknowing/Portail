@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    { if (!Schema::hasTable('companies')) {
+    { if (!Schema::hasTable('modifications_entreprise')) {
          Schema::create('modifications_entreprise', function (Blueprint $table) {
             $table->id();
             
@@ -19,25 +19,25 @@ return new class extends Migration
                   ->comment('Forme juridique de l\'entreprise');
             
             $table->string('denomination_sociale', 255)
-                  ->comment('Dénomination sociale de l\'entreprise');
+                  ->comment('DÃ©nomination sociale de l\'entreprise');
             
             $table->decimal('capital_social', 15, 2)
                   ->comment('Capital social en FCFA');
             
             $table->integer('nombre_associes')
-                  ->comment('Nombre d\'associés ou actionnaires');
+                  ->comment('Nombre d\'associÃ©s ou actionnaires');
             
             $table->text('objet_social')
                   ->comment('Objet social de l\'entreprise');
             
             $table->string('siege_social', 500)
-                  ->comment('Adresse du siège social');
+                  ->comment('Adresse du siÃ¨ge social');
             
             $table->enum('ville', ['abidjan', 'bouake', 'yamoussoukro', 'korhogo', 'san-pedro', 'autre'])
-                  ->comment('Ville où se situe l\'entreprise');
+                  ->comment('Ville oÃ¹ se situe l\'entreprise');
             
             $table->integer('duree_entreprise')
-                  ->comment('Durée de vie de l\'entreprise en années');
+                  ->comment('DurÃ©e de vie de l\'entreprise en annÃ©es');
 
             // Informations de suivi
             $table->enum('statut', ['en_attente', 'en_cours', 'validee', 'rejetee'])
@@ -55,25 +55,25 @@ return new class extends Migration
                   ->nullable()
                   ->comment('Commentaire en cas de rejet');
 
-            // Informations de traçabilité
+            // Informations de traÃ§abilitÃ©
             $table->unsignedBigInteger('user_id')
                   ->nullable()
                   ->comment('ID de l\'utilisateur qui a fait la demande');
 
             $table->unsignedBigInteger('admin_id')
                   ->nullable()
-                  ->comment('ID de l\'administrateur qui a traité la demande');
+                  ->comment('ID de l\'administrateur qui a traitÃ© la demande');
 
             $table->timestamps();
 
-            // Index pour améliorer les performances
+            // Index pour amÃ©liorer les performances
             $table->index('forme_juridique');
             $table->index('ville');
             $table->index('statut');
             $table->index('date_demande');
             $table->index('user_id');
 
-            // Clés étrangères (à décommenter si vous avez les tables users)
+            // ClÃ©s Ã©trangÃ¨res (Ã  dÃ©commenter si vous avez les tables users)
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('admin_id')->references('id')->on('users')->onDelete('set null');
         });
@@ -88,3 +88,4 @@ return new class extends Migration
         Schema::dropIfExists('modifications_entreprise');
     }
 };
+

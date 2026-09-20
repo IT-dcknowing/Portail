@@ -343,7 +343,7 @@
   <!-- Navigation -->
   <nav id="navbar">
     <a href="{{ url('/') }}" class="nav-logo">
-      <img src="{{ asset('images/Logo blanc.png') }}" alt="DC-KNOWING" class="nav-logo-mark">
+      <img src="{{ asset('images/teste.jpeg') }}" alt="DC-KNOWING" class="nav-logo-mark">
     </a>
     <ul class="nav-links">
       <li><a href="{{ route('services.juridique') }}" style="color:var(--or-base);">Services</a></li>
@@ -390,21 +390,21 @@
     <div class="tiles-container" id="tilesContainer">
 
       <div class="tile" onclick="showForm('creation')">
-        <span class="tile-icon">🏢</span>
+        <span class="tile-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg></span>
         <div class="tile-title">Créer mon entreprise</div>
         <div class="tile-subtitle">Immatriculation RCCM, statuts OHADA, DFE — votre structure opérationnelle en 10 jours</div>
         <button class="tile-cta">Démarrer →</button>
       </div>
 
       <div class="tile" onclick="showForm('modification')">
-        <span class="tile-icon">✏️</span>
+        <span class="tile-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></span>
         <div class="tile-title">Modifier mon entreprise</div>
         <div class="tile-subtitle">Changement de statuts, capital, siège social, gérance — mise à jour officielle</div>
         <button class="tile-cta">Démarrer →</button>
       </div>
 
       <div class="tile" onclick="showForm('radiation')">
-        <span class="tile-icon">🔒</span>
+        <span class="tile-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
         <div class="tile-title">Fermer mon entreprise</div>
         <div class="tile-subtitle">Radiation RCCM, clôture des comptes, publication légale — tout est géré</div>
         <button class="tile-cta">Démarrer →</button>

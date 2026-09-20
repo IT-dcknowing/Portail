@@ -42,7 +42,7 @@
   <!-- Navigation -->
   <nav id="navbar">
     <a href="{{ url('/') }}" class="nav-logo">
-      <img src="{{ asset('images/Logo blanc.png') }}" alt="DC-KNOWING" class="nav-logo-mark">
+      <img src="{{ asset('images/teste.jpeg') }}" alt="DC-KNOWING" class="nav-logo-mark">
     </a>
     <ul class="nav-links">
       <li><a href="{{ url('/') }}#services">Services</a></li>

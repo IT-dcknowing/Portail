@@ -1,40 +1,48 @@
-/* Import Poppins font from Google Fonts */
+/* Design System 'Light Corporate' */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
 
 :root {
-  /* Couleurs d'accent (Jaune) */
+  /* Couleur d'accent principale (Jaune) */
   --jaune-base: #FFC107;
   --jaune-clair: #FFD54F;
   --jaune-sombre: #FFA000;
   --jaune-degrade: linear-gradient(135deg, #FFC107, #FFD54F 50%, #FFA000);
 
-  /* Fonds clairs */
+  /* Fond global */
   --fond: #FFFFFF;
   --blanc: #FFFFFF;
-  --gris-tres-clair: #F9F9F9;
-  --gris-clair: #EAEAEA;
-  --gris-moyen: #CCCCCC;
 
   /* Textes */
   --texte-principal: #111111;
   --noir: #000000;
   --gris-texte: #555555;
 
-  /* Ombres douces */
+  /* Cartes et surfaces */
+  --gris-tres-clair: #F9F9F9;
+  --gris-clair: #EAEAEA;
+  --gris-moyen: #CCCCCC;
+
+  /* Ombre douce */
   --ombre-douce: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --ombre-leger: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 body {
   background-color: var(--fond);
+  /* Motif de grille jaune tres subtil */
+  background-image:
+    linear-gradient(rgba(255, 193, 7, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 193, 7, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
   color: var(--texte-principal);
   font-family: 'Poppins', sans-serif;
-  /* Motif de grille jaune très subtil */
-  background-image: 
-    linear-gradient(var(--gris-clair) 1px, transparent 1px),
-    linear-gradient(90deg, var(--gris-clair) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: center top;
+}
+
+/* Titres en graisses Bold / Black */
+h1, h2, h3,
+.titre,
+.fm-title,
+.section-title {
+  font-weight: 800;
 }
 
 .gradient-text {
@@ -45,40 +53,53 @@ body {
   color: transparent;
 }
 
+/* Titres avec blocs de couleur (Highlight Block) */
+.highlight-block {
+  background-color: var(--noir);
+  color: var(--jaune-base);
+  padding: 0.2em 0.6em;
+  display: inline-block;
+  border-radius: 4px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 /* Boutons */
 .btn-primary {
-  background: var(--jaune-degrade);
+  background: var(--jaune-base);
   color: var(--noir);
-  border-radius: 8px;
   border: none;
+  border-radius: 8px;
   padding: 12px 24px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .btn-primary:hover {
+  background: var(--jaune-sombre);
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 10px 20px rgba(255, 193, 7, 0.35);
 }
 
 .btn-secondary {
-  background: transparent;
-  border: 1px solid var(--gris-clair);
-  color: var(--texte-principal);
+  background: var(--noir);
+  color: var(--blanc);
+  border: 2px solid var(--noir);
   border-radius: 8px;
   padding: 12px 24px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .btn-secondary:hover {
-  border-color: var(--jaune-base);
+  background: transparent;
   color: var(--noir);
+  transform: translateY(-3px);
 }
 
-/* Cartes */
+/* Cartes et surfaces */
 .service-card {
   background: var(--blanc);
   border: 1px solid var(--gris-clair);
@@ -90,7 +111,7 @@ body {
 
 .service-card:hover {
   border-color: var(--jaune-base);
-  transform: scale(1.02);
+  transform: translateY(-4px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
@@ -115,93 +136,13 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.15);
 }
 
-/* =========================================
-   COMPOSANTS SUPPLEMENTAIRES
-   ========================================= */
-
-/* Titres avec blocs de couleur (Highlight Block) */
-.highlight-block {
-  background-color: var(--noir);
-  color: var(--jaune-base);
-  padding: 0.2em 0.6em;
-  display: inline-block;
-  border-radius: 4px;
-  font-weight: 700;
-  line-height: 1.4;
+input::placeholder,
+textarea::placeholder {
+  color: var(--gris-moyen);
+  opacity: 1;
 }
 
-/* Mise à jour Boutons - Style Light Corporate */
-.btn-primary {
-  background: var(--jaune-base);
-  color: var(--noir);
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.btn-primary:hover {
-  background: var(--jaune-sombre);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
-}
-
-.btn-secondary {
-  background: var(--noir);
-  color: var(--blanc);
-  border: 2px solid var(--noir);
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.btn-secondary:hover {
-  background: transparent;
-  color: var(--noir);
-  transform: translateY(-2px);
-}
-
-/* Mise à jour Cartes - Style Light Corporate */
-.service-card {
-  background: var(--blanc);
-  border: 1px solid var(--gris-clair);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.service-card:hover {
-  border-color: var(--jaune-base);
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-}
-
-/* Hero Content Wrapper - Layout avec sidebar services */
-.hero-content-wrapper {
-  display: flex;
-  gap: 48px;
-  align-items: flex-start;
-  margin-top: 24px;
-}
-
-.hero-left-content {
-  flex: 1;
-}
-
-.services-list-sidebar {
-  min-width: 280px;
-  max-width: 320px;
-}
-
+/* Listes de services : puces jaunes + ligne verticale jaune a gauche */
 ul.service-list {
   list-style: none;
   padding-left: 1.5rem;
@@ -226,14 +167,13 @@ ul.service-list li::before {
   top: -2px;
 }
 
-/* Contact Icons in Footer */
+/* Icones de contact (pied de page) */
 .contact-icons {
   display: flex;
   gap: 12px;
   margin-top: 16px;
 }
 
-/* Icônes de contact (Icon Box) */
 .icon-box {
   display: inline-flex;
   align-items: center;
@@ -244,7 +184,7 @@ ul.service-list li::before {
   background: var(--blanc);
   border-radius: 50%;
   color: var(--jaune-base);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
   font-size: 20px;
 }
 

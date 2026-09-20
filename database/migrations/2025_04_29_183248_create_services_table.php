@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up() 
     {
-         if (!Schema::hasTable('companies')) {
+         if (!Schema::hasTable('services')) {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
-            $table->enum('category', ['creation', 'comptabilité', 'domiciliation', 'juridique', 'autre']);
+            $table->enum('category', ['creation', 'comptabilitÃ©', 'domiciliation', 'juridique', 'autre']);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -33,3 +33,4 @@ return new class extends Migration
         Schema::dropIfExists('services');
     }
 };
+

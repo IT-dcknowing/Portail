@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 class CreateRadiationsTable extends Migration
 {
     public function up()
-    { if (!Schema::hasTable('companies')) {
+    { if (!Schema::hasTable('radiations')) {
         Schema::create('radiations', function (Blueprint $table) {
             $table->id(); // BIGINT UNSIGNED AUTO_INCREMENT
             $table->string('company_name'); // VARCHAR(255)
@@ -26,3 +26,4 @@ class CreateRadiationsTable extends Migration
         Schema::dropIfExists('radiations');
     }
 }
+

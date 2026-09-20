@@ -136,17 +136,22 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 90px;
-      /* Légère augmentation pour plus respirer */
+      height: 84px;
       background: rgba(10, 10, 10, 0.98);
-      backdrop-filter: blur(15px);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--ligne);
-      padding: 0 40px;
+      padding: 0;
+      z-index: 1000;
+      transition: background 0.3s var(--transition), box-shadow 0.3s var(--transition);
+    }
+
+    .nav-shell {
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      z-index: 1000;
-      transition: all 0.3s var(--transition);
+      gap: 24px;
     }
 
     .nav-logo {
@@ -156,9 +161,9 @@
     }
 
     .nav-logo-mark {
-      height: 100px;
-      /* Réduction pour éviter l'écrasement */
-      width: auto;
+      height: 84px;
+      width: 200px;
+      object-fit: contain;
       position: relative;
       z-index: 1001;
       transition: height 0.3s ease;
@@ -207,14 +212,28 @@
       transform: translateY(-2px);
     }
 
-    /* ── HERO SECTION ── */
+    /* ── Conteneur commun : header, hero et sections alignes ── */
+    .shell {
+      width: min(1440px, 100% - 120px);
+      margin-inline: auto;
+    }
+
+    /* ── HERO SECTION (tient a zoom 100 % sans scroll) ── */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 48px 80px;
+      --gold: linear-gradient(90deg, #b8860b 0%, #ffd700 60%, #c9970c 100%);
+      --cycle: 6s;
+      min-height: calc(100svh - 84px);
+      /* 84px (header fixe) + 24px d'air */
+      padding: 108px 0 40px;
       position: relative;
       overflow: hidden;
+    }
+
+    .hero-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 540px;
+      column-gap: clamp(48px, 5vw, 80px);
+      align-items: center;
     }
 
     .hero-bg {
@@ -231,24 +250,59 @@
       background-image:
         linear-gradient(rgba(255, 215, 0, 0.08) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 215, 0, 0.08) 1px, transparent 1px);
-      background-size: 80px 80px;
+      background-size: 100px 100px;
       pointer-events: none;
       opacity: 0.9;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 15%, rgba(0, 0, 0, 0.4) 35%, rgba(0, 0, 0, 0.85) 55%, black 75%);
       mask-image: linear-gradient(to right, transparent 0%, transparent 15%, rgba(0, 0, 0, 0.4) 35%, rgba(0, 0, 0, 0.85) 55%, black 75%);
     }
 
+    /* ── Lueur qui suit la souris sur le quadrillage (reutilisable) ── */
+    .grid-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle 200px at var(--mx, -500px) var(--my, -500px), rgba(255, 208, 0, .06), transparent 70%),
+        linear-gradient(rgba(255, 208, 0, .35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 208, 0, .35) 1px, transparent 1px);
+      background-size: auto, 100px 100px, 100px 100px;
+      opacity: 0;
+      transition: opacity .4s ease;
+      -webkit-mask-image: radial-gradient(circle 200px at var(--mx, -500px) var(--my, -500px), #000 0%, transparent 100%);
+      mask-image: radial-gradient(circle 200px at var(--mx, -500px) var(--my, -500px), #000 0%, transparent 100%);
+    }
+
+    .grid-glow.on {
+      opacity: 1;
+    }
+
+    @media (hover: none),
+    (pointer: coarse) {
+      .grid-glow {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .grid-glow {
+        display: none;
+      }
+    }
+
     .hero-left {
       flex: 1;
-      max-width: 640px;
-      z-index: 2;
+      min-width: 0;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-badge {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 18px;
     }
 
     .hero-badge-line {
@@ -258,49 +312,119 @@
     }
 
     .hero-badge-text {
-      font-size: 11px;
+      font-size: 14px;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--or-base);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .hero-title {
-      font-size: clamp(38px, 5vw, 72px);
+      font-size: clamp(40px, 4.4vw, 76px);
       font-weight: 200;
-      line-height: 1.1;
+      line-height: 1.06;
       margin-bottom: 28px;
     }
 
-    .hero-title em {
-      font-style: italic;
-      font-weight: 300;
-      display: block;
-      color: rgba(250, 248, 244, 0.7);
+    .nowrap {
+      white-space: nowrap;
     }
 
-    .hero-title strong {
-      font-weight: 700;
+    .ht-line {
       display: block;
-      background: var(--or-degrade);
+    }
+
+    .ht-thin {
+      font-style: italic;
+      font-weight: 300;
+      color: #bdbdbd;
+    }
+
+    .ht-gold {
+      font-style: normal;
+      font-weight: 800;
+      background: var(--gold);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
+    .ht-white {
+      font-style: normal;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .ht-premium {
+      font-style: italic;
+      font-weight: 300;
+      background: var(--gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Reflet dore en boucle sur « Cabinet » (4s, sans saut) ── */
+    .shine {
+      background-image:
+        linear-gradient(105deg, transparent 40%, rgba(255, 245, 180, .95) 50%, transparent 60%),
+        linear-gradient(90deg, #b8860b 0%, #ffd700 60%, #c9970c 100%);
+      background-size: 250% 100%, 100% 100%;
+      background-repeat: no-repeat;
+      background-position: 100% 0, 0 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      animation: shine 4s ease-in-out 1.2s infinite;
+    }
+
+    @keyframes shine {
+      0% {
+        background-position: 100% 0, 0 0;
+      }
+
+      40%,
+      100% {
+        background-position: 0% 0, 0 0;
+      }
+    }
+
+    @supports not (background-clip:text) {
+      .shine {
+        color: #ffd000;
+        background: none;
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .shine {
+        animation: none;
+      }
+    }
+
     .hero-subtitle {
       font-size: 16px;
-      color: rgba(250, 248, 244, 0.5);
-      line-height: 1.8;
-      margin-bottom: 36px;
+      max-width: 520px;
+      color: #b4b4b4;
+      line-height: 1.65;
+      margin-top: 20px;
+      margin-bottom: 0;
       font-weight: 300;
     }
 
     .hero-actions {
       display: flex;
       gap: 16px;
+      margin-top: 28px;
       margin-bottom: 48px;
       flex-wrap: wrap;
+    }
+
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary {
+      padding: 16px 28px;
+      font-size: 15px;
     }
 
     .btn-primary {
@@ -412,50 +536,483 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-    }
-
-    .hero-card-stack {
+      min-width: 0;
       position: relative;
-      width: 420px;
-      height: 480px;
+      z-index: 1;
     }
 
-    .hero-card {
+    /* ── PILE DE 4 CARTES ANIMEES (hero) ── */
+    .stack-wrap {
+      width: 100%;
+      max-width: 540px;
+      margin-top: -24px;
+    }
+
+    .stack {
+      position: relative;
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      min-height: 430px;
+      animation: stackFloat 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes stackFloat {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-8px);
+      }
+    }
+
+    .scard {
       position: absolute;
-      background: var(--gris);
-      border: 1px solid var(--ligne);
-      border-radius: 2px;
-      padding: 32px;
-      transition: all 0.4s var(--transition);
+      inset: 0;
+      background: #161616;
+      border: 1px solid rgba(255, 208, 0, .24);
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      will-change: transform, opacity;
+      transition: transform .6s cubic-bezier(.2, .8, .2, 1), opacity .5s ease;
     }
 
-    .hero-card-back2 {
-      width: 100%;
-      height: 100%;
-      top: 16px;
-      left: -16px;
-      opacity: 0.3;
+    .scard::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      height: 2px;
+      background: var(--gold);
     }
 
-    .hero-card-back1 {
-      width: 100%;
-      height: 100%;
-      top: 8px;
-      left: -8px;
-      opacity: 0.6;
+    .scard[data-pos="0"] {
+      transform: translate(0, 0);
+      opacity: 1;
+      z-index: 4;
     }
 
-    .hero-card-main {
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
+    .scard[data-pos="1"] {
+      transform: translate(-14px, 12px);
+      opacity: .75;
       z-index: 3;
     }
 
-    .hero-card-main:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 215, 0, 0.3);
+    .scard[data-pos="2"] {
+      transform: translate(-28px, 24px);
+      opacity: .45;
+      z-index: 2;
+    }
+
+    .scard[data-pos="3"] {
+      transform: translate(-42px, 36px);
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .scard-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--or-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      flex-shrink: 0;
+    }
+
+    .scard-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .scard h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .scard-sub {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--or-base);
+      margin-bottom: 10px;
+    }
+
+    .scard-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: #b4b4b4;
+      line-height: 1.55;
+    }
+
+    .scard-metric {
+      margin-top: auto;
+      padding-top: 16px;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #aaaaaa;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 44px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .metric-value .unit {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffd000;
+      letter-spacing: .14em;
+    }
+
+    .metric-bar-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .metric-bar-row .pct {
+      color: #ffd000;
+    }
+
+    .metric-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, .14);
+      overflow: hidden;
+    }
+
+    .metric-fill {
+      height: 100%;
+      width: 0;
+      background: var(--gold);
+      transition: width 1.2s cubic-bezier(.2, .7, .2, 1) .55s;
+    }
+
+    .scard-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .scard-chips span {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, .16);
+      padding: 7px 11px;
+    }
+
+    /* ── Apparition echelonnee du contenu de la carte active ── */
+    .scard .anim {
+      opacity: 0;
+      transform: translateY(8px);
+      will-change: transform, opacity;
+      transition: opacity .45s ease, transform .45s ease;
+      transition-delay: .5s;
+    }
+
+    .scard[data-pos="0"] .anim {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scard[data-pos="0"] .d1 {
+      transition-delay: .35s;
+    }
+
+    .scard[data-pos="0"] .d2 {
+      transition-delay: .45s;
+    }
+
+    .scard[data-pos="0"] .d3 {
+      transition-delay: .5s;
+    }
+
+    .scard[data-pos="0"] .d4 {
+      transition-delay: .55s;
+    }
+
+    .scard[data-pos="0"] .d5 {
+      transition-delay: .65s;
+    }
+
+    /* ── Puces carte 03 : illumination sequentielle ── */
+    .scard[data-pos="0"] .chip-seq span {
+      animation: chipGlow 3.2s ease-in-out infinite;
+    }
+
+    .scard[data-pos="0"] .chip-seq span:nth-child(2) {
+      animation-delay: .8s;
+    }
+
+    .scard[data-pos="0"] .chip-seq span:nth-child(3) {
+      animation-delay: 1.6s;
+    }
+
+    .scard[data-pos="0"] .chip-seq span:nth-child(4) {
+      animation-delay: 2.4s;
+    }
+
+    @keyframes chipGlow {
+
+      0%,
+      24% {
+        background: #ffd000;
+        color: #111111;
+        border-color: #ffd000;
+      }
+
+      25%,
+      100% {
+        background: transparent;
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, .16);
+      }
+    }
+
+    /* ── Onglets minuteur sous la pile ── */
+    .stack-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stack-tab {
+      background: transparent;
+      border: none;
+      padding: 0;
+      text-align: left;
+      cursor: pointer;
+      color: #8a8a8a;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .stack-tab .tab-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .stack-tab[aria-selected="true"] {
+      color: #ffffff;
+    }
+
+    .stack-tab:focus-visible {
+      outline: 2px solid #ffd000;
+      outline-offset: 4px;
+    }
+
+    .tab-track {
+      display: block;
+      height: 3px;
+      background: rgba(255, 255, 255, .14);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .tab-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--gold);
+    }
+
+    .stack-tab.active .tab-fill.go {
+      animation: tabFill var(--cycle) linear forwards;
+    }
+
+    @keyframes tabFill {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    .stack-wrap:hover .tab-fill.go,
+    .stack-wrap:focus-within .tab-fill.go {
+      animation-play-state: paused;
+    }
+
+    /* ── Pile : responsive ── */
+    @media (max-width: 1100px) {
+      .hero-shell {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-right {
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 96px;
+      }
+
+      .stack-wrap {
+        max-width: 100%;
+        margin-top: 0;
+      }
+
+      .stack {
+        max-width: 100%;
+        min-height: 580px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stack {
+        min-height: 640px;
+      }
+
+      .scard {
+        padding: 28px 24px;
+      }
+
+      .scard h2 {
+        font-size: 23px;
+      }
+
+      .metric-value {
+        font-size: 44px;
+      }
+
+      .stack-tabs {
+        margin-top: 40px;
+      }
+
+      .chatbot-trigger {
+        bottom: 24px;
+        right: 24px;
+      }
+    }
+
+    /* ── Pile : réduire les animations ── */
+    @media (prefers-reduced-motion: reduce) {
+      .stack {
+        animation: none;
+      }
+
+      .scard {
+        transition: none;
+      }
+
+      .scard .anim {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .metric-fill {
+        transition: none;
+      }
+
+      .scard[data-pos="0"] .chip-seq span {
+        animation: none;
+      }
+
+      .stack-tab.active .tab-fill.go {
+        animation: none;
+        width: 100%;
+      }
+    }
+
+    /* ── Hero compact : viewports courts (le hero doit tenir sans scroll) ── */
+    @media (max-height: 780px) {
+      .scroll-indicator {
+        display: none;
+      }
+
+      .hero-badge {
+        margin-bottom: 12px;
+      }
+
+      .hero-title {
+        margin-bottom: 16px;
+      }
+
+      .hero-actions {
+        margin-bottom: 20px;
+      }
+
+      .hero-stats {
+        gap: 28px;
+        margin-bottom: 0;
+      }
+
+      .stat-number {
+        font-size: 28px;
+      }
+    }
+
+    /* ── Viewports tres courts : compression renforcee + 96px pour le chat ── */
+    @media (max-height: 700px) {
+      .hero-stats {
+        display: none;
+      }
+
+      .hero-actions {
+        margin-bottom: 0;
+      }
+
+      .stack {
+        height: calc(100svh - 270px);
+      }
+
+      .scard {
+        padding: 24px 28px;
+      }
+
+      .scard-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 14px;
+      }
+
+      .scard h2 {
+        font-size: 22px;
+      }
+
+      .scard-desc {
+        font-size: 13.5px;
+        line-height: 1.5;
+      }
+
+      .scard-metric {
+        padding-top: 12px;
+      }
+
+      .metric-value {
+        font-size: 40px;
+      }
+
+      .scard-chips {
+        margin-top: 12px;
+      }
     }
 
     .card-tag {
@@ -529,7 +1086,7 @@
       background: var(--gris);
       border-top: 1px solid var(--ligne);
       border-bottom: 1px solid var(--ligne);
-      padding: 32px 48px;
+      padding: 32px max(60px, calc((100vw - 1440px) / 2 + 60px));
       display: flex;
       gap: 48px;
       align-items: center;
@@ -572,7 +1129,7 @@
 
     /* ── SECTIONS GÉNÉRIQUES ── */
     section {
-      padding: 120px 48px;
+      padding: 120px max(60px, calc((100vw - 1440px) / 2 + 60px));
     }
 
     .section-header {
@@ -826,68 +1383,6 @@
 
     .offre-tab:hover:not(.active) {
       color: rgba(250, 248, 244, 0.8);
-    }
-
-    .toggle-cible {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 16px;
-      background: var(--gris);
-      border: 1px solid var(--ligne);
-    }
-
-    .toggle-label {
-      font-size: 12px;
-      color: rgba(250, 248, 244, 0.6);
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .toggle-switch {
-      position: relative;
-      width: 48px;
-      height: 24px;
-      display: inline-block;
-    }
-
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .toggle-slider {
-      position: absolute;
-      cursor: none;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.1);
-      transition: 0.3s;
-      border: 1px solid var(--ligne);
-    }
-
-    .toggle-slider:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 3px;
-      bottom: 3px;
-      background: var(--blanc);
-      transition: 0.3s;
-    }
-
-    input:checked+.toggle-slider {
-      background: var(--or-base);
-      border-color: var(--or-base);
-    }
-
-    input:checked+.toggle-slider:before {
-      transform: translateX(24px);
-      background: var(--noir);
     }
 
     .offres-grid {
@@ -1395,7 +1890,7 @@
     .footer {
       background: var(--gris);
       border-top: 1px solid var(--ligne);
-      padding: 64px 48px 32px;
+      padding: 64px max(60px, calc((100vw - 1440px) / 2 + 60px)) 32px;
     }
 
     .footer-content {
@@ -1460,8 +1955,8 @@
     /* ── CHATBOT ── */
     .chatbot-trigger {
       position: fixed;
-      bottom: 32px;
-      right: 32px;
+      bottom: max(32px, env(safe-area-inset-bottom));
+      right: max(32px, env(safe-area-inset-right));
       width: 64px;
       height: 64px;
       background: var(--or-degrade);
@@ -1472,7 +1967,7 @@
       justify-content: center;
       cursor: none;
       z-index: 900;
-      transition: all 0.3s var(--transition);
+      transition: transform 0.3s var(--transition), box-shadow 0.3s var(--transition);
       box-shadow: 0 4px 24px rgba(255, 215, 0, 0.25);
     }
 
@@ -1666,6 +2161,161 @@
       color: rgba(250, 248, 244, 0.3);
       text-align: center;
       font-style: italic;
+    }
+
+    /* ── Chat v2 : bulles assistant, liens or, cartes ── */
+    .chatbot-message.assistant .chatbot-message-content {
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.15);
+      align-self: flex-start;
+    }
+
+    .chatbot-message-content a {
+      color: #ffd000 !important;
+      text-decoration: underline;
+    }
+
+    .chatbot-new {
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: 1px solid var(--ligne);
+      color: rgba(250, 248, 244, 0.6);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s, color 0.3s;
+      line-height: 1;
+      padding: 0;
+      margin-right: 8px;
+    }
+
+    .chatbot-new:hover {
+      border-color: var(--or-base);
+      color: var(--or-base);
+    }
+
+    .chat-header-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .chat-suggest {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 4px 0 12px;
+    }
+
+    .chat-suggest button {
+      background: transparent;
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      color: var(--or-base);
+      font-size: 12px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .chat-suggest button:hover {
+      background: rgba(255, 215, 0, 0.12);
+    }
+
+    .chat-card {
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      background: rgba(255, 215, 0, 0.05);
+      padding: 14px;
+      margin: 4px 0 12px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .chat-card-title {
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .chat-card-price {
+      color: var(--or-base);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .chat-card-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chat-card button,
+    .chat-card .chat-link-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      color: var(--or-base);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .chat-card button:hover,
+    .chat-card .chat-link-btn:hover {
+      background: rgba(255, 215, 0, 0.12);
+    }
+
+    .chat-card button.primary {
+      background: var(--or-degrade);
+      color: #1A1000;
+      border: none;
+    }
+
+    .chat-card label {
+      display: block;
+      font-size: 11px;
+      color: rgba(250, 248, 244, 0.5);
+      margin: 8px 0 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chat-card input {
+      width: 100%;
+      background: var(--noir);
+      border: 1px solid var(--ligne);
+      padding: 10px 12px;
+      color: var(--blanc);
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .chat-card input:focus {
+      border-color: var(--or-base);
+    }
+
+    .chat-card input:disabled {
+      opacity: 0.7;
+    }
+
+    .chat-card-error {
+      color: #E74C3C;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .chat-error-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     /* ── MODALS ── */
@@ -2548,7 +3198,8 @@
       left: 0;
       right: 0;
       background: rgba(10, 10, 10, 0.98);
-      backdrop-filter: blur(15px);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--ligne);
       z-index: 999;
       padding: 20px 24px 32px;
@@ -2659,10 +3310,13 @@
       }
 
       .hero {
-        flex-direction: column;
         padding: 90px 20px 60px;
-        gap: 40px;
         min-height: auto;
+      }
+
+      .hero-shell {
+        grid-template-columns: 1fr;
+        gap: 40px;
       }
 
       .hero-left {
@@ -2691,12 +3345,22 @@
       .hero-right {
         justify-content: center;
         width: 100%;
+        padding-bottom: 96px;
       }
 
-      .hero-card-stack {
-        width: 100%;
-        max-width: 360px;
-        height: 380px;
+      .stack-wrap {
+        max-width: 100%;
+        margin-top: 0;
+      }
+
+      .stack {
+        max-width: 100%;
+        min-height: 580px;
+      }
+
+      .chatbot-trigger {
+        bottom: 24px;
+        right: 24px;
       }
 
       section {
@@ -2746,17 +3410,26 @@
       }
 
       .chatbot-trigger {
-        bottom: 20px;
-        right: 20px;
+        bottom: max(20px, env(safe-area-inset-bottom));
+        right: max(20px, env(safe-area-inset-right));
         width: 52px;
         height: 52px;
       }
 
       .chatbot-window {
         bottom: 84px;
-        right: 16px;
-        left: 16px;
-        width: auto;
+        right: 12px;
+        left: auto;
+        width: min(380px, 100vw - 24px);
+        max-height: 80svh;
+      }
+
+      .chatbot-messages {
+        padding: 16px;
+      }
+
+      .chatbot-input-container {
+        padding: 12px;
       }
 
       .devis-item {
@@ -3074,12 +3747,24 @@
         font-size: 24px;
       }
 
-      .hero-card-stack {
-        height: 320px;
+      .stack {
+        min-height: 640px;
       }
 
-      .hero-card {
-        padding: 20px;
+      .scard {
+        padding: 28px 24px;
+      }
+
+      .scard h2 {
+        font-size: 23px;
+      }
+
+      .metric-value {
+        font-size: 44px;
+      }
+
+      .stack-tabs {
+        margin-top: 40px;
       }
 
       section {
@@ -3555,6 +4240,7 @@
 
   <!-- Navigation -->
   <nav id="navbar">
+    <div class="shell nav-shell">
     <a href="#" class="nav-logo">
       <img src="{{ asset('images/teste.jpeg') }}" alt="DC-KNOWING" class="nav-logo-mark">
     </a>
@@ -3583,6 +4269,7 @@
     </ul>
     <a href="{{ url('/') }}#contact" class="nav-cta"><span>Consultation offerte</span></a>
     <button class="nav-burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-menu"></use></svg></button>
+    </div>
   </nav>
 
   <!-- Menu Mobile Drawer -->
@@ -3600,33 +4287,31 @@
   <section class="hero" id="hero">
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
+    <div class="grid-glow" aria-hidden="true"></div>
+    <div class="shell hero-shell">
     <div class="hero-left">
       <div class="hero-badge">
         <div class="hero-badge-line"></div>
         <span class="hero-badge-text">Cabinet Agréé MBPE & FDFP — Côte d'Ivoire</span>
       </div>
       <h1 class="hero-title">
-        <em>Votre <span
-            style="background:var(--or-degrade);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;">Cabinet</span>
-          de</em>
-        <strong
-          style="background:none;-webkit-text-fill-color:var(--blanc);color:var(--blanc);">Gestion
-          &amp; de Conseil</strong>
-        <strong><em>Premium</em></strong>
+        <span class="ht-line nowrap"><em class="ht-thin">Votre</em> <strong class="ht-gold">Cabinet</strong> <em class="ht-thin">de</em></span>
+        <span class="ht-line nowrap"><strong class="ht-white">Gestion &amp;</strong> <em class="ht-thin">de</em></span>
+        <span class="ht-line nowrap"><strong class="ht-white">Conseil</strong> <em class="ht-premium">Premium</em></span>
       </h1>
       <p class="hero-subtitle">DC-KNOWING accompagne les entrepreneurs et dirigeants dans la création, la structuration
         et le développement de leur entreprise — avec rigueur juridique, excellence financière et innovation digitale.
       </p>
       <div class="hero-actions">
         <a href="#services" class="btn-primary">Découvrir nos services →</a>
-        <a href="#contact" class="btn-secondary">Prendre rendez-vous</a>
+        <a href="#contact" class="btn-secondary">Réserver ma consultation</a>
       </div>
       <div class="hero-stats">
         <div class="stat-item"><span class="stat-number">500<sup>+</sup></span><span class="stat-label">Entreprises
             créées</span></div>
         <div class="stat-item"><span class="stat-number">12</span><span class="stat-label">Années d'expertise</span>
         </div>
-        <div class="stat-item"><span class="stat-number">98%</span><span class="stat-label">Satisfaction client</span>
+        <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Dossiers conformes</span>
         </div>
       </div>
       <div class="scroll-indicator">
@@ -3634,25 +4319,59 @@
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-card-stack">
-        <div class="hero-card hero-card-back2"></div>
-        <div class="hero-card hero-card-back1"></div>
-        <div class="hero-card hero-card-main">
-          <div class="card-tag">Service actif</div>
-          <div class="card-service-name">Compta Flow</div>
-          <div class="card-desc">Comptabilité OHADA en temps réel, synchronisée avec votre expert DC-KNOWING.</div>
-          <div class="card-progress-label"><span>Conformité fiscale</span><span class="progress-percent">98%</span>
-          </div>
-          <div class="card-progress-bar">
-            <div class="card-progress-fill"></div>
-          </div>
-          <div class="card-meta">
-            <div class="card-meta-item"><strong>0</strong> pénalités</div>
-            <div class="card-meta-item"><strong>↑23%</strong> optimisation</div>
-            <div class="card-meta-item"><strong>Réel</strong> OHADA</div>
-          </div>
+      <div class="stack-wrap" id="stackWrap">
+        <div class="stack" id="stack" aria-label="Nos quatre services">
+          <article class="scard" data-index="0" data-pos="0" aria-hidden="false" aria-label="Carte 1 sur 4 : Créer">
+            <div class="scard-icon anim d1"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></div>
+            <h2 class="anim d2">Créer &amp; sécuriser votre entreprise</h2>
+            <p class="scard-desc anim d4">Création, modification et radiation d'entreprise, avec un accompagnement juridique complet conforme au droit OHADA et aux formalités ivoiriennes.</p>
+            <div class="scard-metric anim d5">
+              <div class="metric-label">Création opérationnelle</div>
+              <div class="metric-value"><span class="count" data-count="10">10</span><span class="unit">JOURS</span></div>
+            </div>
+            <div class="scard-chips anim d5"><span>RCCM</span><span>OHADA</span><span>DGI / DFE</span></div>
+          </article>
+          <article class="scard" data-index="1" data-pos="1" aria-hidden="true" inert aria-label="Carte 2 sur 4 : Gérer">
+            <div class="scard-icon anim d1"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+            <h2 class="anim d2">Gérer &amp; sécuriser</h2>
+            <div class="scard-sub anim d3">Comptabilité · Fiscalité · CGA</div>
+            <p class="scard-desc anim d4">Comptabilité OHADA, déclarations fiscales, conformité, suivi de gestion et accompagnement CGA pour garder une entreprise en règle et mieux piloter ses finances.</p>
+            <div class="scard-metric anim d5">
+              <div class="metric-bar-row"><span>Conformité administrative</span><span class="pct">98%</span></div>
+              <div class="metric-bar"><div class="metric-fill" data-fill="98"></div></div>
+            </div>
+            <div class="scard-chips anim d5"><span>OHADA</span><span>DGI</span><span>CGA</span></div>
+          </article>
+          <article class="scard" data-index="2" data-pos="2" aria-hidden="true" inert aria-label="Carte 3 sur 4 : Digitaliser">
+            <div class="scard-icon anim d1"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg></div>
+            <h2 class="anim d2">Digitaliser votre entreprise</h2>
+            <p class="scard-desc anim d4">Les solutions Flow réunissent comptabilité, RH, ventes et juridique dans des outils conçus pour les réalités des PME africaines et synchronisés avec les experts DC-KNOWING.</p>
+            <div class="scard-metric anim d5">
+              <div class="metric-label">Solutions connectées</div>
+              <div class="metric-value"><span class="count" data-count="4">4</span><span class="unit">FLOW</span></div>
+            </div>
+            <div class="scard-chips chip-seq anim d5"><span>COMPTA</span><span>RH</span><span>SELL</span><span>LEGAL</span></div>
+          </article>
+          <article class="scard" data-index="3" data-pos="3" aria-hidden="true" inert aria-label="Carte 4 sur 4 : Former">
+            <div class="scard-icon anim d1"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.92a1 1 0 0 0 0-1.84l-8.42-4.29a1 1 0 0 0-.9 0l-8.42 4.29a1 1 0 0 0 0 1.84l8.42 4.29a1 1 0 0 0 .9 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div>
+            <h2 class="anim d2">Former &amp; faire monter en compétences</h2>
+            <p class="scard-desc anim d4">Des formations pratiques en comptabilité, fiscalité, droit OHADA, gestion, paie et outils professionnels pour devenir rapidement opérationnel.</p>
+            <div class="scard-metric anim d5">
+              <div class="metric-label">Formation pratique</div>
+              <div class="metric-bar-row"><span>Progression professionnelle</span><span class="pct">80%</span></div>
+              <div class="metric-bar"><div class="metric-fill" data-fill="80"></div></div>
+            </div>
+            <div class="scard-chips anim d5"><span>2 MOIS</span><span>STAGE GARANTI</span><span>FDFP</span></div>
+          </article>
+        </div>
+        <div class="stack-tabs" role="tablist" aria-label="Choisir un service">
+          <button type="button" class="stack-tab active" role="tab" aria-selected="true" data-index="0" aria-label="Créer"><span class="tab-track"><span class="tab-fill"></span></span><span class="tab-label">Créer</span></button>
+          <button type="button" class="stack-tab" role="tab" aria-selected="false" data-index="1" aria-label="Gérer" tabindex="-1"><span class="tab-track"><span class="tab-fill"></span></span><span class="tab-label">Gérer</span></button>
+          <button type="button" class="stack-tab" role="tab" aria-selected="false" data-index="2" aria-label="Digitaliser" tabindex="-1"><span class="tab-track"><span class="tab-fill"></span></span><span class="tab-label">Digitaliser</span></button>
+          <button type="button" class="stack-tab" role="tab" aria-selected="false" data-index="3" aria-label="Former" tabindex="-1"><span class="tab-track"><span class="tab-fill"></span></span><span class="tab-label">Former</span></button>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
@@ -3762,7 +4481,7 @@
         conseil à l'acte jusqu'à l'abonnement qui vous protège au quotidien.</p>
     </div>
 
-    <!-- Filtres avec Toggle Personne Physique/Morale -->
+    <!-- Filtres par categorie -->
     <div class="offres-controls reveal">
       <div class="offres-tabs">
         <button class="offre-tab active" data-target="all">Tous</button>
@@ -3771,14 +4490,6 @@
         <button class="offre-tab" data-target="rh">Paie & RH</button>
         <button class="offre-tab" data-target="flow">Solutions Flow</button>
         <button class="offre-tab" data-target="finance">Finance</button>
-      </div>
-
-      <div class="toggle-cible">
-        <span class="toggle-label"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-user"></use></svg>Personne Physique</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="toggleCible">
-          <span class="toggle-slider"></span>
-        </label>
       </div>
     </div>
 
@@ -4132,7 +4843,10 @@
           <div class="chatbot-status">En ligne</div>
         </div>
       </div>
-      <button class="chatbot-close" id="chatbotClose">×</button>
+      <div class="chat-header-actions">
+        <button class="chatbot-new" id="chatbotNew" title="Nouvelle conversation" aria-label="Nouvelle conversation">↺</button>
+        <button class="chatbot-close" id="chatbotClose">×</button>
+      </div>
     </div>
     <div class="chatbot-messages">
       <div class="chatbot-message bot">
@@ -4142,7 +4856,7 @@
       </div>
     </div>
     <div class="chatbot-input-container">
-      <input type="text" class="chatbot-input" placeholder="Posez votre question...">
+      <input type="text" class="chatbot-input" placeholder="Posez votre question..." maxlength="500">
       <button class="chatbot-send">→</button>
     </div>
     <div class="chatbot-footer">
@@ -4295,7 +5009,6 @@
         id: 'presta-diagnostic',
         categorie: 'comptabilite',
         categories: ['comptabilite'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'Diagnostic Initial de Gestion',
         tagline: 'Audit de votre organisation comptable, fiscale et sociale',
@@ -4315,7 +5028,6 @@
         id: 'presta-formalisation',
         categorie: 'juridique',
         categories: ['juridique'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'Assistance à la Formalisation',
         tagline: 'Création et mise en conformité de votre entreprise',
@@ -4334,7 +5046,6 @@
         id: 'presta-etats-financiers',
         categorie: 'comptabilite',
         categories: ['comptabilite'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'États Financiers Annuels & Liasse Fiscale',
         tagline: 'Établissement ponctuel de vos comptes annuels',
@@ -4352,7 +5063,6 @@
         id: 'presta-business-plan',
         categorie: 'finance',
         categories: ['finance'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'Business Plan & Étude de Rentabilité',
         tagline: 'Un dossier solide pour vos investisseurs et banques',
@@ -4371,7 +5081,6 @@
         id: 'presta-financement',
         categorie: 'finance',
         categories: ['finance'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'Montage de Dossier de Financement',
         tagline: 'Accédez aux financements bancaires et investisseurs',
@@ -4390,7 +5099,6 @@
         id: 'presta-controle-fiscal',
         categorie: 'comptabilite',
         categories: ['comptabilite', 'finance'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'Assistance Contrôle Fiscal ou Social',
         tagline: 'Un expert à vos côtés face à l\'administration',
@@ -4408,7 +5116,6 @@
         id: 'presta-formation',
         categorie: 'formation',
         categories: ['formation'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'Formation du Personnel',
         tagline: 'Montez en compétence sur la gestion d\'entreprise',
@@ -4427,7 +5134,6 @@
         id: 'presta-systeme-comptable',
         categorie: 'comptabilite',
         categories: ['comptabilite'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'Mise en Place d\'un Système Comptable',
         tagline: 'Structuration de vos procédures et outils internes',
@@ -4446,7 +5152,6 @@
         id: 'presta-consultation',
         categorie: 'comptabilite',
         categories: ['comptabilite', 'finance', 'juridique'],
-        cible: 'morale',
         tier: 'Ponctuel',
         nom: 'Consultation Ponctuelle',
         tagline: 'Un avis d\'expert sur une question précise',
@@ -4468,48 +5173,8 @@
 
 
       {
-        id: 'jur-starter',
-        categorie: 'juridique',
-        cible: 'morale',
-        tier: 'Création',
-        nom: 'Création d\'Entreprise — Starter',
-        tagline: 'Créez votre SARL, SA ou SAS en toute sérénité',
-        prixMin: 450000,
-        prixMax: 450000,
-        unite: 'HT forfait',
-        recommended: false,
-        features: [
-          'Conseil sur la forme juridique adaptée',
-          'Rédaction complète des statuts conformes OHADA',
-          'Immatriculation RCCM et obtention du numéro CC',
-          'Déclaration fiscale DFE auprès de la DGI',
-          'Livraison des documents officiels sous 10 jours ouvrés'
-        ]
-      },
-      {
-        id: 'jur-premium',
-        categorie: 'juridique',
-        cible: 'morale',
-        tier: 'Création',
-        nom: 'Création d\'Entreprise — Premium',
-        tagline: 'Structurez votre entreprise avec conformité totale',
-        prixMin: 750000,
-        prixMax: 750000,
-        unite: 'HT forfait',
-        recommended: true,
-        features: [
-          'Tout Starter +',
-          'Rédaction du règlement intérieur',
-          'Assistance adhésion CNPS, CMU, DGI employeur',
-          'Création de registres légaux',
-          'Formation du dirigeant (2h)',
-          'Suivi post-création 3 mois'
-        ]
-      },
-      {
         id: 'jur-secretariat',
         categorie: 'juridique',
-        cible: 'morale',
         tier: 'Abonnement',
         nom: 'Secrétariat Juridique Annuel',
         tagline: 'Votre conformité légale gérée toute l\'année',
@@ -4531,7 +5196,6 @@
         id: 'formation-fdfp',
         categorie: 'formation',
         categories: ['formation'],
-        cible: 'morale',
         tier: 'Formation',
         nom: 'Formation Professionnelle FDFP',
         tagline: 'Programmes certifiés agréés FDFP — prise en charge possible',
@@ -4540,7 +5204,7 @@
         unite: 'Sur devis',
         recommended: false,
         cta: 'Consulter →',
-        ctaUrl: 'services/formation.html',
+        ctaUrl: '{{ route('services.formation') }}',
         features: [
           'Comptabilité générale et analytique',
           'Fiscalité ivoirienne pratique',
@@ -4562,6 +5226,8 @@
     // ════════════════════════════════════════════
     document.addEventListener('DOMContentLoaded', () => {
       initCursor();        // ← en premier pour un curseur immédiat
+      initStack();         // ← pile de cartes animees du hero
+      initGridGlow();      // ← lueur du quadrillage qui suit la souris
       initOffres();
       initFiltres();
       initScrollReveal();
@@ -4648,6 +5314,203 @@
     }
 
     // ════════════════════════════════════════════
+    // PILE DE CARTES ANIMEES (hero) — boucle 6s synchronisee sur les onglets
+    // ════════════════════════════════════════════
+    function initStack() {
+      const wrap = document.getElementById('stackWrap');
+      if (!wrap) return;
+      const cards = Array.from(wrap.querySelectorAll('.scard'));
+      const tabs = Array.from(wrap.querySelectorAll('.stack-tab'));
+      if (!cards.length || !tabs.length) return;
+      const fills = tabs.map(t => t.querySelector('.tab-fill'));
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const N = cards.length;
+      let cur = 0;
+      let rafIds = [];
+      let resetTimers = [];
+
+      function clearStackTimers() {
+        rafIds.forEach(id => cancelAnimationFrame(id));
+        rafIds = [];
+        resetTimers.forEach(t => clearTimeout(t));
+        resetTimers = [];
+      }
+
+      function paintCounters(card, instant) {
+        card.querySelectorAll('.count').forEach(el => {
+          const target = parseInt(el.dataset.count || '0', 10);
+          if (instant || reduced) {
+            el.textContent = target;
+            return;
+          }
+          const dur = 1100, delay = 550;
+          let start = null;
+          el.textContent = '0';
+          function step(ts) {
+            if (start === null) start = ts;
+            const p = Math.min(Math.max((ts - start - delay) / dur, 0), 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(target * eased);
+            if (p < 1) {
+              rafIds.push(requestAnimationFrame(step));
+            }
+          }
+          rafIds.push(requestAnimationFrame(step));
+        });
+      }
+
+      function setActive(next) {
+        const prev = cur;
+        cur = ((next % N) + N) % N;
+        clearStackTimers();
+        cards.forEach((card, i) => {
+          const pos = (i - cur + N) % N;
+          const isActive = pos === 0;
+          card.dataset.pos = String(pos);
+          card.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+          if (isActive) {
+            card.removeAttribute('inert');
+            paintCounters(card, false);
+            card.querySelectorAll('.metric-fill').forEach(el => {
+              el.style.width = (el.dataset.fill || '0') + '%';
+            });
+          } else {
+            card.setAttribute('inert', '');
+            if (i === prev) {
+              // Remise a zero differee, invisible pour l'utilisateur
+              resetTimers.push(setTimeout(() => {
+                card.querySelectorAll('.count').forEach(el => { el.textContent = '0'; });
+              }, 950));
+              resetTimers.push(setTimeout(() => {
+                card.querySelectorAll('.metric-fill').forEach(el => { el.style.width = '0'; });
+              }, 900));
+            } else {
+              card.querySelectorAll('.count').forEach(el => { el.textContent = '0'; });
+              card.querySelectorAll('.metric-fill').forEach(el => { el.style.width = '0'; });
+            }
+          }
+        });
+        tabs.forEach((tab, i) => {
+          const on = i === cur;
+          tab.classList.toggle('active', on);
+          tab.setAttribute('aria-selected', on ? 'true' : 'false');
+          tab.tabIndex = on ? 0 : -1;
+          fills[i].classList.remove('go');
+        });
+        if (!reduced) {
+          const fill = fills[cur];
+          void fill.offsetWidth; // relance l'animation du minuteur a zero
+          fill.classList.add('go');
+        }
+      }
+
+      // Le minuteur visuel (animation CSS 6s) declenche la carte suivante :
+      // minuteur et logique toujours synchronises, pause au survol via CSS.
+      wrap.addEventListener('animationend', (e) => {
+        if (!reduced && e.target.classList && e.target.classList.contains('tab-fill')) {
+          setActive(cur + 1);
+        }
+      });
+
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => setActive(i));
+        tab.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            const n = (cur + 1) % N;
+            tabs[n].focus();
+            setActive(n);
+          }
+          if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            const n = (cur - 1 + N) % N;
+            tabs[n].focus();
+            setActive(n);
+          }
+        });
+      });
+
+      // ── Hauteur de la pile = carte la plus grande (plafonnee) ──
+      const stackEl = wrap.querySelector('.stack');
+      function fitStack() {
+        if (!stackEl) return;
+        let max = 0;
+        cards.forEach((card) => {
+          const prevBottom = card.style.bottom;
+          card.style.bottom = 'auto'; // hauteur naturelle du contenu
+          const h = card.offsetHeight;
+          card.style.bottom = prevBottom;
+          if (h > max) max = h;
+        });
+        const vh = (window.visualViewport && window.visualViewport.height) || window.innerHeight;
+        const cap = vh - 300; // plafond : calc(100svh - 300px)
+        stackEl.style.height = Math.min(max, Math.max(cap, 0)) + 'px';
+      }
+
+      let fitTimer = 0;
+      window.addEventListener('resize', () => {
+        clearTimeout(fitTimer);
+        fitTimer = setTimeout(fitStack, 150);
+      });
+      window.addEventListener('load', fitStack);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(fitStack);
+      }
+
+      setActive(0);
+      fitStack();
+    }
+
+    // ════════════════════════════════════════════
+    // LUEUR DU QUADRILLAGE (hero) — suit la souris avec inertie (lerp)
+    // ════════════════════════════════════════════
+    function initGridGlow() {
+      const hero = document.getElementById('hero');
+      const glow = hero?.querySelector('.grid-glow');
+      if (!hero || !glow) return;
+      // Uniquement souris/trackpad : rien sur mobile, tablette, ni en mode reduit
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let tx = -500, ty = -500; // position cible (relative au hero)
+      let cx = -500, cy = -500; // position affichee (lissee)
+      let running = false;
+
+      function loop() {
+        cx += (tx - cx) * 0.15;
+        cy += (ty - cy) * 0.15;
+        glow.style.setProperty('--mx', cx + 'px');
+        glow.style.setProperty('--my', cy + 'px');
+        // Arrete la boucle quand la position a converge
+        if (Math.abs(tx - cx) < 0.1 && Math.abs(ty - cy) < 0.1) {
+          running = false;
+          return;
+        }
+        requestAnimationFrame(loop);
+      }
+
+      function kick() {
+        if (!running) {
+          running = true;
+          requestAnimationFrame(loop);
+        }
+      }
+
+      hero.addEventListener('pointermove', (e) => {
+        const r = hero.getBoundingClientRect();
+        tx = e.clientX - r.left;
+        ty = e.clientY - r.top;
+        glow.classList.add('on');
+        kick();
+      });
+
+      hero.addEventListener('pointerleave', () => {
+        glow.classList.remove('on');
+      });
+    }
+
+    // ════════════════════════════════════════════
     // NAVBAR — fond au scroll
     // ════════════════════════════════════════════
     function initNavbar() {
@@ -4707,7 +5570,7 @@
     function initOffres() { renderOffres(); }
 
 
-    function renderOffres(filters = { categorie: 'all', cible: 'morale' }) {
+    function renderOffres(filters = { categorie: 'all' }) {
       const grid = document.getElementById('offresGrid');
       if (!grid) return;
 
@@ -4720,7 +5583,6 @@
           return o.categorie === filters.categorie;
         });
       }
-      if (filters.cible && filters.cible !== 'all') filtered = filtered.filter(o => !o.cible || o.cible === 'morale' || o.cible === filters.cible);
 
 
       // Toujours garder les 3 formules + grille + fidélité en haut quand on est sur TOUS ou COMPTABILITÉ
@@ -4997,7 +5859,6 @@ function initTarifMobileStory() {
 
     function initFiltres() {
       const tabs = document.querySelectorAll('.offre-tab');
-      const toggleCible = document.getElementById('toggleCible');
 
 
       tabs.forEach(tab => {
@@ -5005,17 +5866,8 @@ function initTarifMobileStory() {
           tabs.forEach(t => t.classList.remove('active'));
           tab.classList.add('active');
           const target = tab.dataset.target;
-          const cible = toggleCible?.checked ? 'physique' : 'morale';
-          renderOffres({ categorie: target, cible });
+          renderOffres({ categorie: target });
         });
-      });
-
-
-      toggleCible?.addEventListener('change', e => {
-        const activeTab = document.querySelector('.offre-tab.active');
-        const categorie = activeTab?.dataset.target || 'all';
-        const cible = e.target.checked ? 'physique' : 'morale';
-        renderOffres({ categorie, cible });
       });
     }
 
@@ -5633,12 +6485,12 @@ function initTarifMobileStory() {
       pages: {
         accueil: { url: "/", titre: "Accueil DC-KNOWING", description: "Page d'accueil du cabinet" },
         services: {
-          juridique: { url: "services/juridique.html", titre: "Juridique & Corporate", description: "Création d'entreprises, modifications statutaires, secrétariat juridique" },
-          creation: { url: "services/creation.html", titre: "Création d'entreprise", description: "Création SARL, SA, SAS, SASU, GIE, EI" },
-          cga: { url: "services/cga.html", titre: "Centre de Gestion Agréé", description: "Optimisation fiscale jusqu'à 40%, conformité comptable et sociale" },
-          formation: { url: "services/formation.html", titre: "Formation Professionnelle", description: "Programmes certifiés agréés FDFP" },
-          modification: { url: "services/modification.html", titre: "Modifications statutaires", description: "Modifications de statuts, transferts de siège" },
-          radiation: { url: "services/radiation.html", titre: "Radiation d'entreprise", description: "Radiation RCCM, dissolution" }
+          juridique: { url: "{{ route('services.juridique') }}", titre: "Juridique & Corporate", description: "Création d'entreprises, modifications statutaires, secrétariat juridique" },
+          creation: { url: "{{ route('services.creation') }}", titre: "Création d'entreprise", description: "Création SARL, SA, SAS, SASU, GIE, EI" },
+          cga: { url: "{{ route('services.cga') }}", titre: "Centre de Gestion Agréé", description: "Optimisation fiscale jusqu'à 40%, conformité comptable et sociale" },
+          formation: { url: "{{ route('services.formation') }}", titre: "Formation Professionnelle", description: "Programmes certifiés agréés FDFP" },
+          modification: { url: "{{ route('services.modification') }}", titre: "Modifications statutaires", description: "Modifications de statuts, transferts de siège" },
+          radiation: { url: "{{ route('services.radiation') }}", titre: "Radiation d'entreprise", description: "Radiation RCCM, dissolution" }
         },
         ancres: {
           offres: { url: "#offres", titre: "Offres et tarifs", description: "Toutes les formules et forfaits" },
@@ -5666,8 +6518,6 @@ function initTarifMobileStory() {
         "croissance_pe": "250 000 – 500 000 FCFA HT/mois — Formule Croissance pour Petite Entreprise",
         "croissance_pme": "500 001 – 1 000 000 FCFA HT/mois — Formule Croissance pour PME (RECOMMANDÉ)",
         "premium_pme": "1 000 000 – 1 500 000 FCFA HT/mois — Formule Premium (DFE)",
-        "creation_starter": "450 000 FCFA HT forfait — Création d'entreprise Starter",
-        "creation_premium": "750 000 FCFA HT forfait — Création d'entreprise Premium",
         "secretariat": "180 000 FCFA HT/an — Secrétariat Juridique Annuel",
         "diagnostic": "À partir de 100 000 FCFA HT — Diagnostic initial de gestion",
         "formalisation": "150 000 – 500 000 FCFA HT — Assistance à la formalisation",
@@ -5695,111 +6545,6 @@ function initTarifMobileStory() {
         "Avantage fidélité : -10% pour engagement annuel, 1er mois offert pour 12 mois"
       ]
     };
-
-    //  SYSTEM PROMPT
-    const DC_IA_SYSTEM_PROMPT = `Tu es l'assistant IA officiel de DC-KNOWING, cabinet d'accompagnement en gestion d'entreprise basé à Abidjan, Côte d'Ivoire.
-
-    ## IDENTITÉ DU CABINET
-    - ${DC_KNOWING_KNOWLEDGE.cabinet.stats}
-    - Agréments : ${DC_KNOWING_KNOWLEDGE.cabinet.agrements.join(', ')}
-    - Adresse : ${DC_KNOWING_KNOWLEDGE.cabinet.localisation}
-    - Email : ${DC_KNOWING_KNOWLEDGE.cabinet.email}
-    - Tél : ${DC_KNOWING_KNOWLEDGE.cabinet.telephone}
-
-    ## ÉQUIPE
-    ${DC_KNOWING_KNOWLEDGE.equipe.map(e => `- **${e.nom}** — ${e.role} (${e.specialite})`).join('\n')}
-
-    ## FORMULES D'ACCOMPAGNEMENT (cœur de métier)
-    DC-KNOWING propose 3 formules progressives :
-
-    ### 1. Formule ESSENTIELLE — Sécuriser vos bases
-    ${DC_KNOWING_KNOWLEDGE.services_description.essentielle}
-
-    ### 2. Formule CROISSANCE — Piloter votre développement
-    ${DC_KNOWING_KNOWLEDGE.services_description.croissance}
-
-    ### 3. Formule PREMIUM — Direction Financière Externalisée
-    ${DC_KNOWING_KNOWLEDGE.services_description.premium}
-
-    ## SERVICES COMPLÉMENTAIRES
-    - **Juridique & Corporate** — ${DC_KNOWING_KNOWLEDGE.services_description.juridique}
-    - **Prestations ponctuelles** — ${DC_KNOWING_KNOWLEDGE.services_description.prestations}
-    - **Formation** — ${DC_KNOWING_KNOWLEDGE.services_description.formation}
-
-    ## NOS ENGAGEMENTS
-    ${DC_KNOWING_KNOWLEDGE.engagements.map(e => `- ${e}`).join('\n')}
-
-    ## PROCESSUS POUR DÉMARRER
-    ${DC_KNOWING_KNOWLEDGE.processus.map(e => `- ${e}`).join('\n')}
-
-    ## PAGES DU SITE
-    - Accueil : /
-    - Juridique : services/juridique.html
-    - CGA : services/cga.html
-    - Formation : services/formation.html
-    - Sections : #offres (formules et tarifs), #services (expertises), #digital, #contact (formulaire), #mes-devis
-
-    ## GRILLE TARIFAIRE (Fourchettes FCFA HT)
-    ${Object.entries(DC_KNOWING_KNOWLEDGE.tarifs_rapides).map(([k, v]) => `- ${k} : ${v}`).join('\n')}
-
-    >  Les montants sont indicatifs. Chaque proposition fait l'objet d'un devis personnalisé après diagnostic.
-    >  Avantage fidélité : -10% pour engagement annuel réglé d'avance, 1er mois offert pour 12 mois.
-    >  Pour un diagnostic gratuit : ${DC_KNOWING_KNOWLEDGE.cabinet.telephone}
-
-    ---
-
-    ## ACTIONS AUTOMATIQUES (obligatoire — invisible pour l'utilisateur)
-
-     **CRITIQUE : Tu dois TOUJOURS utiliser une action quand l'utilisateur demande quelque chose de concret.**
-    L'utilisateur ne doit JAMAIS voir la syntaxe d'action. Tu ne dois JAMAIS lui dire de cliquer.
-
-    Format (sur UNE ligne, AVANT ta réponse) :
-    ACTION:navigate:URL
-    ACTION:devis:idOffre|Nom|Email|Tel|Entreprise
-    ACTION:contact:Nom|Email|Tel|Entreprise|Message
-    ACTION:search:mots-clés
-
-    ### DÉTECTION AUTOMATIQUE — quand l'utilisateur dit :
-
-    | L'utilisateur dit... | Tu fais automatiquement... |
-    |---|---|
-    | "je veux voir les offres", "montre les prix", "quels sont vos tarifs" | ACTION:navigate:#offres |
-    | "je veux créer une entreprise", "créer ma société" | ACTION:navigate:services/juridique.html |
-    | "comment contacter", "formulaire", "je veux vous écrire" | ACTION:navigate:#contact |
-    | "c'est quoi le CGA", "avantages CGA" | ACTION:navigate:services/cga.html |
-    | "formation", "formations FDFP", "programme formation" | ACTION:navigate:services/formation.html |
-    | "modifier mon entreprise", "changement statuts" | ACTION:navigate:services/modification.html |
-    | "fermer ma société", "radiation" | ACTION:navigate:services/radiation.html |
-    | "je veux la formule X", "souscrire à X" | ACTION:navigate:#offres |
-    | "je veux un devis pour X" | ACTION:navigate:#offres |
-
-     **RÈGLE IMPÉRATIVE : Si tu ne mets pas le ACTION: en première ligne, TU AS ÉCHOUÉ.**
-    L'utilisateur doit voir le résultat immédiatement, sans avoir à cliquer.
-
-    ---
-
-    ##  LIENS EXTERNES
-    - WhatsApp : ${DC_KNOWING_KNOWLEDGE.cabinet.whatsapp}
-    - Portail : https://portaildck.dc-knowing.com
-    - RH Flow : https://rhflow.dc-knowing.com/
-
-    ##  RAPPEL FINAL (lis ceci avant chaque réponse)
-
-    1. Si l'utilisateur demande à VOIR quelque chose → ACTION:navigate: suivi de la page.
-    2. Si l'utilisateur demande un DEVIS → demande-lui ses infos d'abord, puis ACTION:devis:...
-    3. Si l'utilisateur veut un CONTACT → demande-lui ses infos d'abord, puis ACTION:contact:...
-    4. **NE DIS JAMAIS** "cliquez sur...", "allez dans...", "utilisez le bouton..." — FAIS-LE.
-    5. L'action ACTION: doit être la TOUTE PREMIÈRE LIGNE de ta réponse. Pas après un paragraphe.
-
-    EXEMPLE CORRECT de réponse :
-    ACTION:navigate:#offres
-    Voici nos offres ! Vous y trouverez toutes nos formules...
-
-    EXEMPLE INCORRECT (ne fais jamais ça) :
-    Voici nos offres ! Cliquez sur le bouton "Offres" dans le menu pour y accéder...
-    (Ceci est un ÉCHEC car tu n'as pas utilisé ACTION:)
-
-    Tu es l'assistant le plus compétent du cabinet. Chaque réponse doit être UTILE, ACTIONNABLE et ÉLÉGANTE.`.trim();
 
     // -- ia-core.js --
     //  IA DC-KNOWING — Moteur Core (appels OpenRouter + parsing actions)
@@ -5911,15 +6656,15 @@ function initTarifMobileStory() {
       // Mapping intention → action
       const patterns = [
         { keywords: ['offre', 'tarif', 'prix', 'formule', 'forfait', 'combien coûte', 'coût'], action: 'navigate', param: '#offres' },
-        { keywords: ['créer', 'creation', 'création', 'immatriculer', 'enregistrer entreprise', 'mon entreprise', 'création entreprise'], action: 'navigate', param: 'services/juridique.html' },
-        { keywords: ['juridique', 'statuts', 'statut', 'rccm', 'forme juridique'], action: 'navigate', param: 'services/juridique.html' },
-        { keywords: ['cga', 'centre de gestion', 'agréé', 'optimisation fiscale'], action: 'navigate', param: 'services/cga.html' },
-        { keywords: ['formation', 'former', 'apprendre', 'academy', 'fdfp'], action: 'navigate', param: 'services/formation.html' },
+        { keywords: ['créer', 'creation', 'création', 'immatriculer', 'enregistrer entreprise', 'mon entreprise', 'création entreprise'], action: 'navigate', param: 'juridique' },
+        { keywords: ['juridique', 'statuts', 'statut', 'rccm', 'forme juridique'], action: 'navigate', param: 'juridique' },
+        { keywords: ['cga', 'centre de gestion', 'agréé', 'optimisation fiscale'], action: 'navigate', param: 'cga' },
+        { keywords: ['formation', 'former', 'apprendre', 'academy', 'fdfp'], action: 'navigate', param: 'formation' },
         { keywords: ['contact', 'contacter', 'joindre', 'écrire', 'appeler', 'téléphone', 'email', 'formulaire'], action: 'navigate', param: '#contact' },
         { keywords: ['devis', 'mes devis'], action: 'navigate', param: '#mes-devis' },
         { keywords: ['digital', 'flow', 'solution digitale', 'logiciel'], action: 'navigate', param: '#digital' },
-        { keywords: ['modifier', 'modification', 'changement'], action: 'navigate', param: 'services/modification.html' },
-        { keywords: ['fermer', 'radiation', 'dissoudre', 'dissolution'], action: 'navigate', param: 'services/radiation.html' },
+        { keywords: ['modifier', 'modification', 'changement'], action: 'navigate', param: 'modification' },
+        { keywords: ['fermer', 'radiation', 'dissoudre', 'dissolution'], action: 'navigate', param: 'radiation' },
         { keywords: ['expert', 'équipe', 'qui êtes', 'dirigeant'], action: 'navigate', param: '#experts' },
         { keywords: ['service', 'expertise', 'que faites', 'accompagnement'], action: 'navigate', param: '#services' },
       ];
@@ -5963,96 +6708,32 @@ function initTarifMobileStory() {
       }
     }
 
-    //  Appel principal à OpenRouter (non-streaming, fallback)
-    async function iaCallOpenRouter(userMessage) {
-      const apiKey = window.DC_KNOWING_OPENROUTER_API_KEY ||
-        localStorage.getItem('dc_knowing_openrouter_key') || '';
-
-      if (!apiKey) {
-        throw new Error('Clé API OpenRouter manquante.');
-      }
-
-      const messages = [
-        { role: 'system', content: DC_IA_SYSTEM_PROMPT },
-        ..._iaHistory.slice(-DC_IA_CONFIG.maxHistory * 2),
-        { role: 'user', content: userMessage }
-      ];
-
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    //  Relais serveur POST /api/chat (la clé OpenRouter n'est jamais exposée).
+    //  Le serveur renvoie un flux SSE : deltas de texte + événement final
+    //  {"__tool_calls__": [...]} puis [DONE].
+    async function iaCallServerStream(userMessage, history, onToken, onDone) {
+      const response = await fetch('{{ route('api.chat') }}', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer ' + apiKey,
           'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'DC-KNOWING Agent IA'
+          // JSON pour les erreurs de validation, le corps reste un flux SSE
+          'Accept': 'application/json, text/event-stream',
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
-        body: JSON.stringify({
-          model: DC_IA_CONFIG.model,
-          messages: messages,
-          temperature: DC_IA_CONFIG.temperature,
-          max_tokens: DC_IA_CONFIG.maxTokens
-        })
-      });
-
-      const payload = await response.json().catch(() => null);
-
-      if (!response.ok) {
-        const errMsg = payload?.error?.message || payload?.message || 'Erreur OpenRouter ' + response.status;
-        throw new Error(errMsg);
-      }
-
-      const choice = payload?.choices?.[0];
-      const content = choice?.message?.content;
-
-      if (!content || typeof content !== 'string') {
-        throw new Error('Réponse vide de l\'IA.');
-      }
-
-      return content.trim();
-    }
-
-    //  Appel streaming à OpenRouter (SSE)
-    async function iaCallOpenRouterStream(userMessage, onToken, onDone) {
-      const apiKey = window.DC_KNOWING_OPENROUTER_API_KEY ||
-        localStorage.getItem('dc_knowing_openrouter_key') || '';
-
-      if (!apiKey) {
-        throw new Error('Clé API OpenRouter manquante.');
-      }
-
-      const messages = [
-        { role: 'system', content: DC_IA_SYSTEM_PROMPT },
-        ..._iaHistory.slice(-DC_IA_CONFIG.maxHistory * 2),
-        { role: 'user', content: userMessage }
-      ];
-
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + apiKey,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'DC-KNOWING Agent IA'
-        },
-        body: JSON.stringify({
-          model: DC_IA_CONFIG.model,
-          messages: messages,
-          temperature: DC_IA_CONFIG.temperature,
-          max_tokens: DC_IA_CONFIG.maxTokens,
-          stream: true
-        })
+        body: JSON.stringify({ message: userMessage, history: history })
       });
 
       if (!response.ok) {
-        const errorText = await response.text().catch(() => '');
-        let errMsg;
+        let code = 'down';
         try {
-          const err = JSON.parse(errorText);
-          errMsg = err?.error?.message || err?.message || 'Erreur OpenRouter ' + response.status;
-        } catch {
-          errMsg = 'Erreur OpenRouter ' + response.status;
-        }
-        throw new Error(errMsg);
+          const j = await response.clone().json();
+          if (j && j.error) code = j.error;
+        } catch { /* ignore */ }
+        if (response.status === 429) code = 'busy';
+        const err = new Error(code === 'busy' ? 'busy' : 'down');
+        err.chatError = code;
+        err.status = response.status;
+        throw err;
       }
 
       // Lire le stream SSE
@@ -6060,6 +6741,22 @@ function initTarifMobileStory() {
       const decoder = new TextDecoder();
       let fullText = '';
       let buffer = '';
+      let toolCalls = [];
+
+      function handleData(data) {
+        if (data === '[DONE]') return;
+        let parsed = null;
+        try { parsed = JSON.parse(data); } catch { return; } // Ignorer les chunks malformés
+        if (parsed && parsed.__tool_calls__) {
+          toolCalls = parsed.__tool_calls__;
+          return;
+        }
+        const delta = parsed?.choices?.[0]?.delta?.content;
+        if (delta) {
+          fullText += delta;
+          onToken(delta, fullText);
+        }
+      }
 
       while (true) {
         const { done, value } = await reader.read();
@@ -6074,49 +6771,100 @@ function initTarifMobileStory() {
         for (const line of lines) {
           const trimmed = line.trim();
           if (!trimmed || !trimmed.startsWith('data: ')) continue;
-
-          const data = trimmed.slice(6); // Enlever "data: "
-          if (data === '[DONE]') continue;
-
-          try {
-            const parsed = JSON.parse(data);
-            const delta = parsed?.choices?.[0]?.delta?.content;
-            if (delta) {
-              fullText += delta;
-              onToken(delta, fullText);
-            }
-          } catch {
-            // Ignorer les chunks malformés
-          }
+          handleData(trimmed.slice(6)); // Enlever "data: "
         }
       }
 
       // Traiter le buffer restant
-      if (buffer.trim().startsWith('data: ') && buffer.trim() !== 'data: [DONE]') {
-        try {
-          const parsed = JSON.parse(buffer.trim().slice(6));
-          const delta = parsed?.choices?.[0]?.delta?.content;
-          if (delta) {
-            fullText += delta;
-            onToken(delta, fullText);
-          }
-        } catch { /* ignore */ }
+      const rest = buffer.trim();
+      if (rest.startsWith('data: ') && rest !== 'data: [DONE]') {
+        handleData(rest.slice(6));
       }
 
-      onDone(fullText);
-      return fullText.trim();
+      onDone(fullText, toolCalls);
+      return { text: fullText.trim(), tools: toolCalls };
     }
 
-    //  Fonction principale utilisée par le chatbot
-    async function iaProcessMessage(userMessage) {
-      iaPushMessage('user', userMessage);
-      const rawResponse = await iaCallOpenRouter(userMessage);
-      const { actions, cleanText } = iaParseActions(rawResponse);
+    // Compat : collecte le stream (le serveur ne propose que du streaming).
+    async function iaCallOpenRouter(userMessage) {
+      let full = '';
+      let tools = [];
+      await iaCallServerStream(
+        userMessage,
+        iaGetHistory().slice(-DC_IA_CONFIG.maxHistory * 2),
+        (delta, acc) => { full = acc; },
+        (done, tc) => { full = done; tools = tc || []; }
+      );
+
+      if (!full || typeof full !== 'string') {
+        throw new Error("Réponse vide de l'IA.");
+      }
+
+      return { text: full.trim(), tools };
+    }
+
+    // Streaming via le relais serveur (même signature qu'avant : onDone reçoit aussi les tool calls).
+    async function iaCallOpenRouterStream(userMessage, onToken, onDone) {
+      return iaCallServerStream(
+        userMessage,
+        iaGetHistory().slice(-DC_IA_CONFIG.maxHistory * 2),
+        onToken,
+        onDone
+      );
+    }
+
+    // Convertit un tool call serveur en action interne.
+    function toolCallToAction(tc) {
+      if (!tc || !tc.name) return null;
+      let args = {};
+      try { args = JSON.parse(tc.arguments || '{}'); } catch { return null; }
+      switch (tc.name) {
+        case 'navigate':
+          return args.page_id ? { name: 'navigate', params: [args.page_id], via: 'tool' } : null;
+        case 'create_quote':
+          if (!args.offer_id) return null;
+          return { name: 'devis', params: [args.offer_id, args.name || '', args.email || '', args.phone || '', args.company || ''], via: 'tool' };
+        case 'send_contact':
+          return { name: 'contact', params: [args.name || '', args.email || '', args.phone || '', args.company || '', args.message || ''], via: 'tool' };
+        case 'search_info':
+          return args.query ? { name: 'search', params: [args.query], via: 'tool' } : null;
+        default:
+          return null;
+      }
+    }
+
+    // Sépare les actions immédiates (navigation/recherche + balises)
+    // des actions sensibles (devis/contact via tool calling → confirmation).
+    function splitActions(tagActions, toolCalls) {
+      const toolActions = (toolCalls || []).map(toolCallToAction).filter(Boolean);
+      const immediate = [...tagActions];
+      const pending = [];
+      for (const action of toolActions) {
+        if (action.name === 'devis' || action.name === 'contact') {
+          pending.push(action);
+        } else {
+          immediate.push(action);
+        }
+      }
+      return { immediate, pending };
+    }
+
+    function runImmediate(actions) {
       const actionResults = [];
       for (const action of actions) {
         try { actionResults.push({ action: action.name, result: iaExecuteAction(action) }); }
         catch (err) { actionResults.push({ action: action.name, error: err.message }); }
       }
+      return actionResults;
+    }
+
+    //  Fonction principale utilisée par le chatbot (compat : exécution directe)
+    async function iaProcessMessage(userMessage) {
+      iaPushMessage('user', userMessage);
+      const { text: rawResponse, tools } = await iaCallOpenRouter(userMessage);
+      const { actions, cleanText } = iaParseActions(rawResponse);
+      const { immediate, pending } = splitActions(actions, tools);
+      const actionResults = runImmediate([...immediate, ...pending]);
       const finalText = cleanText || rawResponse;
       iaPushMessage('assistant', finalText);
       return { text: finalText, raw: rawResponse, actions: actionResults };
@@ -6138,28 +6886,30 @@ function initTarifMobileStory() {
             if (onToken) onToken(delta, accumulated);
           },
           // onDone — appelé quand le stream est terminé
-          (accumulated) => {
+          (accumulated, toolCalls) => {
             fullText = accumulated;
 
             // Parser les actions sur le texte complet
             let { actions, cleanText } = iaParseActions(fullText);
+            const { immediate, pending } = splitActions(actions, toolCalls || []);
 
-            //  FALLBACK : si l'IA n'a pas mis d'action mais que l'utilisateur demande clairement une navigation
-            if (actions.length === 0) {
+            //  FALLBACK (mode balises) : si l'IA n'a pas mis d'action mais que
+            // l'utilisateur demande clairement une navigation
+            if (immediate.length === 0 && pending.length === 0) {
               const fallbackAction = detectFallbackAction(userMessage);
               if (fallbackAction) {
-                actions.push(fallbackAction);
+                immediate.push(fallbackAction);
                 // Ne pas modifier cleanText — l'IA n'a pas écrit d'action donc rien à nettoyer
               }
             }
 
             const finalText = cleanText || fullText;
 
-            // Exécuter les actions
-            const actionResults = [];
-            for (const action of actions) {
-              try { actionResults.push({ action: action.name, result: iaExecuteAction(action) }); }
-              catch (err) { actionResults.push({ action: action.name, error: err.message }); }
+            // Exécuter les actions non sensibles ; les devis/contacts
+            // issus du tool calling attendent la confirmation du visiteur.
+            const actionResults = runImmediate(immediate);
+            for (const action of pending) {
+              actionResults.push({ action: action.name, pending: { name: action.name, params: action.params } });
             }
 
             iaPushMessage('assistant', finalText);
@@ -6171,6 +6921,16 @@ function initTarifMobileStory() {
         console.error('[IA Stream] Erreur:', error);
         if (onError) onError(error);
       }
+    }
+
+    // Validation avant tout envoi (devis, contact, rappel).
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || '').trim());
+    }
+
+    function validatePhone(phone) {
+      const digits = String(phone || '').replace(/\D/g, '');
+      return digits.length >= 8;
     }
 
     //  Fonction d'aide pour formater les résultats d'action
@@ -6188,7 +6948,8 @@ function initTarifMobileStory() {
         case 'devis':
           if (actionResult.result?.success) {
             const d = actionResult.result;
-            return ` **Devis ${d.devisId} créé !**\n- Offre : ${d.offre}\n- Montant : ${d.montant.toLocaleString('fr-FR')} FCFA\n- Client : ${d.client.nom}\n\n[Voir mes devis →](#mes-devis)`;
+            const montantTxt = d.montantLabel || ((Number(d.montant) || 0).toLocaleString('fr-FR') + ' FCFA');
+            return ` **Devis ${d.devisId} créé !**\n- Offre : ${d.offre}\n- Montant : ${montantTxt}\n- Client : ${d.client.nom}\n\n[Voir mes devis →](#mes-devis)`;
           }
           return ' ' + (actionResult.result?.error || 'Erreur devis');
 
@@ -6210,25 +6971,56 @@ function initTarifMobileStory() {
       }
     }
 
+    // Exécute une action sensible préalablement confirmée par le visiteur.
+    function iaExecutePending(pending) {
+      try {
+        const result = iaExecuteAction(pending);
+        return { action: pending.name, result };
+      } catch (err) {
+        return { action: pending.name, error: err.message };
+      }
+    }
+
     //  Exposer l'API
     window.DC_IA_Core = {
       processMessage: iaProcessMessage,
       processMessageStream: iaProcessMessageStream,
       getHistory: iaGetHistory,
       clearHistory: iaClearHistory,
+      executePending: iaExecutePending,
+      validateEmail: validateEmail,
+      validatePhone: validatePhone,
       config: DC_IA_CONFIG
     };
 
     // -- ia-tools.js --
     //  IA DC-KNOWING — Fonctions exposées à l'agent IA
 
+    // Liste blanche des destinations (générée côté serveur via route()).
+    // Protège d'une réponse détournée par un message malveillant.
+    const CHAT_PAGES = {
+      accueil: '{{ url('/') }}',
+      offres: '#offres',
+      services: '#services',
+      contact: '#contact',
+      devis: '#mes-devis',
+      digital: '#digital',
+      experts: '#experts',
+      juridique: '{{ route('services.juridique') }}',
+      cga: '{{ route('services.cga') }}',
+      formation: '{{ route('services.formation') }}',
+      modification: '{{ route('services.modification') }}',
+      radiation: '{{ route('services.radiation') }}'
+    };
+
     window.DC_IA_Tools = {
       /**
-       * Naviguer vers une page ou une ancre du site
-       * @param {string} url - URL relative ou ancre (#offres, services/juridique.html, etc.)
+       * Naviguer vers une page du site (identifiant de la liste blanche CHAT_PAGES)
+       * @param {string} pageId - identifiant de page (ex. 'offres', 'juridique')
        */
-      navigate: function (url) {
-        if (!url) return { error: 'URL manquante' };
+      navigate: function (pageId) {
+        const url = CHAT_PAGES[pageId] || (typeof pageId === 'string' && pageId.startsWith('#') ? pageId : null);
+        if (!url) return { error: 'Destination inconnue : ' + pageId };
 
         // Si c'est une ancre sur la même page
         if (url.startsWith('#')) {
@@ -6288,10 +7080,23 @@ function initTarifMobileStory() {
           sessionDevis = [];
         }
 
+        const fmtPrix = (n) => (Number(n) || 0).toLocaleString('fr-FR');
+        const prixMin = Number(offre.prixMin) || 0;
+        const prixMax = Number(offre.prixMax) || 0;
+        let montant = 0, montantLabel = offre.unite || 'Sur devis';
+        if (prixMax > 0 && prixMax !== prixMin) {
+          montant = prixMax;
+          montantLabel = fmtPrix(prixMin) + ' – ' + fmtPrix(prixMax) + ' FCFA';
+        } else if (prixMin > 0) {
+          montant = prixMin;
+          montantLabel = 'à partir de ' + fmtPrix(prixMin) + ' FCFA';
+        }
+
         const devis = {
           id: 'DEV-' + Date.now(),
           offre: offre.tier + ' - ' + offre.nom,
-          montant: offre.prix,
+          montant: montant,
+          montantLabel: montantLabel,
           categorie: offre.categorie,
           entreprise: entreprise || '',
           date: new Date().toLocaleDateString('fr-FR'),
@@ -6319,6 +7124,7 @@ function initTarifMobileStory() {
           devisId: devis.id,
           offre: devis.offre,
           montant: devis.montant,
+          montantLabel: devis.montantLabel,
           categorie: devis.categorie,
           client: devis.client
         };
@@ -6384,14 +7190,15 @@ function initTarifMobileStory() {
           OFFRES_DATA.forEach(o => {
             const searchStr = (o.id + ' ' + o.nom + ' ' + o.categorie + ' ' + o.tier + ' ' + o.tagline + ' ' + (o.features || []).join(' ')).toLowerCase();
             if (searchStr.includes(q)) {
-              results.offres.push({
-                id: o.id,
-                nom: o.tier + ' - ' + o.nom,
-                categorie: o.categorie,
-                prix: o.prix,
-                unite: o.unite,
-                tagline: o.tagline
-              });
+            results.offres.push({
+              id: o.id,
+              nom: o.tier + ' - ' + o.nom,
+              categorie: o.categorie,
+              prixMin: o.prixMin,
+              prixMax: o.prixMax,
+              unite: o.unite,
+              tagline: o.tagline
+            });
             }
           });
           // Limiter à 5 offres max
@@ -6444,6 +7251,8 @@ function initTarifMobileStory() {
 
     const CHATBOT_STORAGE_KEY = 'dc_knowing_chat_history';
     const CHATBOT_MAX_MESSAGES = 30;
+    const CHAT_CALLBACK_KEY = 'dc_knowing_callback_offered';
+    const CHAT_WELCOME = "## Bienvenue chez DC-KNOWING !\n\nJe suis votre **assistant IA**. Je peux vous aider a :\n\n- **Explorer nos services** : juridique, comptabilite, CGA, formation...\n- **Consulter les offres et tarifs** : je connais toutes nos formules\n- **Naviguer sur le site** : je vous donne des liens directs vers chaque section\n- **Generer un devis** : je m'occupe de tout !\n- **Soumettre une demande de contact** : l'equipe vous repond sous 24h\n\n*Posez-moi votre question, je suis la pour vous !*";
 
     document.addEventListener('DOMContentLoaded', initChatbot);
 
@@ -6451,6 +7260,7 @@ function initTarifMobileStory() {
       const trigger = document.getElementById('chatbotTrigger');
       const win = document.getElementById('chatbotWindow');
       const close = document.getElementById('chatbotClose');
+      const newConv = document.getElementById('chatbotNew');
       const input = document.querySelector('.chatbot-input');
       const send = document.querySelector('.chatbot-send');
       const messages = document.querySelector('.chatbot-messages');
@@ -6459,20 +7269,33 @@ function initTarifMobileStory() {
 
       if (!trigger || !win || !close || !input || !send || !messages) return;
 
+      // Clics délégués : suggestions, cartes, confirmations, erreurs, rappel
+      messages.addEventListener('click', onChatAction);
+
       // Mettre à jour le footer
       if (footer) footer.textContent = 'Agent IA DC-KNOWING  |  Navigation  |  Devis  |  Contact';
 
       const state = {
         history: loadHistory(),
         sending: false,
+        lastUser: '',
+        pendings: {},
+        pendingSeq: 0,
       };
 
-      // Message de bienvenue (si historique vide)
-      if (state.history.length === 0) {
-        const welcome = "## Bienvenue chez DC-KNOWING !\n\nJe suis votre **assistant IA**. Je peux vous aider a :\n\n- **Explorer nos services** : juridique, comptabilite, CGA, formation...\n- **Consulter les offres et tarifs** : je connais toutes nos formules\n- **Naviguer sur le site** : je vous donne des liens directs vers chaque section\n- **Generer un devis** : je m'occupe de tout !\n- **Soumettre une demande de contact** : l'equipe vous repond sous 24h\n\n*Posez-moi votre question, je suis la pour vous !*";
-        state.history.push({ role: 'assistant', content: welcome });
-        saveHistory(state.history);
+      function userExchanges() {
+        return state.history.filter(m => m.role === 'user').length;
       }
+
+      function clearThinking() {
+        messages.querySelectorAll('.thinking').forEach(el => el.remove());
+      }
+
+          // Message de bienvenue (si historique vide)
+          if (state.history.length === 0) {
+            state.history.push({ role: 'assistant', content: CHAT_WELCOME });
+            saveHistory(state.history);
+          }
 
       function setStatus(text) {
         if (status) status.textContent = text;
@@ -6492,9 +7315,57 @@ function initTarifMobileStory() {
           messages.appendChild(createBubble(msg.role, msg.content, msg.isActionFeedback));
         });
         if (state.sending) {
-          messages.appendChild(createBubble('assistant', '*Reflexion en cours...*', false));
+          const thinking = createBubble('assistant', '*Reflexion en cours...*', false);
+          thinking.classList.add('thinking');
+          messages.appendChild(thinking);
+        }
+        if (state.history.length <= 1) {
+          appendSuggestions();
+          appendRecommendedCard();
         }
         messages.scrollTop = messages.scrollHeight;
+      }
+
+      // Boutons de suggestion à l'ouverture
+      function appendSuggestions() {
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-suggest';
+        const items = [
+          'Je veux créer mon entreprise',
+          'Voir les tarifs',
+          'Prendre rendez-vous',
+          'Parler à un expert'
+        ];
+        items.forEach(text => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = text;
+          b.setAttribute('data-suggest', text);
+          wrap.appendChild(b);
+        });
+        messages.appendChild(wrap);
+      }
+
+      // Mini-carte de l'offre recommandée
+      function appendRecommendedCard() {
+        if (typeof OFFRES_DATA === 'undefined') return;
+        const offre = OFFRES_DATA.find(o => o.recommended) || OFFRES_DATA.find(o => o.id === 'presta-formalisation');
+        if (!offre) return;
+        const prixMin = Number(offre.prixMin) || 0;
+        const prixTxt = prixMin > 0
+          ? 'à partir de ' + prixMin.toLocaleString('fr-FR') + ' FCFA'
+          : (offre.unite || 'Sur devis');
+        const card = document.createElement('div');
+        card.className = 'chat-card';
+        const safeNom = escapeHtml(offre.nom);
+        card.innerHTML =
+          '<div class="chat-card-title">' + safeNom + '</div>' +
+          '<div class="chat-card-price">' + escapeHtml(prixTxt) + ' ' + escapeHtml(offre.unite || '') + '</div>' +
+          '<div class="chat-card-row">' +
+          '<button type="button" data-navigate="#offres">Voir l\u2019offre</button>' +
+          '<button type="button" class="primary" data-quote="' + escapeHtml(offre.id) + '">Demander un devis</button>' +
+          '</div>';
+        messages.appendChild(card);
       }
 
       function pushMessage(role, content, isActionFeedback) {
@@ -6505,15 +7376,16 @@ function initTarifMobileStory() {
         saveHistory(state.history);
       }
 
-      async function sendMessage() {
-        const text = input.value.trim();
-        if (!text || state.sending) return;
+          async function sendMessage() {
+            const text = input.value.trim();
+            if (!text || state.sending) return;
 
-        // Message utilisateur
-        pushMessage('user', text);
-        input.value = '';
-        setSending(true);
-        renderHistory();
+            // Message utilisateur
+            state.lastUser = text;
+            pushMessage('user', text);
+            input.value = '';
+            setSending(true);
+            renderHistory();
 
         //  Créer une bulle de streaming
         const streamWrapper = document.createElement('div');
@@ -6581,76 +7453,282 @@ function initTarifMobileStory() {
               fullBuffer = accumulated;
               if (!typewriterTimer) startTypewriter();
             },
-            onComplete: (finalText, actionResults) => {
-              streamEnded = true;
-              fullBuffer = finalText;
-              // Accélérer la fin : afficher tout ce qui reste
-              if (displayedLen < fullBuffer.length) {
-                // Vider le reste rapidement (50 chars par tick)
-                const fastTicks = setInterval(() => {
-                  displayedLen = Math.min(displayedLen + 50, fullBuffer.length);
-                  streamBubble.innerHTML = escapeHtml(fullBuffer.substring(0, displayedLen)) + '<span class="stream-cursor"></span>';
-                  messages.scrollTop = messages.scrollHeight;
-                  if (displayedLen >= fullBuffer.length) {
-                    clearInterval(fastTicks);
-                    finalizeStreamBubble(finalText);
-                  }
-                }, 30);
-              } else {
-                finalizeStreamBubble(finalText);
-              }
+                              onComplete: (finalText, actionResults) => {
+                                streamEnded = true;
+                                fullBuffer = finalText;
+                                clearThinking();
+                                // Accélérer la fin : afficher tout ce qui reste
+                                if (displayedLen < fullBuffer.length) {
+                                  // Vider le reste rapidement (50 chars par tick)
+                                  const fastTicks = setInterval(() => {
+                                    displayedLen = Math.min(displayedLen + 50, fullBuffer.length);
+                                    streamBubble.innerHTML = escapeHtml(fullBuffer.substring(0, displayedLen)) + '<span class="stream-cursor"></span>';
+                                    messages.scrollTop = messages.scrollHeight;
+                                    if (displayedLen >= fullBuffer.length) {
+                                      clearInterval(fastTicks);
+                                      finalizeStreamBubble(finalText);
+                                    }
+                                  }, 30);
+                                } else {
+                                  finalizeStreamBubble(finalText);
+                                }
 
-              // Sauvegarder dans l'historique
-              state.history.push({ role: 'assistant', content: finalText, isActionFeedback: false });
-              if (state.history.length > CHATBOT_MAX_MESSAGES) {
-                state.history = state.history.slice(-CHATBOT_MAX_MESSAGES);
-              }
-              saveHistory(state.history);
+                                // Sauvegarder dans l'historique
+                                state.history.push({ role: 'assistant', content: finalText, isActionFeedback: false });
+                                if (state.history.length > CHATBOT_MAX_MESSAGES) {
+                                  state.history = state.history.slice(-CHATBOT_MAX_MESSAGES);
+                                }
+                                saveHistory(state.history);
 
-              // Afficher les retours d'actions
-              if (actionResults && actionResults.length > 0) {
-                for (const action of actionResults) {
-                  const feedback = iaFormatActionResult(action);
-                  if (feedback) {
-                    pushMessage('assistant', feedback, true);
-                  }
-                }
-              }
-            },
-            onError: (error) => {
-              stopTypewriter();
-              streamWrapper.classList.remove('streaming');
-              streamBubble.innerHTML = marked.parse(
-                ' **Oups !** Je n\'ai pas pu répondre.\n\n' +
-                '> ' + (error?.message || 'Erreur de connexion au serveur IA.') +
-                '\n\n*Vérifiez votre connexion et réessayez.*'
-              );
-              if (typeof showNotification === 'function') {
-                showNotification(' L\'IA n\'a pas pu répondre. Vérifiez la connexion.', 'error');
-              }
-            }
+                                // Retours d'actions : exécution immédiate OU carte de confirmation
+                                if (actionResults && actionResults.length > 0) {
+                                  for (const action of actionResults) {
+                                    if (action.pending) {
+                                      renderConfirmCard(action.pending);
+                                    } else {
+                                      const feedback = iaFormatActionResult(action);
+                                      if (feedback) {
+                                        pushMessage('assistant', feedback, true);
+                                      }
+                                    }
+                                  }
+                                  renderHistory();
+                                }
+
+                                maybeCallback();
+                              },
+                              onError: (error) => {
+                                clearThinking();
+                                stopTypewriter();
+                                streamWrapper.classList.remove('streaming');
+                                streamBubble.innerHTML = chatErrorHtml(error);
+                                messages.scrollTop = messages.scrollHeight;
+                                if (typeof showNotification === 'function') {
+                                  showNotification(' L\'IA n\'a pas pu répondre. Vérifiez la connexion.', 'error');
+                                }
+                              }
           });
 
-        } catch (error) {
-          console.error('[Chatbot] Erreur:', error);
-          stopTypewriter();
-          streamWrapper.classList.remove('streaming');
-          streamBubble.innerHTML = marked.parse(
-            ' **Oups !** Je n\'ai pas pu répondre.\n\n' +
-            '> ' + (error?.message || 'Erreur de connexion au serveur IA.') +
-            '\n\n*Vérifiez votre connexion et réessayez.*'
-          );
-          if (typeof showNotification === 'function') {
-            showNotification(' L\'IA n\'a pas pu répondre. Vérifiez la connexion.', 'error');
-          }
-        } finally {
+                          } catch (error) {
+                            console.error('[Chatbot] Erreur:', error);
+                            clearThinking();
+                            stopTypewriter();
+                            streamWrapper.classList.remove('streaming');
+                            streamBubble.innerHTML = chatErrorHtml(error);
+                            messages.scrollTop = messages.scrollHeight;
+                            if (typeof showNotification === 'function') {
+                              showNotification(' L\'IA n\'a pas pu répondre. Vérifiez la connexion.', 'error');
+                            }
+                          } finally {
           setSending(false);
           input.focus();
         }
       }
 
-      //  Event Listeners
-      trigger.addEventListener('click', () => {
+                          // Erreur propre : message + boutons de contact + réessayer
+                          function chatErrorHtml(error) {
+                            const busy = error && (error.chatError === 'busy' || error.status === 429);
+                            const text = busy
+                              ? '**Beaucoup de demandes en ce moment**, réessayez dans une minute.'
+                              : '**L\u2019assistant est momentanément indisponible.**';
+                            const wa = (typeof DC_KNOWING_KNOWLEDGE !== 'undefined' && DC_KNOWING_KNOWLEDGE.cabinet.whatsapp) || 'https://wa.me/2250767131993';
+                            const tel = '+2252722421443';
+                            const html = text + '\n\n<div class="chat-error-buttons">' +
+                              '<a class="chat-link-btn" href="' + wa + '" target="_blank" rel="noopener">WhatsApp</a>' +
+                              '<a class="chat-link-btn" href="tel:' + tel + '">Appeler</a>' +
+                              '<button type="button" data-goto="#contact">Réserver une consultation</button>' +
+                              '<button type="button" data-retry="1">Réessayer</button>' +
+                              '</div>';
+                            if (typeof marked !== 'undefined') {
+                              marked.setOptions({ breaks: true, gfm: true });
+                              return marked.parse(html);
+                            }
+                            return escapeHtml(text).replace(/\n/g, '<br>');
+                          }
+
+                          // Carte de confirmation avant toute action sensible (devis / contact)
+                          function renderConfirmCard(pending) {
+                            const pid = 'p' + (++state.pendingSeq);
+                            state.pendings[pid] = pending;
+                            const isDevis = pending.name === 'devis';
+                            const [a, b, c, d, e] = pending.params;
+                            let title = '', rows = '';
+                            if (isDevis) {
+                              const offre = (typeof OFFRES_DATA !== 'undefined')
+                                ? OFFRES_DATA.find(o => o.id === a) : null;
+                              title = 'Confirmer ce devis : ' + escapeHtml(offre ? offre.nom : a);
+                              rows =
+                                confirmField(pid, 'nom', 'Nom', b) +
+                                confirmField(pid, 'email', 'Email', c) +
+                                confirmField(pid, 'tel', 'Téléphone', d) +
+                                confirmField(pid, 'entreprise', 'Entreprise (facultatif)', e);
+                            } else {
+                              title = 'Confirmer l\u2019envoi :';
+                              rows =
+                                confirmField(pid, 'nom', 'Nom', a) +
+                                confirmField(pid, 'email', 'Email', b) +
+                                confirmField(pid, 'tel', 'Téléphone', c) +
+                                confirmField(pid, 'entreprise', 'Entreprise (facultatif)', d) +
+                                confirmField(pid, 'message', 'Message', e);
+                            }
+                            const card = document.createElement('div');
+                            card.className = 'chat-card';
+                            card.setAttribute('data-pid', pid);
+                            card.innerHTML =
+                              '<div class="chat-card-title">' + title + '</div>' + rows +
+                              '<div class="chat-card-error" hidden></div>' +
+                              '<div class="chat-card-row" style="margin-top:10px">' +
+                              '<button type="button" class="primary" data-confirm="' + pid + '">Confirmer</button>' +
+                              '<button type="button" data-edit="' + pid + '">Modifier</button>' +
+                              '</div>';
+                            messages.appendChild(card);
+                            messages.scrollTop = messages.scrollHeight;
+                          }
+
+                          function confirmField(pid, key, label, value) {
+                            return '<label>' + label + '</label>' +
+                              '<input data-field="' + key + '" value="' + escapeHtml(value || '') + '" disabled>';
+                          }
+
+                          function cardError(pid, msg) {
+                            const card = messages.querySelector('[data-pid="' + pid + '"]');
+                            const err = card ? card.querySelector('.chat-card-error') : null;
+                            if (err) { err.textContent = msg; err.hidden = false; }
+                          }
+
+                          function confirmPending(btn) {
+                            const pid = btn.getAttribute('data-confirm');
+                            const pending = state.pendings[pid];
+                            if (!pending) return;
+                            const card = messages.querySelector('[data-pid="' + pid + '"]');
+                            const get = (k) => {
+                              const inp = card ? card.querySelector('[data-field="' + k + '"]') : null;
+                              return inp ? inp.value.trim() : '';
+                            };
+                            const isDevis = pending.name === 'devis';
+                            const vals = isDevis
+                              ? [pending.params[0], get('nom'), get('email'), get('tel'), get('entreprise')]
+                              : [get('nom'), get('email'), get('tel'), get('entreprise'), get('message')];
+                            if (!vals[1] || vals[1].length < 2) { cardError(pid, 'Indiquez votre nom.'); return; }
+                            if (!DC_IA_Core.validateEmail(vals[2])) { cardError(pid, 'Email invalide. Vérifiez l\u2019adresse.'); return; }
+                            if (vals[3] && !DC_IA_Core.validatePhone(vals[3])) { cardError(pid, 'Numéro de téléphone invalide.'); return; }
+                            btn.disabled = true;
+                            const res = DC_IA_Core.executePending({ name: pending.name, params: vals });
+                            const feedback = iaFormatActionResult(res);
+                            if (feedback) pushMessage('assistant', feedback, true);
+                            delete state.pendings[pid];
+                            renderHistory();
+                          }
+
+                          function editPending(btn) {
+                            const pid = btn.getAttribute('data-edit');
+                            const card = messages.querySelector('[data-pid="' + pid + '"]');
+                            if (!card) return;
+                            card.querySelectorAll('input').forEach(inp => { inp.disabled = false; });
+                            const first = card.querySelector('input');
+                            if (first) first.focus();
+                            btn.textContent = 'Modifié — vérifiez puis Confirmez';
+                          }
+
+                          // Après 2 à 3 échanges : proposer un rappel (nom + numéro)
+                          function maybeCallback() {
+                            if (userExchanges() < 3) return;
+                            try {
+                              if (sessionStorage.getItem(CHAT_CALLBACK_KEY)) return;
+                            } catch { /* ignore */ }
+                            const card = document.createElement('div');
+                            card.className = 'chat-card';
+                            card.innerHTML =
+                              '<div class="chat-card-title">Être rappelé par un expert ?</div>' +
+                              '<div style="font-size:12px;color:rgba(250,248,244,.55)">Laissez votre nom et votre numéro, on vous rappelle sous 24h.</div>' +
+                              '<label>Nom</label><input data-cb="nom" placeholder="Votre nom">' +
+                              '<label>Téléphone</label><input data-cb="tel" placeholder="+225 ...">' +
+                              '<div class="chat-card-error" hidden></div>' +
+                              '<div class="chat-card-row" style="margin-top:10px">' +
+                              '<button type="button" class="primary" data-callback-send="1">Me rappeler</button>' +
+                              '</div>';
+                            messages.appendChild(card);
+                            messages.scrollTop = messages.scrollHeight;
+                          }
+
+                          async function sendCallback(btn) {
+                            const card = btn.closest('.chat-card');
+                            const nom = card.querySelector('[data-cb="nom"]').value.trim();
+                            const tel = card.querySelector('[data-cb="tel"]').value.trim();
+                            const err = card.querySelector('.chat-card-error');
+                            if (nom.length < 2) { err.textContent = 'Indiquez votre nom.'; err.hidden = false; return; }
+                            if (!DC_IA_Core.validatePhone(tel)) { err.textContent = 'Numéro de téléphone invalide.'; err.hidden = false; return; }
+                            btn.disabled = true;
+                            btn.textContent = 'Envoi...';
+                            try {
+                              const res = await fetch('{{ route('api.callback') }}', {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                  'Accept': 'application/json',
+                                  'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({ nom: nom, telephone: tel })
+                              });
+                              if (!res.ok) throw new Error('callback ' + res.status);
+                              try { sessionStorage.setItem(CHAT_CALLBACK_KEY, '1'); } catch { /* ignore */ }
+                              pushMessage('assistant', 'Merci ' + nom + ' ! Un expert vous rappellera au ' + tel + ' sous 24h.', true);
+                            } catch (e) {
+                              err.textContent = 'Envoi impossible. Réessayez ou écrivez-nous sur WhatsApp.';
+                              err.hidden = false;
+                              btn.disabled = false;
+                              btn.textContent = 'Me rappeler';
+                              return;
+                            }
+                            renderHistory();
+                          }
+
+                          // Clics délégués sur tout le contenu du chat
+                          function onChatAction(e) {
+                            const t = e.target.closest('[data-suggest],[data-navigate],[data-quote],[data-confirm],[data-edit],[data-retry],[data-goto],[data-callback-send]');
+                            if (!t || !messages.contains(t)) return;
+                            if (t.hasAttribute('data-suggest')) {
+                              input.value = t.getAttribute('data-suggest');
+                              sendMessage();
+                            } else if (t.hasAttribute('data-navigate')) {
+                              DC_IA_Tools.navigate(t.getAttribute('data-navigate'));
+                            } else if (t.hasAttribute('data-quote')) {
+                              const id = t.getAttribute('data-quote');
+                              const o = (typeof OFFRES_DATA !== 'undefined') ? OFFRES_DATA.find(x => x.id === id) : null;
+                              input.value = 'Je veux un devis pour ' + (o ? o.nom : id);
+                              if (!win.classList.contains('open')) win.classList.add('open');
+                              sendMessage();
+                            } else if (t.hasAttribute('data-goto')) {
+                              DC_IA_Tools.navigate(t.getAttribute('data-goto'));
+                            } else if (t.hasAttribute('data-retry')) {
+                              if (state.lastUser && !state.sending) {
+                                input.value = state.lastUser;
+                                sendMessage();
+                              }
+                            } else if (t.hasAttribute('data-confirm')) {
+                              confirmPending(t);
+                            } else if (t.hasAttribute('data-edit')) {
+                              editPending(t);
+                            } else if (t.hasAttribute('data-callback-send')) {
+                              sendCallback(t);
+                            }
+                          }
+
+                          // Nouvelle conversation (message de bienvenue conservé)
+                          if (newConv) {
+                            newConv.addEventListener('click', () => {
+                              state.history = [{ role: 'assistant', content: CHAT_WELCOME }];
+                              saveHistory(state.history);
+                              if (window.DC_IA_Core) DC_IA_Core.clearHistory();
+                              state.lastUser = '';
+                              state.pendings = {};
+                              renderHistory();
+                              input.focus();
+                            });
+                          }
+
+                          //  Event Listeners
+                          trigger.addEventListener('click', () => {
         win.classList.toggle('open');
         if (win.classList.contains('open')) {
           renderHistory();
@@ -6739,9 +7817,6 @@ function initTarifMobileStory() {
         location.reload();
       }
     };
-
-    // IA KEY (à configurer)
-    window.DC_KNOWING_OPENROUTER_API_KEY = @json(config('services.openrouter.key') ?? '');
 
     // ── BURGER MENU MOBILE ──
     (function() {

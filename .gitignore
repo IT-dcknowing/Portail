@@ -1,4 +1,3 @@
-```
 # Compiled and build artifacts
 *.pyc
 __pycache__/
@@ -12,11 +11,13 @@ __pycache__/
 
 # Dependencies
 node_modules/
+vendor/
 venv/
 .venv/
 .env
 .env.local
 .env.*
+!.env.example
 
 # Logs and temp files
 *.log
@@ -44,4 +45,8 @@ target/
 .gradle/
 .mypy_cache/
 .pytest_cache/
-```
+
+# Laravel
+/public/build
+/public/storage
+/public/hot

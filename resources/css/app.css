@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+﻿@import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -10,9 +10,9 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+
+
 
 /* Couleurs LegalPlace */
 :root {
@@ -56,20 +56,24 @@
 }
 
 .hero-title {
-    @apply text-4xl md:text-6xl font-bold text-gray-900 mb-6 animate-fade-in;
+    @apply text-4xl md:text-6xl font-bold text-gray-900 mb-6;
+    animation: fade-in 1s ease-out;
 }
 
 .hero-description {
-    @apply text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10 animate-fade-in-up;
+    @apply text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-10;
+    animation: fade-in-up 1s ease-out;
 }
 
 .hero-buttons {
-    @apply flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in-up;
+    @apply flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4;
+    animation: fade-in-up 1s ease-out;
 }
 
 /* Styles de la section Trustpilot */
 .trustpilot-section {
-    @apply mt-16 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 animate-fade-in-up;
+    @apply mt-16 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8;
+    animation: fade-in-up 1s ease-out;
 }
 
 .rating-stars {
@@ -139,7 +143,7 @@
     @apply w-full border-t border-gray-300;
 }
 
-/* Styles des témoignages */
+/* Styles des tÃ©moignages */
 .testimonial-card {
     @apply bg-white p-6 rounded-lg shadow-sm border border-gray-100 transform transition duration-300 hover:scale-105;
 }
@@ -182,3 +186,5 @@
 .animate-fade-in-up {
     animation: fade-in-up 1s ease-out;
 }
+
+

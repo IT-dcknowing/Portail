@@ -2038,7 +2038,7 @@ input:checked + .toggle-slider:before {
   <!-- Navigation -->
   <nav id="navbar">
     <a href="#" class="nav-logo">
-      <img src="LOGO BLANC 2026.png" alt="DC-KNOWING" class="nav-logo-mark">
+      <img src="{{ asset('images/teste.jpeg') }}" alt="DC-KNOWING" class="nav-logo-mark">
     </a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>

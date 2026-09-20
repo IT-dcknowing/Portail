@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
    public function up()
-    { if (!Schema::hasTable('companies')) {
+    { if (!Schema::hasTable('actes_juridiques')) {
         Schema::create('actes_juridiques', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->timestamps();
             
-            // Index pour améliorer les performances
+            // Index pour amÃ©liorer les performances
             $table->index('date');
             $table->index('titre');
         });
@@ -31,3 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('actes_juridiques');
     }
 };
+

@@ -40,6 +40,13 @@ Route::post('/formation/submit', [FormationController::class, 'submit'])->name('
 // Formulaire de contact
 Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
 
+// Assistant IA — relais OpenRouter côté serveur (clé jamais exposée).
+// CSRF via le groupe web, 15 messages/min/IP + 100/jour/IP côté contrôleur.
+Route::post('/api/chat', [\App\Http\Controllers\ChatController::class, 'respond'])
+    ->middleware('throttle:15,1')->name('api.chat');
+Route::post('/api/callback', [\App\Http\Controllers\ChatController::class, 'callback'])
+    ->middleware('throttle:15,1')->name('api.callback');
+
 use App\Models\Plan;
 
 Route::get('/nos-offres', function () {

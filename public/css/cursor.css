@@ -1,4 +1,4 @@
-/* Custom Cursor Styles - Light Corporate */
+/* Custom Cursor - Light Corporate */
 
 .cursor-container {
   position: fixed;
@@ -10,28 +10,57 @@
   z-index: 9999;
 }
 
-.cursor-dot {
+.cursor-dot,
+.cursor {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: #111111;
+  background-color: var(--texte-principal, #111111);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  opacity: 0;
+}
+
+/* Revele le custom uniquement quand il est actif (cf. cursor.js) */
+body.custom-cursor-active .cursor-dot,
+body.custom-cursor-active .cursor,
+body.custom-cursor-active .cursor-ring {
+  opacity: 1;
+}
+
+/* Masque le curseur natif uniquement quand le custom est operationnel */
+body.custom-cursor-active,
+body.custom-cursor-active a,
+body.custom-cursor-active button,
+body.custom-cursor-active input,
+body.custom-cursor-active textarea,
+body.custom-cursor-active select,
+body.custom-cursor-active label {
+  cursor: none;
 }
 
 .cursor-ring {
   position: absolute;
   width: 40px;
   height: 40px;
-  border: 2px solid #FFC107;
+  border: 2px solid var(--jaune-base, #FFC107);
   background-color: rgba(255, 193, 7, 0.05);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  transition: transform 0.15s ease-out;
+  opacity: 0;
+  transition: transform 0.15s ease-out, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .cursor-ring.hovered {
-  transform: translate(-50%, -50%) scale(1.5);
+  transform: translate(-50%, -50%) scale(1.6);
+  background-color: rgba(255, 193, 7, 0.15);
+  border-color: var(--jaune-sombre, #FFA000);
+}
+
+@media (pointer: coarse) {
+  .cursor-container {
+    display: none;
+  }
 }

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    { if (!Schema::hasTable('companies')) {
+    { if (Schema::hasTable('modifications_entreprise') && Schema::hasTable('radiations')) {
         // Table Modification
         Schema::table('modifications_entreprise', function (Blueprint $table) {
             $table->string('ville', 100)->change();
@@ -43,3 +43,4 @@ return new class extends Migration
         });
     }
 };
+

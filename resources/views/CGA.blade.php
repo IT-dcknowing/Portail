@@ -420,7 +420,7 @@
   <!-- Navigation -->
   <nav id="navbar">
     <a href="{{ url('/') }}" class="nav-logo">
-      <img src="{{ asset('images/Logo blanc.png') }}" alt="DC-KNOWING" class="nav-logo-mark">
+      <img src="{{ asset('images/teste.jpeg') }}" alt="DC-KNOWING" class="nav-logo-mark">
     </a>
     <ul class="nav-links">
       <li><a href="{{ url('/') }}#services">Services</a></li>
@@ -494,7 +494,7 @@
 
       <div class="services-cga-grid">
         <div class="service-cga-card">
-          <div class="service-cga-icon">📊</div>
+          <div class="service-cga-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
           <div class="service-cga-name">Assistance en Gestion</div>
           <div class="service-cga-desc">Diagnostic permanent de la santé financière de votre entreprise.</div>
           <ul class="service-cga-list">
@@ -504,7 +504,7 @@
           </ul>
         </div>
         <div class="service-cga-card">
-          <div class="service-cga-icon">🛡️</div>
+          <div class="service-cga-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
           <div class="service-cga-name">Assistance Fiscale</div>
           <div class="service-cga-desc">Veille et conformité fiscale permanente pour votre structure.</div>
           <ul class="service-cga-list">
@@ -514,7 +514,7 @@
           </ul>
         </div>
         <div class="service-cga-card">
-          <div class="service-cga-icon">📐</div>
+          <div class="service-cga-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 20 4"/><path d="M4 20h7"/><path d="M4 20v-7"/><path d="M9.5 14.5 15 9"/></svg></div>
           <div class="service-cga-name">Assistance Comptable</div>
           <div class="service-cga-desc">Vérification et conformité OHADA de votre tenue comptable.</div>
           <ul class="service-cga-list">
@@ -524,7 +524,7 @@
           </ul>
         </div>
         <div class="service-cga-card">
-          <div class="service-cga-icon">👥</div>
+          <div class="service-cga-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <div class="service-cga-name">Assistance Sociale</div>
           <div class="service-cga-desc">Conformité sociale et sécurité de vos obligations employeur.</div>
           <ul class="service-cga-list">
@@ -840,17 +840,17 @@
 
       <div class="trust-grid">
         <div class="trust-card">
-          <div class="trust-icon">🏛️</div>
+          <div class="trust-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></div>
           <div class="trust-title">Agréé MBPE & FDFP</div>
           <div class="trust-desc">Cabinet officiellement agréé par le Ministère du Budget et par le FDFP pour la formation professionnelle.</div>
         </div>
         <div class="trust-card">
-          <div class="trust-icon">⏱️</div>
+          <div class="trust-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div class="trust-title">+5 ans d'expérience CGA</div>
           <div class="trust-desc">Plus de 500 entreprises accompagnées en création, comptabilité et conformité fiscale en Côte d'Ivoire.</div>
         </div>
         <div class="trust-card">
-          <div class="trust-icon">💻</div>
+          <div class="trust-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg></div>
           <div class="trust-title">Outils Flow propriétaires</div>
           <div class="trust-desc">Compta Flow, RH Flow, Sell Flow — des plateformes SaaS conçues pour les réalités des PME africaines.</div>
         </div>

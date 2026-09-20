@@ -43,7 +43,7 @@
   <!-- Navigation -->
   <nav id="navbar">
     <a href="{{ url('/') }}" class="nav-logo">
-      <img src="{{ asset('images/Logo blanc.png') }}" alt="DC-KNOWING" class="nav-logo-mark">
+      <img src="{{ asset('images/teste.jpeg') }}" alt="DC-KNOWING" class="nav-logo-mark">
     </a>
     <ul class="nav-links">
       <li><a href="{{ url('/') }}#services">Services</a></li>
@@ -224,7 +224,7 @@
             <div class="space-y-8">
                 <div class="advantage-card rounded-xl">
                     <div class="flex items-start space-x-4">
-                        <div class="text-3xl text-yellow-500 mt-1">🚀</div>
+                        <div class="text-3xl text-yellow-500 mt-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
                         <div>
                             <h3 class="text-lg font-semibold text-white mb-2">Création rapide</h3>
                             <p class="text-gray-400 text-sm">Votre entreprise immatriculée en 72h après finalisation du dossier au CEPICI.</p>
@@ -234,7 +234,7 @@
                 
                 <div class="advantage-card rounded-xl">
                     <div class="flex items-start space-x-4">
-                        <div class="text-3xl text-yellow-500 mt-1">⚖️</div>
+                        <div class="text-3xl text-yellow-500 mt-1"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div>
                         <div>
                             <h3 class="text-lg font-semibold text-white mb-2">Accompagnement Juridique</h3>
                             <p class="text-gray-400 text-sm">Nos juristes rédigent vos statuts personnalisés et gèrent toutes les formalités.</p>

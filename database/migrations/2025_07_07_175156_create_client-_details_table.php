@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    { if (!Schema::hasTable('companies')) {
+    { if (!Schema::hasTable('client-_details')) {
         Schema::create('client-_details', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -26,3 +26,4 @@ return new class extends Migration
         Schema::dropIfExists('client-_details');
     }
 };
+
