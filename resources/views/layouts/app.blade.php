@@ -450,45 +450,45 @@
 
             <div class="max-w-3xl mx-auto divide-y divide-gray-200">
                 <!-- FAQ Item 1 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="faq-item py-6">
+                    <button type="button" aria-expanded="false" aria-controls="faq-answer-1" class="flex justify-between items-center w-full text-left focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded p-1">
                         <h3 class="text-lg font-semibold text-gray-900">Combien de temps faut-il pour implémenter RH-Flow ?</h3>
                         <i class="ri-arrow-down-s-line text-gray-500"></i>
                     </button>
-                    <div class="mt-3">
+                    <div id="faq-answer-1" class="mt-3 hidden">
                         <p class="text-gray-600">L'implémentation de RH-Flow est rapide et simple. Pour les petites entreprises, comptez environ 1 semaine. Pour les structures plus importantes, le délai peut varier de 2 à 4 semaines selon la complexité de vos besoins et le volume de données à migrer.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 2 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="faq-item py-6">
+                    <button type="button" aria-expanded="false" aria-controls="faq-answer-2" class="flex justify-between items-center w-full text-left focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded p-1">
                         <h3 class="text-lg font-semibold text-gray-900">RH-Flow est-il compatible avec nos outils existants ?</h3>
                         <i class="ri-arrow-down-s-line text-gray-500"></i>
                     </button>
-                    <div class="mt-3">
+                    <div id="faq-answer-2" class="mt-3 hidden">
                         <p class="text-gray-600">Oui, RH-Flow s'intègre facilement avec la plupart des outils de gestion d'entreprise courants (ERP, CRM, outils comptables, etc.). Nous proposons des connecteurs standards pour les solutions les plus populaires et pouvons développer des intégrations sur mesure pour des besoins spécifiques.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 3 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="faq-item py-6">
+                    <button type="button" aria-expanded="false" aria-controls="faq-answer-3" class="flex justify-between items-center w-full text-left focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded p-1">
                         <h3 class="text-lg font-semibold text-gray-900">Comment sont sécurisées nos données RH ?</h3>
                         <i class="ri-arrow-down-s-line text-gray-500"></i>
                     </button>
-                    <div class="mt-3">
+                    <div id="faq-answer-3" class="mt-3 hidden">
                         <p class="text-gray-600">La sécurité est notre priorité. Toutes vos données sont chiffrées, hébergées exclusivement en France dans des centres de données certifiés. Nous respectons scrupuleusement le RGPD et effectuons des audits de sécurité réguliers. Notre système de gestion des accès garantit que seules les personnes autorisées peuvent accéder aux informations sensibles.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 4 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="faq-item py-6">
+                    <button type="button" aria-expanded="false" aria-controls="faq-answer-4" class="flex justify-between items-center w-full text-left focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded p-1">
                         <h3 class="text-lg font-semibold text-gray-900">Puis-je essayer RH-Flow avant de m'engager ?</h3>
                         <i class="ri-arrow-down-s-line text-gray-500"></i>
                     </button>
-                    <div class="mt-3">
+                    <div id="faq-answer-4" class="mt-3 hidden">
                         <p class="text-gray-600">Absolument ! Nous proposons une période d'essai gratuite de 14 jours avec accès à toutes les fonctionnalités. Vous pouvez également demander une démo personnalisée avec l'un de nos experts qui vous guidera à travers la plateforme et répondra à toutes vos questions.</p>
                     </div>
                 </div>
@@ -664,12 +664,16 @@
                 button.addEventListener('click', () => {
                     const content = button.nextElementSibling;
                     const icon = button.querySelector('i');
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
-                    if (content.style.display === 'block') {
+                    button.setAttribute('aria-expanded', !isExpanded);
+                    if (isExpanded) {
+                        content.classList.add('hidden');
                         content.style.display = 'none';
                         icon.classList.remove('ri-arrow-up-s-line');
                         icon.classList.add('ri-arrow-down-s-line');
                     } else {
+                        content.classList.remove('hidden');
                         content.style.display = 'block';
                         icon.classList.remove('ri-arrow-down-s-line');
                         icon.classList.add('ri-arrow-up-s-line');
