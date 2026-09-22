@@ -2598,7 +2598,7 @@ input:checked + .toggle-slider:before {
           <div class="chatbot-status">En ligne</div>
         </div>
       </div>
-      <button class="chatbot-close" id="chatbotClose">×</button>
+      <button class="chatbot-close" id="chatbotClose" aria-label="Fermer la discussion">×</button>
     </div>
     <div class="chatbot-messages">
       <div class="chatbot-message bot">
@@ -2609,7 +2609,7 @@ input:checked + .toggle-slider:before {
     </div>
     <div class="chatbot-input-container">
       <input type="text" class="chatbot-input" placeholder="Tapez votre message..." disabled>
-      <button class="chatbot-send" disabled>→</button>
+      <button class="chatbot-send" disabled aria-label="Envoyer le message">→</button>
     </div>
     <div class="chatbot-footer">
       Interface de démonstration — Fonctionnalité à venir
@@ -2622,7 +2622,7 @@ input:checked + .toggle-slider:before {
       <div class="modal-header">
         <div class="modal-tag">Nouvelle souscription</div>
         <h3 class="modal-title" id="modalTitle">Souscrire à cette offre</h3>
-        <button class="modal-close" id="modalClose">×</button>
+        <button class="modal-close" id="modalClose" aria-label="Fermer la fenêtre modale">×</button>
       </div>
       
       <div class="modal-steps">
@@ -2657,7 +2657,7 @@ input:checked + .toggle-slider:before {
   <!-- Modal Devis Detail -->
   <div class="modal-overlay" id="devisModal">
     <div class="modal-container modal-devis">
-      <button class="modal-close" id="devisModalClose">×</button>
+      <button class="modal-close" id="devisModalClose" aria-label="Fermer le devis">×</button>
       <div id="devisModalContent"></div>
     </div>
   </div>
