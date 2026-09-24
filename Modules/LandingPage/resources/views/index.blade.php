@@ -4845,7 +4845,7 @@
       </div>
       <div class="chat-header-actions">
         <button class="chatbot-new" id="chatbotNew" title="Nouvelle conversation" aria-label="Nouvelle conversation">↺</button>
-        <button class="chatbot-close" id="chatbotClose">×</button>
+        <button class="chatbot-close" id="chatbotClose" title="Fermer le chat" aria-label="Fermer le chat">×</button>
       </div>
     </div>
     <div class="chatbot-messages">
@@ -4857,7 +4857,7 @@
     </div>
     <div class="chatbot-input-container">
       <input type="text" class="chatbot-input" placeholder="Posez votre question..." maxlength="500">
-      <button class="chatbot-send">→</button>
+      <button class="chatbot-send" title="Envoyer le message" aria-label="Envoyer le message">→</button>
     </div>
     <div class="chatbot-footer">
       Interface de démonstration — Fonctionnalité à venir
@@ -4870,7 +4870,7 @@
       <div class="modal-header">
         <div class="modal-tag">Nouvelle souscription</div>
         <h3 class="modal-title" id="modalTitle">Souscrire à cette offre</h3>
-        <button class="modal-close" id="modalClose">×</button>
+        <button class="modal-close" id="modalClose" title="Fermer la fenêtre" aria-label="Fermer la fenêtre">×</button>
       </div>
 
       <div class="modal-steps">
@@ -4905,7 +4905,7 @@
   <!-- Modal Devis Detail -->
   <div class="modal-overlay" id="devisModal">
     <div class="modal-container modal-devis">
-      <button class="modal-close" id="devisModalClose">×</button>
+      <button class="modal-close" id="devisModalClose" title="Fermer la fenêtre" aria-label="Fermer la fenêtre">×</button>
       <div id="devisModalContent"></div>
     </div>
   </div>
