@@ -4827,8 +4827,8 @@
   </footer>
 
   <!-- Chatbot (UI uniquement) -->
-  <div class="chatbot-trigger" id="chatbotTrigger">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <div class="chatbot-trigger" id="chatbotTrigger" role="button" tabindex="0" aria-label="Ouvrir l'assistant virtuel">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
       <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z"
         fill="currentColor" />
     </svg>
@@ -4845,7 +4845,7 @@
       </div>
       <div class="chat-header-actions">
         <button class="chatbot-new" id="chatbotNew" title="Nouvelle conversation" aria-label="Nouvelle conversation">↺</button>
-        <button class="chatbot-close" id="chatbotClose">×</button>
+        <button class="chatbot-close" id="chatbotClose" aria-label="Fermer l'assistant">×</button>
       </div>
     </div>
     <div class="chatbot-messages">
@@ -4857,7 +4857,7 @@
     </div>
     <div class="chatbot-input-container">
       <input type="text" class="chatbot-input" placeholder="Posez votre question..." maxlength="500">
-      <button class="chatbot-send">→</button>
+      <button class="chatbot-send" aria-label="Envoyer le message">→</button>
     </div>
     <div class="chatbot-footer">
       Interface de démonstration — Fonctionnalité à venir
@@ -4870,7 +4870,7 @@
       <div class="modal-header">
         <div class="modal-tag">Nouvelle souscription</div>
         <h3 class="modal-title" id="modalTitle">Souscrire à cette offre</h3>
-        <button class="modal-close" id="modalClose">×</button>
+        <button class="modal-close" id="modalClose" aria-label="Fermer la fenêtre">×</button>
       </div>
 
       <div class="modal-steps">
@@ -4905,7 +4905,7 @@
   <!-- Modal Devis Detail -->
   <div class="modal-overlay" id="devisModal">
     <div class="modal-container modal-devis">
-      <button class="modal-close" id="devisModalClose">×</button>
+      <button class="modal-close" id="devisModalClose" aria-label="Fermer la fenêtre">×</button>
       <div id="devisModalContent"></div>
     </div>
   </div>
