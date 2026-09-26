@@ -137,8 +137,8 @@
                 <a href="{{ route('login') }}" class="hidden md:inline-block text-primary bg-white text-primary border border-primary px-6 py-2 rounded-button hover:text-primary/80 font-medium whitespace-nowrap">Se connecter</a>
                 <!--<a href="#demo" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-primary/90 transition-colors font-medium !rounded-button whitespace-nowrap">Demander une démo</a>-->
             </div>
-            <button class="md:hidden flex items-center justify-center w-10 h-10 text-gray-700">
-                <i class="ri-menu-line ri-xl"></i>
+            <button class="md:hidden flex items-center justify-center w-10 h-10 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" aria-label="Ouvrir le menu de navigation" aria-expanded="false">
+                <i class="ri-menu-line ri-xl" aria-hidden="true"></i>
             </button>
         </div>
     </header>
@@ -450,45 +450,45 @@
 
             <div class="max-w-3xl mx-auto divide-y divide-gray-200">
                 <!-- FAQ Item 1 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="faq-item py-6">
+                    <button class="flex justify-between items-center w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded" aria-expanded="false">
                         <h3 class="text-lg font-semibold text-gray-900">Combien de temps faut-il pour implémenter RH-Flow ?</h3>
-                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        <i class="ri-arrow-down-s-line text-gray-500" aria-hidden="true"></i>
                     </button>
-                    <div class="mt-3">
+                    <div class="mt-3 hidden">
                         <p class="text-gray-600">L'implémentation de RH-Flow est rapide et simple. Pour les petites entreprises, comptez environ 1 semaine. Pour les structures plus importantes, le délai peut varier de 2 à 4 semaines selon la complexité de vos besoins et le volume de données à migrer.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 2 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="faq-item py-6">
+                    <button class="flex justify-between items-center w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded" aria-expanded="false">
                         <h3 class="text-lg font-semibold text-gray-900">RH-Flow est-il compatible avec nos outils existants ?</h3>
-                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        <i class="ri-arrow-down-s-line text-gray-500" aria-hidden="true"></i>
                     </button>
-                    <div class="mt-3">
+                    <div class="mt-3 hidden">
                         <p class="text-gray-600">Oui, RH-Flow s'intègre facilement avec la plupart des outils de gestion d'entreprise courants (ERP, CRM, outils comptables, etc.). Nous proposons des connecteurs standards pour les solutions les plus populaires et pouvons développer des intégrations sur mesure pour des besoins spécifiques.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 3 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="faq-item py-6">
+                    <button class="flex justify-between items-center w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded" aria-expanded="false">
                         <h3 class="text-lg font-semibold text-gray-900">Comment sont sécurisées nos données RH ?</h3>
-                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        <i class="ri-arrow-down-s-line text-gray-500" aria-hidden="true"></i>
                     </button>
-                    <div class="mt-3">
+                    <div class="mt-3 hidden">
                         <p class="text-gray-600">La sécurité est notre priorité. Toutes vos données sont chiffrées, hébergées exclusivement en France dans des centres de données certifiés. Nous respectons scrupuleusement le RGPD et effectuons des audits de sécurité réguliers. Notre système de gestion des accès garantit que seules les personnes autorisées peuvent accéder aux informations sensibles.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 4 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="faq-item py-6">
+                    <button class="flex justify-between items-center w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded" aria-expanded="false">
                         <h3 class="text-lg font-semibold text-gray-900">Puis-je essayer RH-Flow avant de m'engager ?</h3>
-                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        <i class="ri-arrow-down-s-line text-gray-500" aria-hidden="true"></i>
                     </button>
-                    <div class="mt-3">
+                    <div class="mt-3 hidden">
                         <p class="text-gray-600">Absolument ! Nous proposons une période d'essai gratuite de 14 jours avec accès à toutes les fonctionnalités. Vous pouvez également demander une démo personnalisée avec l'un de nos experts qui vous guidera à travers la plateforme et répondra à toutes vos questions.</p>
                     </div>
                 </div>
@@ -599,17 +599,17 @@
                     </a>
                     <p class="text-gray-400 mb-6">Simplifiez, automatisez et optimisez la gestion de vos ressources humaines.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-linkedin-fill"></i>
+                        <a href="#" aria-label="LinkedIn" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors">
+                            <i class="ri-linkedin-fill" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-twitter-x-fill"></i>
+                        <a href="#" aria-label="Twitter X" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors">
+                            <i class="ri-twitter-x-fill" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-facebook-fill"></i>
+                        <a href="#" aria-label="Facebook" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors">
+                            <i class="ri-facebook-fill" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-instagram-fill"></i>
+                        <a href="#" aria-label="Instagram" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors">
+                            <i class="ri-instagram-fill" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -664,60 +664,73 @@
                 button.addEventListener('click', () => {
                     const content = button.nextElementSibling;
                     const icon = button.querySelector('i');
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
-                    if (content.style.display === 'block') {
-                        content.style.display = 'none';
-                        icon.classList.remove('ri-arrow-up-s-line');
-                        icon.classList.add('ri-arrow-down-s-line');
+                    if (isExpanded) {
+                        content.classList.add('hidden');
+                        button.setAttribute('aria-expanded', 'false');
+                        if (icon) {
+                            icon.classList.remove('ri-arrow-up-s-line');
+                            icon.classList.add('ri-arrow-down-s-line');
+                        }
                     } else {
-                        content.style.display = 'block';
-                        icon.classList.remove('ri-arrow-down-s-line');
-                        icon.classList.add('ri-arrow-up-s-line');
+                        content.classList.remove('hidden');
+                        button.setAttribute('aria-expanded', 'true');
+                        if (icon) {
+                            icon.classList.remove('ri-arrow-down-s-line');
+                            icon.classList.add('ri-arrow-up-s-line');
+                        }
                     }
                 });
             });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
+
             // Mobile menu toggle
             const menuButton = document.querySelector('.md\\:hidden');
-            const mobileMenu = document.createElement('div');
-            mobileMenu.className = 'fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out';
-            mobileMenu.innerHTML = `
-                <div class="flex justify-between items-center p-4 border-b">
-                    <span class="text-primary font-['Pacifico'] text-2xl">RH-Flow</span>
-                    <button class="w-10 h-10 flex items-center justify-center text-gray-700">
-                        <i class="ri-close-line ri-xl"></i>
-                    </button>
-                </div>
-                <nav class="p-4">
-                    <ul class="space-y-4">
-                        <li><a href="#fonctionnalites" class="block py-2 text-gray-700 hover:text-primary font-medium">Fonctionnalités</a></li>
-                        <li><a href="#avantages" class="block py-2 text-gray-700 hover:text-primary font-medium">Avantages</a></li>
-                        <li><a href="#tarifs" class="block py-2 text-gray-700 hover:text-primary font-medium">Tarifs</a></li>
-                        <li><a href="#contact" class="block py-2 text-gray-700 hover:text-primary font-medium">Contact</a></li>
-                        <li class="pt-4 border-t"><a href="#" class="block py-2 text-gray-700 hover:text-primary font-medium">Se connecter</a></li>
-                        <li><a href="#contact" class="block py-2 bg-primary text-white px-6 py-2 rounded-button text-center">Demander une démo</a></li>
-                    </ul>
-                </nav>
-            `;
-            document.body.appendChild(mobileMenu);
+            if (menuButton) {
+                const mobileMenu = document.createElement('div');
+                mobileMenu.className = 'fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out';
+                mobileMenu.innerHTML = `
+                    <div class="flex justify-between items-center p-4 border-b">
+                        <span class="text-primary font-['Pacifico'] text-2xl">RH-Flow</span>
+                        <button class="w-10 h-10 flex items-center justify-center text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded" aria-label="Fermer le menu de navigation">
+                            <i class="ri-close-line ri-xl" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <nav class="p-4">
+                        <ul class="space-y-4">
+                            <li><a href="#fonctionnalites" class="block py-2 text-gray-700 hover:text-primary font-medium">Fonctionnalités</a></li>
+                            <li><a href="#avantages" class="block py-2 text-gray-700 hover:text-primary font-medium">Avantages</a></li>
+                            <li><a href="#tarifs" class="block py-2 text-gray-700 hover:text-primary font-medium">Tarifs</a></li>
+                            <li><a href="#contact" class="block py-2 text-gray-700 hover:text-primary font-medium">Contact</a></li>
+                            <li class="pt-4 border-t"><a href="{{ route('login') }}" class="block py-2 text-gray-700 hover:text-primary font-medium">Se connecter</a></li>
+                            <li><a href="#contact" class="block py-2 bg-primary text-white px-6 py-2 rounded-button text-center">Demander une démo</a></li>
+                        </ul>
+                    </nav>
+                `;
+                document.body.appendChild(mobileMenu);
 
-            menuButton.addEventListener('click', function() {
-                mobileMenu.classList.remove('translate-x-full');
-            });
-
-            const closeButton = mobileMenu.querySelector('button');
-            closeButton.addEventListener('click', function() {
-                mobileMenu.classList.add('translate-x-full');
-            });
-
-            // Close mobile menu when clicking on links
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.add('translate-x-full');
+                menuButton.addEventListener('click', function() {
+                    mobileMenu.classList.remove('translate-x-full');
+                    menuButton.setAttribute('aria-expanded', 'true');
                 });
-            });
+
+                const closeButton = mobileMenu.querySelector('button');
+                if (closeButton) {
+                    closeButton.addEventListener('click', function() {
+                        mobileMenu.classList.add('translate-x-full');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    });
+                }
+
+                // Close mobile menu when clicking on links
+                const mobileLinks = mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('translate-x-full');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
         });
         function checkout() {
             CinetPay.setConfig({
