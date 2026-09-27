@@ -1,0 +1,3 @@
+## 2026-03-31 - Floating Chatbot Widget Accessibility Pattern
+**Learning:** Floating widgets (like chatbots or help triggers) implemented as non-semantic `<div>` elements prevent keyboard navigation and screen reader awareness. Setting `aria-expanded` on the trigger button and `role="dialog"` with `aria-hidden` on the popup window provides essential context to assistive technologies and screen reader users when toggling state.
+**Action:** When creating or auditing floating overlay widgets, ensure the trigger is a `<button>` with `aria-expanded` and `aria-controls`, and keep `aria-hidden` in sync with display states in JavaScript.
