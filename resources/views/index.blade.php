@@ -1220,6 +1220,7 @@ input:checked + .toggle-slider:before {
   height: 64px;
   background: var(--or-degrade);
   color: #1A1000;
+  border: none;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2583,13 +2584,13 @@ input:checked + .toggle-slider:before {
   </footer>
 
   <!-- Chatbot (UI uniquement) -->
-  <div class="chatbot-trigger" id="chatbotTrigger">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <button type="button" class="chatbot-trigger" id="chatbotTrigger" aria-label="Ouvrir le chat d'assistance" aria-expanded="false" aria-controls="chatbotWindow">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z" fill="currentColor"/>
     </svg>
-  </div>
+  </button>
 
-  <div class="chatbot-window" id="chatbotWindow">
+  <div class="chatbot-window" id="chatbotWindow" role="dialog" aria-label="Assistant virtuel DC-KNOWING" aria-hidden="true">
     <div class="chatbot-header">
       <div class="chatbot-header-left">
         <div class="chatbot-avatar">DC</div>
@@ -2598,7 +2599,7 @@ input:checked + .toggle-slider:before {
           <div class="chatbot-status">En ligne</div>
         </div>
       </div>
-      <button class="chatbot-close" id="chatbotClose">×</button>
+      <button type="button" class="chatbot-close" id="chatbotClose" aria-label="Fermer le chat">×</button>
     </div>
     <div class="chatbot-messages">
       <div class="chatbot-message bot">
@@ -2608,8 +2609,8 @@ input:checked + .toggle-slider:before {
       </div>
     </div>
     <div class="chatbot-input-container">
-      <input type="text" class="chatbot-input" placeholder="Tapez votre message..." disabled>
-      <button class="chatbot-send" disabled>→</button>
+      <input type="text" class="chatbot-input" placeholder="Tapez votre message..." disabled aria-label="Votre message">
+      <button type="button" class="chatbot-send" disabled aria-label="Envoyer le message">→</button>
     </div>
     <div class="chatbot-footer">
       Interface de démonstration — Fonctionnalité à venir
@@ -3693,13 +3694,21 @@ function initChatbot() {
   const win     = document.getElementById('chatbotWindow');
   const close   = document.getElementById('chatbotClose');
 
-  trigger?.addEventListener('click', () => win?.classList.toggle('open'));
-  close?.addEventListener('click',   () => win?.classList.remove('open'));
+  const toggleChat = (isOpen) => {
+    if (!win) return;
+    const open = typeof isOpen === 'boolean' ? isOpen : !win.classList.contains('open');
+    win.classList.toggle('open', open);
+    win.setAttribute('aria-hidden', (!open).toString());
+    trigger?.setAttribute('aria-expanded', open.toString());
+  };
+
+  trigger?.addEventListener('click', () => toggleChat());
+  close?.addEventListener('click', () => toggleChat(false));
 
   // Fermeture sur Escape
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      win?.classList.remove('open');
+      toggleChat(false);
       document.getElementById('modalOverlay')?.classList.remove('open');
       document.getElementById('devisModal')?.classList.remove('open');
     }
