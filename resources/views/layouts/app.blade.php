@@ -137,8 +137,8 @@
                 <a href="{{ route('login') }}" class="hidden md:inline-block text-primary bg-white text-primary border border-primary px-6 py-2 rounded-button hover:text-primary/80 font-medium whitespace-nowrap">Se connecter</a>
                 <!--<a href="#demo" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-primary/90 transition-colors font-medium !rounded-button whitespace-nowrap">Demander une démo</a>-->
             </div>
-            <button class="md:hidden flex items-center justify-center w-10 h-10 text-gray-700">
-                <i class="ri-menu-line ri-xl"></i>
+            <button class="md:hidden flex items-center justify-center w-10 h-10 text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-button" aria-label="Ouvrir le menu" aria-expanded="false" id="mobileMenuToggle">
+                <i class="ri-menu-line ri-xl" aria-hidden="true"></i>
             </button>
         </div>
     </header>
@@ -679,14 +679,14 @@
         });
         document.addEventListener('DOMContentLoaded', function() {
             // Mobile menu toggle
-            const menuButton = document.querySelector('.md\\:hidden');
+            const menuButton = document.getElementById('mobileMenuToggle') || document.querySelector('.md\\:hidden');
             const mobileMenu = document.createElement('div');
             mobileMenu.className = 'fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out';
             mobileMenu.innerHTML = `
                 <div class="flex justify-between items-center p-4 border-b">
                     <span class="text-primary font-['Pacifico'] text-2xl">RH-Flow</span>
-                    <button class="w-10 h-10 flex items-center justify-center text-gray-700">
-                        <i class="ri-close-line ri-xl"></i>
+                    <button class="w-10 h-10 flex items-center justify-center text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-button" aria-label="Fermer le menu">
+                        <i class="ri-close-line ri-xl" aria-hidden="true"></i>
                     </button>
                 </div>
                 <nav class="p-4">
@@ -702,20 +702,27 @@
             `;
             document.body.appendChild(mobileMenu);
 
-            menuButton.addEventListener('click', function() {
-                mobileMenu.classList.remove('translate-x-full');
-            });
+            if (menuButton) {
+                menuButton.addEventListener('click', function() {
+                    mobileMenu.classList.remove('translate-x-full');
+                    menuButton.setAttribute('aria-expanded', 'true');
+                });
+            }
 
             const closeButton = mobileMenu.querySelector('button');
-            closeButton.addEventListener('click', function() {
-                mobileMenu.classList.add('translate-x-full');
-            });
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    mobileMenu.classList.add('translate-x-full');
+                    if (menuButton) menuButton.setAttribute('aria-expanded', 'false');
+                });
+            }
 
             // Close mobile menu when clicking on links
             const mobileLinks = mobileMenu.querySelectorAll('a');
             mobileLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     mobileMenu.classList.add('translate-x-full');
+                    if (menuButton) menuButton.setAttribute('aria-expanded', 'false');
                 });
             });
         });
