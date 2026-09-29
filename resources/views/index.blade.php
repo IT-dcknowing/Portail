@@ -2583,7 +2583,7 @@ input:checked + .toggle-slider:before {
   </footer>
 
   <!-- Chatbot (UI uniquement) -->
-  <div class="chatbot-trigger" id="chatbotTrigger">
+  <div class="chatbot-trigger" id="chatbotTrigger" role="button" tabindex="0" aria-label="Ouvrir le chat d'assistance" aria-expanded="false">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
       <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z" fill="currentColor"/>
     </svg>
@@ -2598,7 +2598,7 @@ input:checked + .toggle-slider:before {
           <div class="chatbot-status">En ligne</div>
         </div>
       </div>
-      <button class="chatbot-close" id="chatbotClose">×</button>
+      <button class="chatbot-close" id="chatbotClose" aria-label="Fermer le chat d'assistance">×</button>
     </div>
     <div class="chatbot-messages">
       <div class="chatbot-message bot">
@@ -2609,7 +2609,7 @@ input:checked + .toggle-slider:before {
     </div>
     <div class="chatbot-input-container">
       <input type="text" class="chatbot-input" placeholder="Tapez votre message..." disabled>
-      <button class="chatbot-send" disabled>→</button>
+      <button class="chatbot-send" disabled aria-label="Envoyer le message">→</button>
     </div>
     <div class="chatbot-footer">
       Interface de démonstration — Fonctionnalité à venir
@@ -3693,13 +3693,26 @@ function initChatbot() {
   const win     = document.getElementById('chatbotWindow');
   const close   = document.getElementById('chatbotClose');
 
-  trigger?.addEventListener('click', () => win?.classList.toggle('open'));
-  close?.addEventListener('click',   () => win?.classList.remove('open'));
+  const toggleChatbot = (forceState) => {
+    if (!win) return;
+    const isOpen = forceState !== undefined ? forceState : !win.classList.contains('open');
+    win.classList.toggle('open', isOpen);
+    trigger?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  };
+
+  trigger?.addEventListener('click', () => toggleChatbot());
+  trigger?.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleChatbot();
+    }
+  });
+  close?.addEventListener('click', () => toggleChatbot(false));
 
   // Fermeture sur Escape
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      win?.classList.remove('open');
+      toggleChatbot(false);
       document.getElementById('modalOverlay')?.classList.remove('open');
       document.getElementById('devisModal')?.classList.remove('open');
     }
