@@ -49,4 +49,4 @@ target/
 # Laravel
 /public/build
 /public/storage
-/public/hot
+/public/hot.phpunit.result.cache
