@@ -1962,6 +1962,8 @@
       background: var(--or-degrade);
       color: #1A1000;
       border-radius: 50%;
+      border: none;
+      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1969,6 +1971,11 @@
       z-index: 900;
       transition: transform 0.3s var(--transition), box-shadow 0.3s var(--transition);
       box-shadow: 0 4px 24px rgba(255, 215, 0, 0.25);
+    }
+
+    .chatbot-trigger:focus-visible {
+      outline: 2px solid var(--or);
+      outline-offset: 4px;
     }
 
     .chatbot-trigger:hover {
@@ -4827,12 +4834,12 @@
   </footer>
 
   <!-- Chatbot (UI uniquement) -->
-  <div class="chatbot-trigger" id="chatbotTrigger">
+  <button type="button" class="chatbot-trigger" id="chatbotTrigger" aria-label="Ouvrir l'assistant virtuel">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
       <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z"
         fill="currentColor" />
     </svg>
-  </div>
+  </button>
 
   <div class="chatbot-window" id="chatbotWindow">
     <div class="chatbot-header">
@@ -4845,7 +4852,7 @@
       </div>
       <div class="chat-header-actions">
         <button class="chatbot-new" id="chatbotNew" title="Nouvelle conversation" aria-label="Nouvelle conversation">↺</button>
-        <button class="chatbot-close" id="chatbotClose">×</button>
+        <button class="chatbot-close" id="chatbotClose" aria-label="Fermer la discussion">×</button>
       </div>
     </div>
     <div class="chatbot-messages">
@@ -4857,7 +4864,7 @@
     </div>
     <div class="chatbot-input-container">
       <input type="text" class="chatbot-input" placeholder="Posez votre question..." maxlength="500">
-      <button class="chatbot-send">→</button>
+      <button class="chatbot-send" aria-label="Envoyer le message">→</button>
     </div>
     <div class="chatbot-footer">
       Interface de démonstration — Fonctionnalité à venir
@@ -4870,7 +4877,7 @@
       <div class="modal-header">
         <div class="modal-tag">Nouvelle souscription</div>
         <h3 class="modal-title" id="modalTitle">Souscrire à cette offre</h3>
-        <button class="modal-close" id="modalClose">×</button>
+        <button class="modal-close" id="modalClose" aria-label="Fermer">×</button>
       </div>
 
       <div class="modal-steps">
@@ -4905,7 +4912,7 @@
   <!-- Modal Devis Detail -->
   <div class="modal-overlay" id="devisModal">
     <div class="modal-container modal-devis">
-      <button class="modal-close" id="devisModalClose">×</button>
+      <button class="modal-close" id="devisModalClose" aria-label="Fermer">×</button>
       <div id="devisModalContent"></div>
     </div>
   </div>
