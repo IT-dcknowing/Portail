@@ -1,0 +1,3 @@
+## 2025-05-18 - Landing Page Accessibility & Keyboard Focus States
+**Learning:** Icon-only buttons (like mobile menu toggle & footer social links) and custom accordions in Blade views were missing `aria-label`, `aria-expanded`, and keyboard focus styling (`focus-visible`). Adding visible focus rings and proper ARIA states significantly improves screen reader usability and keyboard navigation without altering layout aesthetics.
+**Action:** Always include `aria-label`, `aria-expanded` (for collapsibles), `aria-hidden="true"` on decorative icons, and Tailwind `focus-visible:ring-2` on interactive elements in Blade views.
