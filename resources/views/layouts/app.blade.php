@@ -120,13 +120,18 @@
     <script src="https://cdn.cinetpay.com/seamless/main.js" type="text/javascript"></script>
 </head>
 <body class="bg-white">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md focus:shadow-lg focus:outline-none">
+        Aller au contenu principal
+    </a>
+
     <!-- Header -->
     <header class="w-full bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="https://dc-knowing.com/RH-Flow/" class="flex items-center">
-                <img src="{{ asset('img/logos/logo.png') }}" width="100px" alt="logo">
+                <img src="{{ asset('img/logos/logo.png') }}" width="100px" alt="RH-Flow Logo">
             </a>
-            <nav class="hidden md:flex items-center space-x-8">
+            <nav class="hidden md:flex items-center space-x-8" aria-label="Navigation principale">
                 <a href="#fonctionnalites" class="text-gray-700 hover:text-primary font-medium transition-colors">Fonctionnalités</a>
                 <a href="#avantages" class="text-gray-700 hover:text-primary font-medium transition-colors">Avantages</a>
                 <a href="#tarifs" class="text-gray-700 hover:text-primary font-medium transition-colors">Tarifs</a>
@@ -137,12 +142,14 @@
                 <a href="{{ route('login') }}" class="hidden md:inline-block text-primary bg-white text-primary border border-primary px-6 py-2 rounded-button hover:text-primary/80 font-medium whitespace-nowrap">Se connecter</a>
                 <!--<a href="#demo" class="bg-primary text-white px-6 py-2 rounded-button hover:bg-primary/90 transition-colors font-medium !rounded-button whitespace-nowrap">Demander une démo</a>-->
             </div>
-            <button class="md:hidden flex items-center justify-center w-10 h-10 text-gray-700">
-                <i class="ri-menu-line ri-xl"></i>
+            <button id="mobile-menu-button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden flex items-center justify-center w-10 h-10 text-gray-700 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg transition-colors">
+                <i class="ri-menu-line ri-xl" aria-hidden="true"></i>
             </button>
         </div>
     </header>
 
+    <!-- Main Content Anchor -->
+    <main id="main-content" tabindex="-1" class="focus:outline-none">
     <!-- Hero Section -->
     <section class="pt-24 pb-16 md:pt-32 md:pb-24 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-full h-full" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20office%20environment%20with%20professional%20HR%20team%20working%20on%20digital%20solutions%2C%20clean%20minimalist%20workspace%20with%20blue%20accent%20colors%2C%20people%20looking%20at%20screens%20with%20HR%20software%20interfaces%2C%20soft%20lighting%2C%20professional%20atmosphere&width=1200&height=800&seq=1&orientation=landscape'); background-position: right center; background-size: cover; background-repeat: no-repeat;"></div>
@@ -450,45 +457,45 @@
 
             <div class="max-w-3xl mx-auto divide-y divide-gray-200">
                 <!-- FAQ Item 1 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="py-6 faq-item">
+                    <button class="flex justify-between items-center w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md p-1 transition-all" aria-expanded="false" aria-controls="faq-answer-1">
                         <h3 class="text-lg font-semibold text-gray-900">Combien de temps faut-il pour implémenter RH-Flow ?</h3>
-                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        <i class="ri-arrow-down-s-line text-gray-500" aria-hidden="true"></i>
                     </button>
-                    <div class="mt-3">
+                    <div id="faq-answer-1" class="mt-3 hidden">
                         <p class="text-gray-600">L'implémentation de RH-Flow est rapide et simple. Pour les petites entreprises, comptez environ 1 semaine. Pour les structures plus importantes, le délai peut varier de 2 à 4 semaines selon la complexité de vos besoins et le volume de données à migrer.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 2 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="py-6 faq-item">
+                    <button class="flex justify-between items-center w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md p-1 transition-all" aria-expanded="false" aria-controls="faq-answer-2">
                         <h3 class="text-lg font-semibold text-gray-900">RH-Flow est-il compatible avec nos outils existants ?</h3>
-                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        <i class="ri-arrow-down-s-line text-gray-500" aria-hidden="true"></i>
                     </button>
-                    <div class="mt-3">
+                    <div id="faq-answer-2" class="mt-3 hidden">
                         <p class="text-gray-600">Oui, RH-Flow s'intègre facilement avec la plupart des outils de gestion d'entreprise courants (ERP, CRM, outils comptables, etc.). Nous proposons des connecteurs standards pour les solutions les plus populaires et pouvons développer des intégrations sur mesure pour des besoins spécifiques.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 3 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="py-6 faq-item">
+                    <button class="flex justify-between items-center w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md p-1 transition-all" aria-expanded="false" aria-controls="faq-answer-3">
                         <h3 class="text-lg font-semibold text-gray-900">Comment sont sécurisées nos données RH ?</h3>
-                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        <i class="ri-arrow-down-s-line text-gray-500" aria-hidden="true"></i>
                     </button>
-                    <div class="mt-3">
+                    <div id="faq-answer-3" class="mt-3 hidden">
                         <p class="text-gray-600">La sécurité est notre priorité. Toutes vos données sont chiffrées, hébergées exclusivement en France dans des centres de données certifiés. Nous respectons scrupuleusement le RGPD et effectuons des audits de sécurité réguliers. Notre système de gestion des accès garantit que seules les personnes autorisées peuvent accéder aux informations sensibles.</p>
                     </div>
                 </div>
 
                 <!-- FAQ Item 4 -->
-                <div class="py-6">
-                    <button class="flex justify-between items-center w-full text-left focus:outline-none">
+                <div class="py-6 faq-item">
+                    <button class="flex justify-between items-center w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md p-1 transition-all" aria-expanded="false" aria-controls="faq-answer-4">
                         <h3 class="text-lg font-semibold text-gray-900">Puis-je essayer RH-Flow avant de m'engager ?</h3>
-                        <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        <i class="ri-arrow-down-s-line text-gray-500" aria-hidden="true"></i>
                     </button>
-                    <div class="mt-3">
+                    <div id="faq-answer-4" class="mt-3 hidden">
                         <p class="text-gray-600">Absolument ! Nous proposons une période d'essai gratuite de 14 jours avec accès à toutes les fonctionnalités. Vous pouvez également demander une démo personnalisée avec l'un de nos experts qui vous guidera à travers la plateforme et répondra à toutes vos questions.</p>
                     </div>
                 </div>
@@ -576,9 +583,9 @@
                         </div>
 
                         <div class="mb-6">
-                            <label class="flex items-center">
-                                <input type="checkbox" name="accept" class="mr-2" required>
-                                <span class="text-gray-600">J'accepte de recevoir des informations de RH-Flow</span>
+                            <label for="accept" class="flex items-center cursor-pointer">
+                                <input type="checkbox" id="accept" name="accept" class="mr-2 rounded border-gray-300 text-primary focus:ring-primary" required>
+                                <span class="text-gray-600">J'accepte de recevoir des informations de RH-Flow <span class="text-red-500">*</span></span>
                             </label>
                         </div>
 
@@ -599,17 +606,17 @@
                     </a>
                     <p class="text-gray-400 mb-6">Simplifiez, automatisez et optimisez la gestion de vos ressources humaines.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-linkedin-fill"></i>
+                        <a href="#" aria-label="RH-Flow sur LinkedIn" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors">
+                            <i class="ri-linkedin-fill" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-twitter-x-fill"></i>
+                        <a href="#" aria-label="RH-Flow sur X" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors">
+                            <i class="ri-twitter-x-fill" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-facebook-fill"></i>
+                        <a href="#" aria-label="RH-Flow sur Facebook" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors">
+                            <i class="ri-facebook-fill" aria-hidden="true"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-                            <i class="ri-instagram-fill"></i>
+                        <a href="#" aria-label="RH-Flow sur Instagram" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary transition-colors">
+                            <i class="ri-instagram-fill" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -654,6 +661,7 @@
                 </div>
             </div>
         </div>
+    </main>
     </footer>
 
     <script>
@@ -664,60 +672,67 @@
                 button.addEventListener('click', () => {
                     const content = button.nextElementSibling;
                     const icon = button.querySelector('i');
+                    const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
-                    if (content.style.display === 'block') {
-                        content.style.display = 'none';
+                    button.setAttribute('aria-expanded', !isExpanded);
+                    if (isExpanded) {
+                        content.classList.add('hidden');
                         icon.classList.remove('ri-arrow-up-s-line');
                         icon.classList.add('ri-arrow-down-s-line');
                     } else {
-                        content.style.display = 'block';
+                        content.classList.remove('hidden');
                         icon.classList.remove('ri-arrow-down-s-line');
                         icon.classList.add('ri-arrow-up-s-line');
                     }
                 });
             });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
+
             // Mobile menu toggle
-            const menuButton = document.querySelector('.md\\:hidden');
-            const mobileMenu = document.createElement('div');
-            mobileMenu.className = 'fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out';
-            mobileMenu.innerHTML = `
-                <div class="flex justify-between items-center p-4 border-b">
-                    <span class="text-primary font-['Pacifico'] text-2xl">RH-Flow</span>
-                    <button class="w-10 h-10 flex items-center justify-center text-gray-700">
-                        <i class="ri-close-line ri-xl"></i>
-                    </button>
-                </div>
-                <nav class="p-4">
-                    <ul class="space-y-4">
-                        <li><a href="#fonctionnalites" class="block py-2 text-gray-700 hover:text-primary font-medium">Fonctionnalités</a></li>
-                        <li><a href="#avantages" class="block py-2 text-gray-700 hover:text-primary font-medium">Avantages</a></li>
-                        <li><a href="#tarifs" class="block py-2 text-gray-700 hover:text-primary font-medium">Tarifs</a></li>
-                        <li><a href="#contact" class="block py-2 text-gray-700 hover:text-primary font-medium">Contact</a></li>
-                        <li class="pt-4 border-t"><a href="#" class="block py-2 text-gray-700 hover:text-primary font-medium">Se connecter</a></li>
-                        <li><a href="#contact" class="block py-2 bg-primary text-white px-6 py-2 rounded-button text-center">Demander une démo</a></li>
-                    </ul>
-                </nav>
-            `;
-            document.body.appendChild(mobileMenu);
+            const menuButton = document.getElementById('mobile-menu-button');
+            if (menuButton) {
+                const mobileMenu = document.createElement('div');
+                mobileMenu.id = 'mobile-menu';
+                mobileMenu.setAttribute('aria-label', 'Menu de navigation mobile');
+                mobileMenu.className = 'fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out';
+                mobileMenu.innerHTML = `
+                    <div class="flex justify-between items-center p-4 border-b">
+                        <span class="text-primary font-['Pacifico'] text-2xl">RH-Flow</span>
+                        <button aria-label="Fermer le menu" class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg">
+                            <i class="ri-close-line ri-xl" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <nav class="p-4" aria-label="Navigation mobile">
+                        <ul class="space-y-4">
+                            <li><a href="#fonctionnalites" class="block py-2 text-gray-700 hover:text-primary font-medium">Fonctionnalités</a></li>
+                            <li><a href="#avantages" class="block py-2 text-gray-700 hover:text-primary font-medium">Avantages</a></li>
+                            <li><a href="#tarifs" class="block py-2 text-gray-700 hover:text-primary font-medium">Tarifs</a></li>
+                            <li><a href="#contact" class="block py-2 text-gray-700 hover:text-primary font-medium">Contact</a></li>
+                            <li class="pt-4 border-t"><a href="{{ route('login') }}" class="block py-2 text-gray-700 hover:text-primary font-medium">Se connecter</a></li>
+                            <li><a href="#contact" class="block py-2 bg-primary text-white px-6 py-2 rounded-button text-center font-medium">Demander une démo</a></li>
+                        </ul>
+                    </nav>
+                `;
+                document.body.appendChild(mobileMenu);
 
-            menuButton.addEventListener('click', function() {
-                mobileMenu.classList.remove('translate-x-full');
-            });
-
-            const closeButton = mobileMenu.querySelector('button');
-            closeButton.addEventListener('click', function() {
-                mobileMenu.classList.add('translate-x-full');
-            });
-
-            // Close mobile menu when clicking on links
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.add('translate-x-full');
+                menuButton.addEventListener('click', function() {
+                    mobileMenu.classList.remove('translate-x-full');
+                    menuButton.setAttribute('aria-expanded', 'true');
                 });
-            });
+
+                const closeButton = mobileMenu.querySelector('button');
+                closeButton.addEventListener('click', function() {
+                    mobileMenu.classList.add('translate-x-full');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                });
+
+                const mobileLinks = mobileMenu.querySelectorAll('a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('translate-x-full');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
         });
         function checkout() {
             CinetPay.setConfig({
